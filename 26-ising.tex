@@ -1,0 +1,268 @@
+%! TEX root = 0-main.tex
+\chapter{Interactions and the Ising Model}
+Now that we have completed our discussion of classical, bose, and fermi ideal gases, we will now consider how particle interactions change the thermodynamics of a system. Particle interactions make it so that the partition function doesn't factorize, and thus it is very hard to consider. However, it is these interactions which allow for the interesting phenomena in nature, namely phase transitions.
+
+In particular, ocnsider the thermal equation of state for the van der Waals gas,
+\[\left(P+a\tfrac{N^2}{V^2}\right)(V-bN) = NK_BT\]
+We see that in the first term, \(an^2\), comes from attractions, and lowers the pressure relative to the ideal gas (less pressure is required for the same volume and temperature). In the second term, \(-bN\) comes from short-range repulsions between particles, and thus the accessible volume is smaller than expected, or we need more volume for the same pressure and temperature. A pair potential \(U(r)\) that could lead to this interaction could be something like the morse potential. However, we did not derive this equaiton based on first principles---we didn't derve this equation from the interaction potential. There is no theory that we can compare predictions with.
+
+In general, there are two ways we can solve systems with interactions\footnote{Of course, we can always brute force numerical partition functions, namely through Monte Carlo and Molecular Dynamics simulations.}. First, of course, we can find an analytical solution. However, there are very few circumstances where this is possible, and even if it is, it is often very difficult to do so. The other way, which is what we will discuss, is to find a clever approximation that allows the system to be ``solved.'' 
+
+These approximations further fall into two classes. First, we have Mean Field Theories, where we ignore the correlated fluctuations---we set every particle into an ``effective'' potential based on the average interactions of the other particles. This is typically a good first step. However, it cannot be used when such fluctuations matter, like in the vicinity of a critical point (e.g.\ that of a vdW gas). This is due to the fluctuation-response theorem, as if the response (such as heat capacity, compressibility, etc) diverges, the fluctuations do as well. Under such circumstances, MFT isn't even a qualitative description. The second class is anything else. Solutions that don't rely on MFT are often harder to calculate and fine-tuned based on the hamiltonian of interest.
+
+\section{Ising Model}
+To study interacting systems, a wide number of toy models have been developed. While highly idealized,these toy models attempt to capture the ``essence'' of the problem of interest. In particular, one of the most famous systems is the \emph{Ising model}\footnote{This model was invented by Wilhelm Lenz (1920), who gave it to his PhD student, Ernst Ising. Ising managed to exactly solve the problem in 1D for his thesis (1924).}. 
+
+Consider a lattice in \(d\) spatial dimensions. Note in \(d>1\) we need to specify the connections for the different types of lattice, but a simple cubic lattice is often assumed. On the lattice sites, we have classical degrees of freedom which are denoted ``spins,'' which can take values\footnote{In CVM, this is extended to accept a much wider range of ``spins,'' namely different types and configurations of atoms. In this way, we can extend the Ising model to study metal alloys.} \(\sigma\in\{-1,1\}\). The configuration of the system is given by fixing a value \(\sigma_i\) on each location \(i\) on the lattice. 
+
+There are two ways in which a given configuration (or, \emph{microstate}) of spins contributes to the energy of the system. First, we want to have a function \(j(\sigma_i,\sigma_j)\) such that anti-aligned and align spins have different energies, and another function \(h(\sigma_i)\) which imposes an energy difference between the spin \(-1\) and spin \(1\) states. Naturally, we can create functions over large or different sized clusters, but we will restrict our discussion to nearest neighbour interactions.
+
+In the Ising model, the simplest model functions \(h\) and \(j\) are those which are linear in each of their arguments. In particular, we have 
+\[h(\sigma_i) = -h*\sigma_i\]
+or the spin up energy is \(-h\) and the spin down is \(+h\), or spin up is favoured. Next, we want to couple the neighbouring spins. The simplest way to do so is to just multiply the two together to see if they are aligned or anti aligned (similar to taking an inner product for a projection). We define this to be
+\[j(\sigma_i, \sigma_j) = -J(\sigma_i*\sigma_j)\]
+thus, if the spins are aligned, we have \(\sigma_i*\sigma_j=1\) and the energy is depressed, and vice-versa for anti-aligned spin. Our total hamiltonian is thus given
+\begin{equation}
+	H = -J\sum_{\langle ij\rangle}\sigma_i\sigma_j-h\sum_i\sigma_i
+\end{equation}
+where the brackets \(\vect{ij}\) denotes the set of all nearest-neighbour pairs (or bonds). This accounts for the fact that if we simply sum over \(i\) and \(j\) we will double count the bond \(ij\) from the bond \(ji\). Note that the type of lattice is encoded implicitly within \(\vect{ij}\).
+
+Interestingly, the answer to the Ising model depends on what dimension the crystal lattice is, even qualitatively. Similar to how BECs only exist in \(d>2\), we will see that there is a dimension-dependent existence of the phase transition. Further, we can actually solve this model exactly in 1D, but the solution is boring. There is also an exact 2D solution when \(h=0\), and has very interesting consequences, but this is very complicated. However, there is no known exact solution for 3D, even for the special case \(h=0\). Curiously, while we still don't have exact solutions for \(d\geq 4\), the ``essence'' of the problem becomes simple again. In particular \(d=4\) might be interesting when the dimensions aren't strictly spatial, and the solution for \(d=0\) won a nobel prize.
+
+\section{No Coupling}
+While it may seem useless to consider the case with no coupling,
+\[H = -h\sum_i\sigma_i\]
+we will see that it is actually a very important key to approximating the case where the interactions are no longer negligible. We can write our partition function as a sum over the space of configurations \(\{\sigma\}\)
+\begin{align*}
+	Z &= \sum_{\{\sigma\}} e^{-\beta(-h\sum_i\sigma_i)}\\
+	\intertext{Of course, this can be written out as}
+	  &=\sum_{\sigma_1=-1}^1\cdots\sum_{\sigma_N=-1}^1e^{\beta h\sigma_1}\cdots e^{\beta h\sigma_N}\\
+	  \intertext{so we can factorize as}
+	  &=\left(\sum_{\sigma=-1}^1\right)^N\\
+	  &=(2\cosh \beta h)^N
+\end{align*}
+Thus, our free energy is given
+\[F = -k_BT\log Z = -Nk_BT\log(2\cosh\beta h)\]
+Another interesting quantity is the mean magnetization, 
+\[M = \left\langle \sum_{i=1}^N\sigma_i\right\rangle\]
+Averaging over the canonical state,  we can find this as
+\begin{align*}
+	M&=\frac{\sum_{\{\sigma\}}\left(\sum_i \sigma_i\right)e^{\beta h\sum_i\sigma_i}}{\sum_{\{\sigma\}}e^{\beta\hbar \sum_i \sigma_i}}\\
+	 &=\frac{\sum_{\{\sigma\}}\frac{1}{\beta}\pder{}{h}e^{\beta h\sum_i\sigma_i}}{\sum_{\{\sigma\}} e^{\beta h\sum_i\sigma_i}}\\
+	 &=\frac{\frac{1}{\beta}\pder{}{h}\sum_{\{\sigma\}}e^{\beta h\sum_i\sigma_i}}{\sum_{\{\sigma\}}e^{\beta h\sum_i \sigma_i}}\\
+	 &=\frac{1}{\beta}\pder{}{h}\ln Z\\
+\end{align*}
+Pulling the \(\beta\) into the derivative, we find that we can write the magnetization as 
+\begin{equation}
+	M = -\pder{F}{h}
+\end{equation}
+thus, we see that the magnetization and field strength are canonically conjugate pairs. Note that even if we include the coupling term, \emph{nothing changes}---this expression for magnetization holds even with coupling. This is why we chose to differentiate wrt \(h\) rather than wrt \(\beta\).
+
+Applying this formula to the case where there is no coupling, we see that 
+\[M = -\pder{F}{h} = -\pder{}{h}\left[-Nk_BT\ln (2\cosh \beta h)\right] = Nk_BT\frac{2\beta\sinh\beta h}{2\cosh\beta h} = N\tanh\beta h\]
+or, the magnetization per spin
+\[m = \frac{M}{N} = \tanh \beta h\]
+The function \(\tanh\) has three limits. For \(x\approx 0\), it approaches \(\tanh(x)\to x\), while at \(x\to \pm \infty\) it approaches \(\tanh(x)\to\pm 1\). At small field strength, \(h/k_BT\ll1\), we see that there is then a linear response regime, or \(m\propto h\). However, there is a limit to the magnetization---each spin can only accomodate magnetization \(m=1\). Thus, the response deviates from linearity due to \emph{saturation}.
+
+Importantly, we have when there is zero coupling, \(h=0\then m=0\), so the material is not spontaneously magnetic. However, this makes sense, as there is no force that would favour magnetization of any kind; entropic effects dominate the configuration and causes a even, random distribution of spins.
+
+\section{Ising Chain}
+Let us now consider a spin coupling term
+\[H_j = -J\sum_{\langle ij\rangle} \sigma_i\sigma_j\]
+which should favour aligned spins. We would then expect there to be spontaneous magnetization to arise\footnote{This is why Lenz gave this problem to Ising to study}. Indeed, this is the energetically favoured state. However, the stability of the system should be given instead by the free energy, which has a contribution from the entropy. When we observe magnetization, the entropy of the system decreases, which is \emph{not} favoured. For example, if we have all spins aligned, there is one microstate, and the entropy is thus given \(S=0\). On the other hand, if we add one misaligned spin, then there are \(N\) microstates and \(S = k_B\ln N>0\). Thus, we wish to see under which regimes the energy dominates, and which regimes the entropy dominates; we wish to minimise the free energy
+\[F = E-TS\]
+To figure out this balance, we need to compute the partition function while including interactions. However, as discussed many times before, the interactions make \(Z\) unfactorizable. We will in particular consider the Ising model in \(d=1\), while enforcing periodic boundary conditions\footnote{Because of the periodic boundary conditions, this is sometimes called the \emph{Ising Ring}.}. Since all of the bonds have to lie in a line, we can denumerate each bond by only its first atom. Thus, our hamiltonian becomes
+\[H = -J\sum_{i=1}^Ns_is_{i+1}-h\sum_is_i\]
+To make computation easier, we can rewrite the \(h\) sum to yield
+\begin{equation}
+	H = -J\sum_{i=1}^{N}s_is_{i+1}-\frac{1}{2}h\sum_{i=1}(s_i+s_{i+1})
+\end{equation}
+Our partition function can then be calculated as follows:
+\begin{align*}
+	Z&=\sum_{\{s\}}\exp\left[-\beta\left(-J\sum_{i=1}^Ns_is_{i+1}-\frac{1}{2}h\sum_{i=1}^N(s_i+s_{i+1})\right)\right]\\
+	 &=\sum_{\{s\}}\prod_{i=1}^N\exp\left[\beta Js_is_{i+1}+\frac{1}{2}\beta h(s_i+s_{i+1})\right]\\
+	 \intertext{In his original thesis, Ising used many pages of combinatorics to find every possible configuration to essentially brute force the solution. Obviously, we will not do this. Rather, we will use an incredibly ingenious and elegant solution to this extremely difficult problem\footnote{In fact, this is the same strategy Onsager used in his derivation of the exact solution to the 2D ising lattice.}. We see that the exponential can be indexed by the values of \(s_i\) and \(s_{i+1}\), which each can take two values. Thus, we will make the exponential a \(2\times 2\) matrix \(T_{s_i, s_{i+1}}\) called the \emph{transfer matrix}. WLOG, we will fix \(T_{1,1}\) to be the topright so we can write
+	 \[T = \begin{bmatrix}
+		 e^{\beta(J+h)}& e^{-\beta J}\\
+		 e^{-\beta J} & e^{\beta(J-h)}
+ \end{bmatrix}\]
+ Plugging this into our expression for the partition function,}
+	 &=\sum_{\{s\}}\prod_{i=1}^NT_{s_i,s_{i+1}}\\
+	 &=\sum_{s_1=-1}^1\sum_{s_2=-1}^1\cdots\sum_{s_N=-1}^1T_{s_1, s_2}T_{s_2,s_3}\cdots T_{s_N, s_1}\\
+	 \intertext{We now see that we are summing over each repeated index, which shows us that we can write this as matrix multiplication!}
+	 &=\sum_{s_1=-1}^1 (T^N)_{s_1,s_1}\\
+	 &=\tr(T^N)
+\end{align*}
+This is particularly useful as the trace is basis-invariant. Trivially, \(T\) is a symmetric, real matrix and so it can be diagonalized. Assume that \(U\) diaginalizes \(T\) such that
+\[\tilde T = UTU^{-1} = \begin{bmatrix}
+	\lambda_1 & 0 \\0 & \lambda 2
+\end{bmatrix}\]
+Using the fact that we can insert the identity anywhere we want, and cyclicly permute,
+\begin{align*}
+	\tr(T^N)& = \tr(T I T\cdots TI) = \tr(T U^{-1}UT\cdots TU^{-1} U)\\
+		&= \tr(UTU^{-1}UT\cdots TU^{-1}) \\
+		&= \tr(\tilde T^N) = \lambda_1^N+\lambda_2^N
+\end{align*}
+\emph{This last equality is our partition function!}
+\begin{equation}
+	Z = \lambda_1^N+\lambda_2^N
+\end{equation}
+Thus, for the 1D chain, all we need to do is find the eigenvalues of a \(2\times 2\) matrix! We can do this, of course, from the characteristic polynomial
+\begin{align*}
+	0&=\det(T-\lambda I)\\
+	 &=(e^{\beta (J+h)}-\lambda)(e^{\beta(J-h)}-\lambda)-e^{-2\beta J}\\
+	 &= e^{2\beta J} -\lambda\left[e^{\beta(J+h)}+e^{\beta(J-h)}\right]+\lambda^2 e^{-2\beta J}\\
+	 &=\lambda^2 -\lambda e^{\beta J}2\cosh(\beta h) +2\sinh (2\beta J)
+\end{align*}
+so
+\begin{equation}
+\lambda_\pm = e^{\beta J}\cosh(\beta h)\pm \sqrt{[e^{\beta J}\cosh(\beta h)]^2-2\sinh(2\beta J)}
+\end{equation}
+
+We can now compute the free energy:
+\begin{align*}
+	F&=-k_BT\log(\lambda_+^N+\lambda_-^N)\\
+	 &=-k_BT\log\lambda_+^N\left[1+\left(\frac{\lambda_-}{\lambda_+}^N\right)\right]\\
+	 &=-Nk_BT\log\lambda_+ -k_BT\log\left[1+\left(\frac{\lambda_-}{\lambda_+}\right)^N\right]\\
+	 \intertext{Recognizing that \(\lambda_-<\lambda_+\), and \(N\to\infty\) in the thermodynamic limit, we can simplify this by using \((\lambda_-/\lambda_+)^N\ll1\) so }\\
+\end{align*}
+\begin{equation}
+	F\to -Nk_BT\log\lambda_+
+\end{equation}
+This is the \emph{exact, analytical solution} to the 1D Ising chain in the thermodynamic limit. From this expression, we can now find the magnetization. After some tedious algebra, we find
+\begin{equation}
+	m = \frac{1}{N}\left(-\pder{F}{h}\right) = \frac{e^{\beta J}\sinh(\beta h)}{\sqrt{e^{2\beta J}\cosh^2(\beta h)-2\sinh(2\beta J)}}
+\end{equation}
+Under small fields, \(\beta h\to 0\), we see that
+\[m(h)\to e^{2\beta J}\beta h - \frac{1}{6}\left(3e^{6\beta J}-e^{2\beta J}\right)(\beta h)^3+O[(\beta h)^5]\]
+Being a odd function, this matches our physical expectation (if it were an even function of \(\beta h\), we'd expect the direction of magnetization to be independent of the direction of the field). Of course, as \(J\to 0\) we recover our previous expression, where \(m=\tanh(\beta h)\). As we increase \(\beta J\), we see that the material becomes easier to magnetize; the linear response \(e^{2\beta J}>1\) and the spins prefer to be aligned. Consequently, the material saturates at a lower field strength as well. On the other hand, if we decrease \(J\), we see that the linear response \(e^{-2\beta\abs{J}}<1\) and so the material resists magnetization. In particular, \(J<0\) favours spin anti-alignment, and so a greater field needs to be applied to force a bulk magnetization. The case \(J<0\) is also interesting in that the curvature is no longer monotonic---there are inflection points beside that at the origin.
+
+\diagram{}
+
+Quite disappoingly, however, the zero-field magnetization is always zero---there is no spontaneous magnetization. This confused Ising for the following reason: a \(d=3\) crystal can be viewed as a collection of \(d=1\) chains, which do not spontaneously magnetize, so \(d=3\) probably shouldn't either. \emph{However, we know that this is not the case}, and so the model was considered a poor model of ferromagnetism. 
+
+Luckily, this was a premature conclusion, as the \(d=1\) case is actually a very special case. To se why, let us revisit our previous entropy argument and consider an open Ising chain. In the absence of a magnetic field, we see that we have two ground states---all spin up or all spin down. Rather than \(2N\) possible excited states, there are only \(2(N-1)\) states---we choose one of the \(N-1\) bonds, and invert the rest of the chain. Now, we see that unlike the \(J=0\) case mentioned earlier, in the \(h=0\) case, \emph{the magnetization ranges anywhere from \(N-2\) to \(2-N\)}. Further, compared to the ground state, this leads to the following change in free energy:
+\begin{align*}
+	\Delta F &= \Delta E-T\Delta S\\
+		 &= +2J-k_BT\log(N-1)
+\end{align*}
+This means that for \emph{any temperature}, if \(N\) is big enough, destroying the ground state energy will lower the free energy! Thus, the entropy will always overwhelm the energetically favoured ordered state. However, note that this argument only works in 1D---the boundary of magnetic domains in 1D is independent of the size of the domain. In \(d\geq 2\), the boundary grows with the size of the domain, and so there is an additional energy cost which may make spontaneous magnetization favourable.
+
+\section{2D Ising Square Lattice}
+Rather than derive the exact solution, which is incredibly difficult to understand, we will instead try to approximate the solution. In particular, we will use the \emph{Mean Field Theory} approximation. We will use two MFT approaches---once relying on physical intuition, and again using a powerful formalism.
+\subsection{Mean Field Theory---Intuition}
+Let us assume that we can write the spin on each site as an average
+\[s_i = \vect{s_i}+\delta s_i + m+\delta s_i\]
+where \(m=\vect{s_i}\) is the mean magnetization per spin, and \(\delta s_i\) are the fluctuations on site \(i\). When we plug this into our coupling term \(j\), we find
+\[s_is_j = m^2 + (\delta s_i+\delta s_j)m + \delta s_i \delta s_j\]
+Here, we will assume that fluctuations are uncorrelated. In other words, the expectation of the product of these fluctuations is the product of the expectations:
+\[\vect{\delta s_i\delta s_j}= \vect{\delta s_i}\vect{\delta s_j} = 0*0\]
+However, by definition we chose the \(\delta s_i\) to be centred around zero, and we throw away the final term for simplicity. However, we keep the second term and rewrite our definition so \(s_i-m = \delta s_i\). Then, our approximation becomes
+\[s_i s_j\approx m^2 + m[(s_i-m)+(s_j-m)]\]
+or
+\begin{equation}
+	s_i s_j \approx -m^2+m[s_i+s_j]
+\end{equation}
+Thus, our hamiltonian becomes
+\[H = -J\sum_{\langle i j \rangle}\left[-m^2+m(s_i+s_j)\right]-h\sum_i s_i\]
+We note there aren't any more bonds to sum over in the first term. Rather, we use the definition of our lattice to make it a sum over atoms, not bonds. In our lattice, every atom will have \(z\) neighbours---this is its coordination number---so the lattice will have \(\frac{z}{2}N\) bonds. 
+Thus, we can simplify our first sum by splitting into three sums, and collecting terms, until we obtain
+\[H = -\frac{z}{2}NJ m^2-Jzm\sum_i s_i -h\sum_i\]
+Thus, our hamiltonian becomes
+\begin{equation}
+	H=\frac{1}{2}NzJm^2-(h+Jzm)\sum_i s_i
+\end{equation}
+The first term is a simple shift in the energy, and we will neglect it. On the other hand, we see that the second term acts as an ``effective'' external field, which is the base field \(h\) with an additional \emph{mean field} \(Jzm\) which comes from the mean configuration of the nearest neighbours. If we break down the mean field, we see that it is the number of neighbours, \(z\), times their average magnatization \(m\), times the energy of the coupling, \(J\).
+
+Thus, we need only study the hamiltonian
+\[H = -\tilde h\sum_i s_i\]
+which we have done before\footnote{Because we no longer need to consider bonds, this is indistinguishable from the 1D chain with no coupling}, and has the solution
+\[m = \tanh \beta\tilde h = \tanh[\beta(h+Jzm)]\]
+Note that our solution for the magnetization is a function of itself; this is called a \emph{self-consistency condition}. We want to have the mean magnetization of the spin in question to be the same as the mean magnetization of the bulk.
+
+While this magnetization cannot, in general, be solved for \(m(h)\), it is relatively straightforward to solve for \(h(m)\) and then reflect the plot over \(m=h\). Trivially, this function\footnote{Note that the inverse of \(\tanh\) is \(\operatorname{artanh}\), without a \emph{c}. This is because the \emph{ar} stands for \emph{area} rather than what is typically expected for trig functions, \emph{arc}. However, mathematica uses \(\operatorname{arctanh}\).} is given
+\begin{equation}
+	h = k_BT \operatorname{artanh}(m) - Jzm
+\end{equation}
+
+\diagram{}
+
+In particular, it is interesting to consider the case where \(Jzm\) has a slope greater than the slope of \(k_BT \operatorname{artanh}\) and causes the function \(h(m)\) to no longer be injective. This limit is a small temperature limit, while the expected inverse-sigmoid function is a large temperature limit. The temperature where the slopes are exactly equal, or the last temperature at which the function \(h(m)\) is still monotonic is the critical temperature. This occurs when 
+\[h(m\ll1)\approx k_BT[m+\mathscr{O}(m^2)]-Jzm\]
+\[h'(m=0) = k_BT-J_z\]
+so,
+\begin{equation}
+	T_c = \frac{Jz}{k_B}
+\end{equation}
+Note that the critical temperature is the given by the characteristic temperature of the interaction strength per spin. Further, above the critical temperature, because \(h(m)\) is no longer injective, we cannot invert it.
+
+We instead note that at \(h=0\), we have three values of \(m\)! Just as with the van der Waals gas, the way we find which magnetization state is stable is to choose the state which minimises a thermodynamic potential. Because we have the magnetization from the Helmholtz free energy
+\[M = -\pder{F}{h}\]
+we can instead perform a Legendre transform to the Gibbs free energy\footnote{Note that the gibbs free energy is typically a function of intensive variables, while the helmholtz is a function of extensive variables. Deserno correspondingly swaps the labels to match the intensive and extensive quantities. Here we will not.}
+\[h = +\pder{G}{M}\]
+Thus, we can find the free energy as
+\[G(m) = \int_0^m\d{m'}h(m')\]
+Using this, we can then plot the free energy as a function of the magnetization
+\diagram{}
+We see that for \(T>T_c\) we have a strong quartic behaviour, for \(T=T_c\) we have a flatter quartic, and for \(T<T_c\) we have a mexican hat potential. Then, we see that there are two stable minima, which correspond to \(\pm m_0 \neq 0\), and we have spontaneous magnetization! Note that the state that corresponds to \(m=0\) is an unstable state, and thermal fluctuations will cause it to fall into one of the magnetised states. 
+
+In another analogy to the vdW gas, we can use the Maxwell equal area construction to cut off the 
+multivalued function part of the graph, and thus we should have at \(h=0\) the magnetization goes directly from \(-m_0\) to \(+m_0\), so flipping the sign of the field gives us a phase transition.
+
+\begin{aside}[Entropy of the 2D Ising Model]
+	Interestingly the entropy of the Ising model is not necessarily monotonic. To show why we will build a table of the zero-field case. Trivially, the ground state has all aligned bonds, while the highest energy state has all anti-aligned bonds. The highest entropy state is harder to describe. It is easiest to interpret as the ``middle'' state of a binomial distribution, as there are the largest number of configurations. However, as we have seen with the highest energy state, there are still indeed highly ordered states, but the entropy is dominated by disordered states. Using the sterling approximation, 
+	\begin{center}
+	\begin{tabular}{l|r|r|r}
+		State & Energy & Degeneracy & Entropy\\
+		\hline\hline
+		Ground state& \(-JNz/2\) & 2 & \(k_B\ln 2\)\\
+		\hline
+		Highest energy & \(JNz/2\) & 2 & \(k_B\ln 2\)\\
+		\hline
+		Highest entropy & 0 & \(\approx\ncr{N}{N/2}\) & \(\approx Nk_B\ln 2\)
+	\end{tabular}
+	\end{center}
+	Clearly, by somewhere between the highest entropy state and the highest energy state the entropy must decrease, and thus we have \emph{negative temperature!} (where we of course recall that \(\frac{1}{T} = \pder{S}{E}\)). The analytic form of this function as \(N\to\infty\) is given
+	\[\frac{s}{k_B} \sim \frac{e}{J}\ln \frac{e}{J}\]
+	We see that when we take the derivative, above \(e/J=0\), we have only negative temperatures. We see that the lowest temperature that the Ising model can have is \(T=0^+\) and the lowest \(T=0^-\) where the sign denotes the direction the temperature approaches absolute zero; it is often, then, usefull to consider \(\beta\) as the temperature instead, as it is continuous for all energies, in that it doesn't go from \(+\infty\) to \(-\infty\) at \(e/J=0\).
+\end{aside}
+
+\subsection{Mean Field Theory---Variational Principles}
+Recall the result we showed on Exam 1 using the gibbs inequality:
+\begin{equation}
+	F\leq F_t + \vect{H-H_t}_t
+\end{equation}
+Or, the true free energy is bounded above by an expression derived using a trial Hamiltonian \(H_t\) If we parametrize \(H_t\), we can then make it into a variational principle. Further, although in general taking canonical averages is difficult, \emph{we can choose the trial hamiltonian to make it easy}. Namely, we choose a trial hamiltonian without interactions.
+
+For the Ising model, we take the trial hamiltonian to be 
+\[H_t = -\alpha\sum_i s_i\]
+the solution is the same as for the no-coupling ising model:
+\[Z_t = (2\cosh \beta \alpha)^N\]
+\[F_t = -Nk_BT\log(2\cosh \beta \alpha)\]
+\[m = \tanh\beta\alpha\]
+
+Now we do the computation involving the true hamiltonian
+\[H = -\sum_{\langle ij\rangle} s_is_j - h\sum_i s_i\]
+we compute
+\begin{align}
+	\vect{H-H_t}_t&=\sum_{\{s\}}\left(-J\sum_{\langle ij\rangle} s_is_j - (h-\alpha)\sum_i s_i\right)\frac{e^{\beta \alpha \sum_i s_i}}{Z_t}\\
+	\intertext{Because the trial state factorizes, we can similarly factorize the expectation value\footnote{This is exactly what we did in the intuition case}:}
+		      &=-J\sum_{\langle i j\rangle}\vect{s_i}_t\vect{s_j}_t - (h-\alpha)\sum_i\vect{s_i}_t\\
+		      &=-\frac{1}{2}NzJ\vect{s}_t^2 -(h-\alpha) N\vect{s}_t\\
+      \intertext{Recognizing that \(\vect{s}_t=m\) in the trial state,}
+		      &=-\frac{1}{2}NzJ\tanh^2\beta\alpha - (h-\alpha)N\tanh\beta\alpha
+\end{align}
+
+Thus, our overall variational principle is given
+\[F\leq -Nk_BT\log(2\cosh\beta\alpha) - \frac{1}{2}NzJ\tanh^2\beta \alpha - (h-\alpha)N\tanh\beta\alpha\]
+Minimising the RHS wrt \(\alpha\),
+\begin{align*}
+	0&= \pder{}{\alpha}(F_t+\vect{H-H_t}_t)\\
+	 &=\cancel{-Nk_BT\frac{2\sinh\beta\alpha}{2\cosh\beta\alpha}\beta} - NzJ\frac{\tanh\beta\alpha}{\cosh^2\beta\alpha}\beta+\cancel{N\tanh\beta\alpha}-(h-\alpha)N\frac{\beta}{\cosh^2\beta\alpha}\\
+	 &=-NzJ\frac{\tanh\beta\alpha}{\cosh^2\beta\alpha}\beta - (h-\alpha)N\frac{\beta}{\cosh^2\beta\alpha}\\
+	 &=-Jz\tanh\beta\alpha-(h-\alpha)\\
+\end{align*}
+so
+\[\frac{h-\alpha}{Jz} = \tanh\beta\alpha\]
+Note again that the RHS is simply \(m\). Thus, the LHS as \(m\) lets us write \(\alpha = h+Jzm\) and we reobtain our self-consistency relation
+\[m = \tanh[\beta(h+Jzm)]\]

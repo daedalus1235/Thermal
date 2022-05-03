@@ -1,0 +1,22 @@
+%! TEX root = 0-main.tex
+\chapter{Irreversibility in Thermodynamics}
+Recall that by the second law of thermodynamics, that if a constraint on a system is released, the entropy of the system cannot decrease. Such a process is irreversible, since the opposite transition would require the entropy to decrease, which is forbidden. However, most underlying microscopic physics \emph{is} reversible. It is interesting to examine why macroscopic physics can be irreversible when microscopic physics is reversible.
+
+\subsection{A Cup of Coffee}
+For example, take a cup of coffee. At a time \(t=0\), the coffee is hot, but at a later time \(t_F\) the coffee is at the same temperature as the room. In a Gedankenexperiment, at time \(t_F\), we reverse the velocities of all particles in the coffee, cup, room, etc. Thus, because newton's equations are reversible, the coffee should go back to being hot at \(t=2t_F\), but this is never observed. 
+
+\subsubsection{Phase Space Considerations}
+We can explain this using Liouville's theorem and fluid dynamics. We can view the hot coffee state as a drop of concentrated dye in a cup of water, or as a cluster of points in phase space. As time evolves, the ink moves through cup with constant local density, but the ink deforms from a normal drop and grows numerous tendrils and spreads throughout phase space. From a macroscopic viewpoint, the ink appears to mix almost homogeneously into the water. The Gibbs Entropy is meant to describe macroscopic physics; rather than consider the microscopic regions of ink and water, we treat it as an average ink density. In this analogy, the gibbs entropy is a coarse grained probability distribution
+\[S = -k_B\int\d{q}\d{p}\bar{P}\ln \bar P\]
+where \(\bar P\) is the average of \(P\) over some local region \(\Lambda\) which is macroscopically small but microscopically large. By Jensen's inequality, which states for a concave function \(f(x)\) that
+\begin{equation}
+	f(\vect x) \geq \vect{f(x)}
+\end{equation}
+we see that the integrand \(-P\ln P\) is a concave function, so the coarse-grained porbability is never less than the true entropy using microscopic probability. The increase in entropy is linked to our (lack of) knowledge about the system, rather than the time-dependence of the system.
+
+Returning to the cup of coffee, there only exists a single microstate in which the velocities reverse, that the cup of coffee may heat up again; the overwhelming number of microstates do not have this occur, and so statistically the coffee will not heat up. Further, as the system is a chaotic system, even if one velocity doesn't get reversed, the time evolution will be drastically different.
+
+\subsection{Poincar\'e recurrence theorem}
+The Poincar\'e recurrence theorem states that any isolated classical system must exhibit quasi-periodic behaviour---systems must repeatedly return to points in phase space that are arbitrarily close to its initial point. We reconcile this with irreversibility as the periodicity of each particle is different, so the overall period of the total system is incredibly large, even compared to the age of the universe. 
+
+Furthermore, we cannot predict recurrence time with uncertainty that is less than the age of the universe due to the lack of knowledge of all exact initial velocities, and the extreme sensitivity of Poincar\'e recurrence time to small changes in the initial velocities.

@@ -1,0 +1,117 @@
+%! TEX root = 0-main.tex
+\chapter{Thermodynamic Potentials}
+The state functions \(S(U,V,N)\) and \(U(S,V,N)\) contain all the thermodynamic information for a system at equilibrium. It is not always easy to extract information from these quantities. Many processes are done at constant temperature; chemistry is done at constant pressure. Thus, it is often more convenient to express thermodynamic relations in terms of intensive properties \(T\) and \(P\) which an be more easily measured than the extensive \(S\), \(V\), and \(N\). Such relations can be obtained using the \emph{thermodynamic potentials} by taking Legendre transformations.
+
+\subsection{Legendre Transformation}
+The Legendre transform is defined as
+\begin{equation}
+	\tilde{f}(p)=f\ast(p)\equiv px(p)-f(x(p)) \qquad p\equiv \pder{f}{x} \label{eq11:legendre}
+\end{equation}
+
+\begin{aside}[Legendre Transform Example]
+The legendre transform of the function
+\[f(x)=2-\ln(x-x_0)\]
+can be found:
+\[p=\pder{f}{x}=\frac{1}{x-x_0}\then x=x_0-\frac{1}{p}\]
+\[\tilde{f}=x_0p-1+\ln(p)\]
+\end{aside}
+
+If we consider the tangent line to a function \(f\) at a point \(x_0\),
+\[y=f(x_0)+\pder{f}{x}(x-x_0)\]
+\[y=f(x_0)+p(x-x_0)\]
+\begin{equation}
+	y(0)=f(x_0)-px_0=-\tilde{f}
+\end{equation}
+or, the Legendre transform maps a function to the the negative of the y intercept of the tangent line at the point.
+
+In particular, the Legendre transformation is useful for concave and convex functions. A convex function is one where the segment connecting two points on the function lies completely above the function; a concave function is the negative of a convex function. In 1D, a concave function is defined by \(f''\leq0\), and a convex function \(f''\geq0\). 
+
+The most famous Legendre transform is the transformation from a Lagrangian to a Hamiltonian.
+
+\section{Transforms of Energy}
+\subsection{Helmholtz Free Energy}
+Recall that temperature is defined
+\[\frac{1}{T}=\pder{S}{U}\]
+Thus,
+\begin{equation}
+	T=\pder{U}{S}
+\end{equation}
+
+Taking the Legendre Transform with respect to temperature \(F=U[T]\)
+\[f(S)=U(S)\]
+\[\tilde{f}(T)=TS-U\]
+We define the quantity \(\tilde{f}(T)=-F\), so
+\[F=U-TS\]
+The differential of this quantity is
+\[\d{F}=\d{U}-S\d{T}-T\d{S}\]
+Substituting the differential form of thermodynamics Equation~\ref{eq9:firstlaw}, we get
+\begin{equation}
+	\d{F}=-S\d{T}-P\d{V}+\mu\d{N} \label{eq11:diffhelmholz}
+\end{equation}
+so,
+\begin{equation}
+	F(T,V,N)=U-TS \label{eq11:helmholtz}
+\end{equation}
+
+Thus, we have the equations of state
+\begin{subequations}
+	\begin{align}
+		S&=-\pder{F}{T}\\
+		P&=-\pder{F}{V}\\
+		\mu&=\pder{F}{N}
+	\end{align}
+\end{subequations}
+
+\subsection{Enthalpy}
+Enthalpy is the Legendre transform with respect to pressure. From Equation~\ref{eq9:firstlaw}, we see that 
+\[P=-\pder{U}{V}\]
+Thus, the Legendre transform \(H=U[P]\) is:
+\[f(V)=U(V)\]
+\[\tilde{f}(P)=-PV-U\]
+Defining the quantity \(\tilde(f)(V)\equiv -H\),
+\[H=U+PV\]
+Taking the total differential,
+\[\d{H}=\d{U}+P\d{V}+V\d{P}\]
+and substituting in Equation~\ref{eq9:firstlaw}
+\begin{equation}
+	\d{H}=T\d{S}+V\d{P}+\mu\d{N} \label{eq11:diffenthalpy}
+\end{equation}
+so
+\begin{equation}
+	H(S,P,N)=U+PV \label{eq11:enthalpy}
+\end{equation}
+One of the equations of state is given
+\begin{equation}
+	V=\pder{H}{P}
+\end{equation}
+
+The enthalpy is used most for chemical reactions. Most chemical reactions are done at constant pressure and constant number\footnote{gross oversimplification}, and so
+\[\d{H}=T\d{S}=\dbar{Q}\]
+
+\subsection{Gibbs Free Energy}
+The gibbs free energy is a 2D legendre transform of energy with respect to both temperature and pressure. The gibbs free energy is given:
+\begin{equation}
+	G(T,P,N) = U-TS+PV
+\end{equation}
+and hass the differential form
+\begin{equation}
+	\d{G}=-S\d{T}+V\d{P}+\mu\d{N}
+\end{equation}
+The equations of state are
+\begin{subequations}
+	\begin{align}
+		S&=\pder{G}{T}\\
+		V&=\pder{G}{P}
+	\end{align}
+\end{subequations}
+
+\begin{aside}[Other potentials]
+	
+With three variables \(S,V,N\) defining \(U\), we can take a total of \(2^3=8\) thermodynamic potentials. 
+
+We could also start with the state function of entropy, defining \(\tilde S = S/k_B\)
+\[\d{\tilde{S}}=\beta \d{U}+\beta P \d{V} -\beta\mu\d{N}\]
+The legendre transforms with respect to \(\beta\), \((\beta P)\), and \((\beta\mu)\) are known as the Massieu Functions
+\end{aside}
+
+

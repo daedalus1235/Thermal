@@ -1,0 +1,244 @@
+%! TEX root = 0-main.tex
+\chapter{Thermodynamic Identities}
+\section{Second Derivatives}
+Recall the first derivatives of state functions give the properties of a thermodynamic system. The second derivatives yield the way these parameters change. However, many second derivatives can be rewritten in terms of other combinations.
+
+Take for example, \(S(U,V,N)\), Naively, there are 6 second derivatives, but often \(N\) is held fixed, reducing the number of second derivatives to \(3\). All other second derivatives can be written in terms of these three second derivatives, in relations known as \emph{thermodynamic identities}
+
+The three standard second derivatives are chosen by ease of measurement. For this class, we choose the \emph{coefficient of thermal expansion}
+\begin{equation}
+	\alpha = \frac{1}{V}\left(\pder{V}{T}\right)_{P,N}
+\end{equation}
+\emph{isothermal ecompressibility}
+\begin{equation}
+	\kappa_T = -\frac{1}{V}\left(\pder{V}{P}\right)_{T,N}
+\end{equation}
+and specific heat (per particle)
+\begin{equation}
+	c_P=\frac{T}{N}\left(\pder{S}{T}\right)_{P,N} \quad\text{or}\quad c_V=\frac{T}{N}\left(\pder{S}{T}\right)_{V,N}
+\end{equation}
+Usually, \(c_P\) is easier to measure for solids, but \(c_V\) for gases.
+
+\section{Maxwell Relations}
+Recall that \(\d{U},\d{S},\d{F},\d{H},\d{G},\ldots\) are exact differentials. Fixing \(\d{N}=0\), we have
+\[\d{U}=T\d{S}-P\d{V}\]
+This implies
+\begin{equation}
+	\left(\pder{T}{V}\right)_{S,N}=-\left(\pder{P}{S}\right)_{T,N}
+\end{equation}
+Similarly, for the Helmholtz free energy,
+\[\d{F}=-S\d{T}-P\d{V}\]
+\begin{equation}
+	-\left(\pder{S}{V}\right)_{T,N}=-\left(\pder{P}{T}\right)_{V,N}
+\end{equation}
+
+Recall that each term in a thermodynamic potential is given as \(A\d{B}\) or \(-B\d{A}\), related by legendre transforms. Given there are 3 such terms, there are 8 such terms. These are
+\begin{subequations}
+	\begin{equation}
+		T\d{S} \quad\text{or}\quad -S\d{T}
+	\end{equation}
+	\begin{equation}
+		V\d{P} \quad\text{or}\quad -P\d{V}
+	\end{equation}
+	\begin{equation}
+		\mu\d{N} \quad\text{or}\quad -\N\d{\mu}
+	\end{equation}
+\end{subequations}
+
+For example, the derivative
+\[\left(\pder{T}{P}\right)_{S,\mu}\]
+comes from the differential
+\[+T\d{S}+V\d{P}-N\d{\mu}\]
+because the terms \(S,\mu\) are held constant, they correspond to the differentials. Because \(T\) is being differentiated. Because the temperature is being differentiated wrt \(P\), there must also be a differential \(\d{P}\) term. Fixing \(\d\mu=0\), we obtain the corresponding derivative:
+\begin{equation}
+	\left(\pder{T}{P}\right)_{S,\mu}=\left(\pder{V}{S}\right)_{P,\mu}
+\end{equation}
+
+If, however, a corresponding potential does not exist, the relation should be found for the reciprocal, then rake the reciprocal of the inverse. For example,
+\[\left(\pder{P}{T}\right)_{S,N}\]
+would correspond to a \(-S\d{T}\) term (following from the denominator), but \(S\) being held constant implies a term \(T\d{S}\), which is contradictory. Instead we consider the reciprocal of the derivative
+\[\left(\pder{T}{P}\right)_{S,N}\]
+corresponds to the potential
+\[T\d{S}+V\d{P}+\mu\d{N}\]
+So, the reciprocal relation is
+\[\left(\pder{T}{P}\right)_{S,N}=\left(\pder{V}{S}\right)_{T,N}\]
+which yields the desired relation
+\begin{equation}
+\left(\pder{P}{T}\right)_{S,N}=\left(\pder{S}{V}\right)_{T,N}
+\end{equation}
+
+\section{``Insert \texorpdfstring{\(\partial (P,T)\)}{d(P,T)}''---Jacobians}
+The Jacobian is another useful tool for manipulating partial derivatives. Recall that a Jacobian is defined as:
+\begin{equation}
+	\pder{(\vv u)}{(\vv v)} = \begin{vmatrix}
+		\pder{u_1}{v_1} & \pder{u_1}{v_2} & \cdots\\
+		\pder{u_2}{v_2} & \pder{u_2}{v_2} & \cdots\\
+		\vdots & \vdots & \ddots
+	\end{vmatrix}
+\end{equation}
+Recall that the determinant is an alternating map; thus, switching the order of variables yields the negative determinant:
+\[\pder{(u,v)}{(x,y)}=-\pder{(v,u)}{(x,y)}=-\pder{(u,v)}{y,x}=\pder{(v,u)}{(y,x)}\]
+More generally, for permutations \(\sigma,\tau\),
+\begin{equation}
+\pder{(\sigma \vv{u})}{(\tau \vv{v})}=\pder{(\vv u)}{(\vv{v})}\frac{\sgn(\sigma)}{\sgn(\tau)}
+\end{equation}
+
+If variables occur on the top and bottom of the jacobian, we then have:
+\begin{equation}
+	\pder{(u,y,z)}{(x,y,z)}=\left(\pder{u}{x}\right)_{y,z} \label{eq13:tojac}
+\end{equation}
+
+Further, there is a chain rule for jacobians:
+\begin{equation}
+	\pder{(\vv{u})}{(\vv{v})}=\pder{(\vv{u})}{(\vv{t})}*\pder{(\vv{t})}{(\vv{v})}
+\end{equation}
+Following immediatly from the chain rule is:
+\begin{equation}
+	\pder{(\vv a)}{(\vv c)}*\pder{(\vv b)}{(\vv d)}=\pder{(\vv a)}{(\vv d)}*\pder{(\vv b)}{(\vv c)}=\pder{(\vv b)}{(\vv c)}*\pder{(\vv a)}{(\vv a)}{(\vv d)} = \pder{(\vv{b})}{(\vv d)}*\pder{(\vv a)}{(\vv c)}
+\end{equation}
+
+The product of a jacobian trivially shows that the reciprocal of a jacobian is simply:
+\begin{equation}
+	1=\pder{(\vv u)}{(\vv v)}*\pder{(\vv v)}{(\vv u)}
+\end{equation}
+
+
+Using these tricks with the jacobian we can rewrite derivatives in terms of the standard set. Using Equation~\ref{eq13:tojac} we see the standard set can be written in terms of
+\begin{subequations}
+	\begin{align}
+		\pder{V}{T}&=\\
+		\pder{V}{P}&=\\
+		\pder{S}{T}&=
+	\end{align}
+\end{subequations}
+
+For example, we want to find the equivalent of 
+\[\left(\pder{P}{T}\right)_V\]
+we rewrite as
+\begin{align*}
+	\left(\pder{P}{T}\right)_V&=\pder{(P,V)}{(T,V)}=\pder{(P,V)}{(P,T)}*\pder{(P,T)}{(T,V)}=-\pder{(V,P)}{(T,P)}*\frac{1}{\pder{(V,T)}{(P,T)}}\\
+				  &=\frac{1}{V}\left(\pder{V}{T}\right)_P*\frac{1}{\frac{1}{V}\left(\pder{V}{P}\right)_T}\\
+				  &=\alpha*\frac{1}{\kappa_T}\\
+				  &=\frac{\alpha}{\kappa_T}
+\end{align*}
+
+\section{``Divide Through''}
+If we have an exact differential
+\[\d{F}=\sum_i\left(\pder{F}{x^i}\right)_{x\setminus x^i}\d{x^i}\]
+we can ``divide through by another quantity to obtain:
+\[\left(\pder{F}{u}\right)_{v\setminus u} =  \sum_i\left(\pder{F}{x^i}\right)_{x\setminus x^i}\left(\pder{x^i}{u}\right)_{v\setminus u}\]
+For example, using 
+\[\d{U}=T\d{S}-P\d{V}\]
+we can divide through by \(\d{T}\) to obtain
+\[\left(\der{U}{T}\right)_{P,N}=T\left(\pder{S}{T}\right)_{P,N}-P\left(\pder{V}{T}\right)_{P,N}\]
+
+\section{Joule-Thomson Effect}
+A gas at a constant, high pressure \(P_A\) is forced through a porous plug into a container with a constant, low pressure \(P_B\).
+
+Initially, all of the gas is in container \(A\), so \(U_i=U_A\), and at the end, all of the gas is in container \(B\), so \(U_f=U_A\). Work \(P_AV_A\) is done on gas to evacuate \(A\), while the gas does work \(P_BV_B\) to fill \(B\). Thus, the work is given
+\[W=P_AV_A-P_BV_B\]
+from the first law of thermodynamics, we further have
+\[U_B-U_A = \Delta Q +P_AV_A-P_BV_B\]
+The process is adiabatic, so \(\Delta Q=0\). Thus, enthalpy is conserved:
+\[H_B=U_B+P_BV_B=U_A+P_AV_A=H_A\]
+Because enthalpy and particle number are constant, we can write:
+\[\d{T}=\left(\pder{T}{P}\right)_{H,N}\d{P}\]
+This partial derivative is defined as the Joule-Thomson coefficient
+\begin{equation}
+	\mu_{JT}=\left(\pder{T}{P}\right)_{H,N}
+\end{equation}
+We wish to state this factor in terms of the standard set. 
+
+Using the Jacobian trick,
+\begin{align*}
+	\left(\pder{T}{P}\right)_{H,N}&=\pder{(T,H)}{(P,H)}=\pder{(T,H)}{(P,T)}*\pder{(P,T)}{(P,H)}\\
+				      &=-\left(\pder{H}{P}\right)_{T,N}*\frac{1}{\left(\pder{H}{T}\right)_{P,N}}
+\end{align*}
+
+We can use the ``divide through'' trick with the differential (holding \(N\) constant)
+\[\d{H}=T\d{S}+V\d{P}\]
+to determine these derivatives
+\[\left(\pder{H}{P}\right)_T=T\left(\pder{S}{P}\right)_T+V\left(\pder{P}{P}\right)_T=T\left(\pder{S}{P}\right)_T+V\]
+\[\left(\pder{H}{T}\right)_T=T\left(\pder{S}{T}\right)_P+V\left(\pder{P}{T}\right)_P=T\left(\pder{S}{T}\right)_P=Nc_P\]
+
+Finally, we wish to restate \(\left(\pder{S}{P}\right)_T\) in terms of the standard set. Using a Maxwell relation, the differential
+\[\d{G}=-S\d{T}+V\d{P}+\mu\d{N}\]
+shows us
+\[-\left(\pder{S}{P}\right)_{T,N} = \left(\pder{V}{T}\right)_{P,N}=V\alpha\]
+
+Thus, combining all of these,
+\begin{align*}
+	\mu_{JT}&=-(-TV\alpha+V)*\frac{1}{Nc_P}\\
+		&=\frac{V}{Nc_P}(T\alpha-1)
+\end{align*}
+
+\section{Heat Capacity}
+We can write \(c_V\) as:
+\begin{align*}
+	c_V&=\frac{T}{N}\left(\pder{S}{T}\right)_V=\frac{T}{N}\pder{(S,V)}{(T,N)}\\
+	   &=\frac{T}{N}\pder{(S,V)}{(P,T)}\pder{(P,T)}{(T,V)}\\
+	   &=-\frac{T}{N}\pder{(S,V)}{(P,T)}\frac{1}{\pder{(V,T)}{(P,T)}}\\
+	   &=\frac{T}{N}\left[\left(\pder{S}{P}\right)_{T,N}\left(\pder{V}{T}\right)_{P,N}-\left(\pder{S}{T}\right)_{P,N}\left(\pder{V}{P}\right)_{T,N}\right]\frac{1}{\left(-\pder{V}{P}\right)_{T,N}}\\
+	   &=\frac{T}{N}\left[-\left(\pder{V}{T}\right)_{P,N}\left(V\alpha\right)-\left(\frac{Nc_P}{T}\right)\left(-V\kappa_T\right)\right]\left(\frac{1}{V\kappa_T}\right)\\
+	   &=\frac{T}{N}\left[\left(-V\alpha\right)\left(V\alpha\right)-\left(\frac{Nc_P}{T}\right)\left(-V\kappa_T\right)\right]\left(\frac{1}{V\kappa_T}\right)\\
+	   &=c_P-\frac{\alpha^2TV}{N\kappa_T}
+\end{align*}
+
+The last equation
+\begin{equation}
+	c_P=c_V+\frac{\alpha^2TV}{N\kappa_T}
+\end{equation}
+is more general than the Meyer relation, and additionally shows that because it has 4 standard derivatives, only 3 of them are independent.
+
+\section{General Strategy}
+A general strategy may be outlined as follows:
+\begin{enumerate}
+	\item Express partial derivative as Jacobian
+	\item Insert (usually) \(\partial(P,T)\) using chain rule, and manipulate reciprocals
+	\item Eliminate \(F,G,H,U\) using known derivative or differential form
+	\item If extensive, move \(mu\) to the numerator and eliminate using the Gibbs-Duhem relation
+	\item Move \(S\) to the numerator and eliminate it with specific heat (if derivative wrt T) or maxwell relation (wrt P)
+	\item Move V to the top and eliminate with \(\alpha\) or \(\kappa_T\)
+	\item Eliminate \(c_V\) with \(c_P\).
+\end{enumerate}
+
+\section{Examples}
+\subsection{Example A}
+\[\left(\pder{V}{P}\right)_{S,N}\]
+Applying Jacobian:
+\[\pder{(V,S,N)}{(P,S,N)} = \pder{(V,S,N)}{(P,T,N)}\pder{(P,T,N)}{(P,S,N)} = \pder{(V,S,N)}{(P,T,N)}\pder{(T,P,N)}{(S,P,N)}\]
+The second term becomes
+\[\left[\left(\pder{S}{T}\right)_{P,N}\right]^{-1}=\frac{T}{Nc_P}\]
+Expanding the first term,
+\begin{align*}\pder{(V,S,N)}{(P,T,N)}&=\left(\pder{V}{P}\right)_{T,N}\left(\pder{S}{T}\right)_{P,N}-\left(\pder{V}{T}\right)_{P,N}\left(\pder{S}{P}\right)_{T,N}\\
+	&=(-V\kappa_T)(Nc_P/T)-(V\alpha)\left(\pder{S}{P}\right)_{T,N}
+\end{align*}
+The final term can be solved using a maxwell relation with the differential 
+\[-S\d{T}+V\d{P}+\mu\d{N}\]
+thus,
+\[\left(\pder{S}{P}\right)_{T,N} = -\left(\pder{V}{T}\right)_{P,N}=-V\alpha\]
+Plugging in, we obtain
+\[\left(\pder{V}{P}\right)_{S,N}=-V\kappa_T+\frac{V^2T\alpha^2}{Nc_P}\]
+
+\subsection{Example C}
+\[\left(\pder{F}{S}\right)_{P,N}\]
+Recall \(\d{F}=-S\d{T}-P\d{V}+\mu\d{N}\). Thus,
+\[\left(\pder{F}{S}\right)_{P,N}=-S\left(\pder{T}{S}\right)_{P,N}-P\left(\pder{V}{S}\right)_{P,N}+\mu\left(\pder{N}{S}\right)_{P,N}\]
+\[\left(\pder{F}{S}\right)_{P,N}=-\frac{T}{Nc_P}-P\left(\pder{V}{S}\right)_{P,N}\]
+Using the jacobian trick,
+\[\left(\pder{V}{S}\right)_{P,N}=\left(\pder{V}{T}\right)_{P,N}\left(\pder{S}{T}\right)^{-1}_{P,N}=\frac{VT\alpha}{Nc_P}\]
+Thus,
+\[\left(\pder{F}{S}\right)_{P,N}=-\frac{T(1+PV\alpha)}{Nc_P}\]
+
+\subsection{Example E}
+\[\left(\pder{T}{N}\right)_{S,V}\]
+Using a maxwell relation,
+\[T\d{S}-P\d{V}+\mu\d{N}\]
+\[\left(\pder{T}{N}\right)_{S,V}=\left(\pder{\mu}{S}\right)_{V,N}\]
+Using the Gibbs-Duhem relation,
+\[\d\mu = -\left(\frac{S}{N}\right)\d{T}+\left(\frac{V}{N}\right)\d{P}\]
+\begin{align*}
+	\left(\pder{\mu}{S}\right)_{V,N}&=-\frac{V}{N}\left(\pder{T}{S}\right)_{V,N}+\frac{V}{N}\left(\pder{P}{S}\right)_{V,N}\\
+&=-\frac{S}{N}\frac{T}{Nc_V}+\frac{V}{N}\left(-\alpha V + \frac{Nc_P\kappa_T}{\alpha T}\right)^{-1}
+\end{align*}
+

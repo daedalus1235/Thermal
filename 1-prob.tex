@@ -1,0 +1,364 @@
+%! TEX root = 0-main.tex
+\chapter{Discrete Random Variables}
+Boltzmann defined entropy in terms of the logarithm of the probability of a macroscopic state. The equation for entropy, written by Plank, is
+\begin{equation}
+	S=k\log W \label{eq2:entropy}
+\end{equation}
+
+The key assumptions we will apply in using this equation is that the positions and momenta are independent (i.e.\ not correlated.).
+This results in the position and momentum contributions of entropy to be independent, and can be summed simply.
+
+The concept of Entropy will be motivated using statistics.
+
+\section{Events and Random Experiments}
+A \emph{sample space} \(\Omega\) is the set of all possible outcomes of a random experiment.
+An \emph{event} \(A\) is a subset \(A\subseteq\Omega\), which is a set of possible outcomes of the random experiment.
+An event with only one outocome is an \emph{elementary event}. 
+\emph{Disjoint events} \(A,B\subseteq \Omega\) are events such that \(A\cap B=\{\}\), or that are \emph{mutually exclusive}.
+
+A \emph{probability} \(P\) is a function that gives the probability \(P(A)\) of event \(A\) occuring. This probability satisfies the following axioms:
+\begin{enumerate}
+	\item For all \(A\subseteq\Omega\) \(P(A)\geq0\)
+	\item \(P(\Omega)=1\)
+	\item \(P(A_1\cup A_2 \cdots \cup A_n)=P(A_1)+P(A_2)+\cdots+P(A_n)\)
+\end{enumerate}
+
+From these axioms, we can conclude \(0\le P(A)\le 1\), \(P(\emptyset)=0\).
+
+A \emph{Conditional Probability}, of \(B\) given \(A\) is
+\begin{subequations}
+\begin{equation}
+	P(B|A)\equiv\frac{P(A\cap B)}{P(A)}\label{eq2:condproba}
+\end{equation}
+This is often rewrittens as
+\begin{equation}
+	P(A\cap B)\equiv P(B|A)*P(A)\label{eq2:condprobb}
+\end{equation}
+\end{subequations}
+
+Assume that \(A\subseteq B\) is a strict subset. Then, the following are true:
+\[P(B)\ge P(A)\]
+\[P(B-A)=P(B\setminus A)=P(B)-P(A)\]
+
+Assume \(A,B\) are any two events. Then,
+\[P(A\cup B)=P(A)+P(B)-P(A\cap B)\]
+This is related to the Principle of Inclusion/Exclusion (PIE)
+
+There are two viewpoints of probability: \emph{frequentist} and \emph{Bayesian}. The former defines the probability as the asymptotic frequency of success of an event, while the latter defines probability as a description of a person's knowledge outcome of an experiment.
+
+\section{Discrete Random Variable}
+A \emph{random variable} is the combination of a random event and its probabilty. If there is a finite or countable number of elementary events, the event is a \emph{discrete} random variable. 
+
+Consider two events \(a\) and \(b\). A \emph{joint} probability \(P(a,b)\) can be defined. A joint probabilty refers to the probability that both event \(a\) and \(b\) occur. From the joint probability, the \emph{marginal probability} can be defined:
+\[P_A(a)=\sum_b P(a,b)\qquad P_B(b)=\sum_a P(a,b)\]
+
+The conditional probabilty is defined in a similar way to Equation~\ref{eq2:condprobb}. The conditional and joint probabilities are related in the following manner:
+\[P(a,b)=P(a|b)*P_B(b)=P(b|a)*P_A(a)\]
+Bayes' theorem can also be stated:
+\begin{equation}
+	P(a|b)=\frac{P(b|a)P_A(a)}{P_B(b)}\label{eq2:Bayes}
+\end{equation}
+
+\subsection{Independent and Dependent Variables}
+When two variables are considered \emph{independent} iff \(P(a,b)=P_A(a)P_B(b)\). For more than 2 variables, there is \emph{pairwise} independence and \emph{mutual} independence.
+
+\begin{aside}[Dependent Variables: Marbles]
+	You have a bag with 3 red marbles and 2 blue marbles. What are the probabilities when you take two marbles out of the bag?
+
+	Drawing the first marble changes the probability distribution of the second ball.	
+\end{aside}
+
+\section{Functions of Random Variables}
+Given a random variable \(A=\{a_j|j=1,\ldots,N_A\}\), a function \(F=\{F(a_j)|j=1,\ldots,N_a\}\) can be defined. The probability distribution of \(F\) is then
+\[P_F(f)=\sum_a\delta_{f,F(a)}P_A(a)\]
+The delta function is included because in general, \(F\) is not injective. 
+
+A common function of two variables is a sum. Let \(Z=X+Y\) be the sum of two random variables. The proability distribution of \(Z\) is then:
+\[P_Z(z)=\sum_{x,y}\delta_{z,x+y}P(x,y)\]
+
+\begin{aside}[Sum of Two Dice]
+	You have two fair dice. The probability distribution of the sum of the two dice is
+	\[P_S(s)=\frac{1}{36}\sum_{x,y}\delta(s,x+y)\]
+	This distribution becomes:
+	\begin{center}
+		\begin{tabular}{c||c|c|c|c|c|c|c|c|c|c|c}
+			Sum &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\
+			\hline
+			Probability & 1/36 & 1/18 & 1/12 & 1/9 & 5/36 & 1/6 & 5/36 & 1/9 & 1/12 & 1/18 & 1/36
+		\end{tabular}
+	\end{center}
+\end{aside}
+
+\subsection{Properties of Functions}
+The \emph{expected value} or \emph{mean} of a function is given:
+\begin{equation}
+	\vect{F}=\bar{F}\equiv \sum_a F(a) P_A(a)\label{eq2:expectedvalue}
+\end{equation}
+The \(n-\)th moment of \(F\) is
+\begin{equation}
+	\vect{F^n}\equiv \sum_a F(a)^n P_A(a)\label{eq2:nmoment}
+\end{equation}
+The variance is given:
+\begin{equation}
+	\sigma_F^2=\vect{(F-\vect{F})^2}=\vect{F^2}-\vect{F}^2\label{eq2:variance}
+\end{equation}
+and the standard deviaiton is the square root of the variance:
+\begin{equation}
+	\sigma_F\equiv\sqrt{\vect{F^2}-\vect{F}^2}\label{eq2:stdev}
+\end{equation}
+
+A correlation function \(f_{FG}\) is defined:
+\begin{equation}
+	f_{FG}=\vect{FG}-\vect{F}\vect{G}\label{eq2:correlation}
+\end{equation}
+If \(F\) and \(G\) are independent, then the correlation function is naturally zero, i.e.\ they are not correlated.
+
+\subsection{Properties of Expected Value}
+The expected value of a sum is:
+\begin{equation}
+	\vect{X+Y}=\vect{X}+\vect{Y}\label{eq2:expsum}
+\end{equation}
+
+From this, we can show that the variance of a sum is given:
+\begin{equation}
+	\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y)\label{eq2:varsum}
+\end{equation}
+where the covariance is defined as
+\begin{equation}
+	\operatorname{Cov}(X,Y)=\vect{XY}-\vect{X}\vect{Y}
+\end{equation}
+
+\subsection{Sets of Independent Variables}
+Given a set of independent random numbers \(\{F_j | j=1,\ldots,N\}\), we are often interested in the sum
+\[S=\sum_j F_j\]
+The expected value of the sum follows from Equation~\ref{eq2:expsum}
+\[\vect{S}=\sum_j \vect{F_j}\]
+Further, the variance of \(S\) is:
+\begin{align*}
+	\sigma_S^2&=\vect{S^2}-\vect{S}^2=\sum_{jk}\vect{F_j F_k}-\vect{F_j}vect{F_k}\\
+		  &=\sum_{j\neq k}\vect{F_j F_k}+\sum_j\vect{F_j^2}-\sum_{j\neq k}\vect{F_j}\vect{F_k}-\sum_j\vect{F_j}\vect{F_j}\\
+		  &=\sum_{j\neq k}\vect{F_j}\vect{F_k}+\sum_j\vect{F_j^2}-\sum_{j\neq k}\vect{F_j}\vect{F_k}-\sum_j\vect{F_j}^2\\
+		  &=\sum_j\vect{F_j^2}-\vect{F_f}^2\\
+		  &=\sum_j\sigma_j^2
+\end{align*}
+
+For the case that \(F_j\) have the same mean and variance, the standard deviation of \(S\) grows with \(\sigma_S=\sigma_F\sqrt{N}\)
+However, the relative standard deviation increases:
+\begin{equation}
+\frac{\sigma_S}{\vect{S}}=\frac{\sigma_F\sqrt{N}}{N\vect{F}}=\frac{\sigma_F}{\vect{F}\sqrt{N}}\label{eq2:relstdev}
+\end{equation}
+
+\section{Binomial Distribution}
+\subsection{Combinatorics}
+If we have \(N\) objects, the number of ways we can order the objects is \(N! \). This is because there are \(N\) choices for the first object, \(N-1\) choices for the second, etc. If we truncate the ordering after \(k\) objects, there are instead \(N!/(N-k)! \) orderings. If we do not care about the order of the objects---i.e., we want to choose \(k\) out of \(N\) objects---the number of ways to do so is:
+\begin{equation}
+	\begin{pmatrix}
+		N\\k
+	\end{pmatrix}
+=\frac{N!}{(N-k)!\, k!}\label{eq2:nCr}
+\end{equation}
+
+\subsubsection{Binomial Distribution}
+We have \(N\) variables wich take the value \(1\) with probability \(p\) and \(0\) with probability \((1-p)\). It is easy to see that:
+\begin{align*}
+	\vect{F}&=1p+0(1-p)=0\\
+	\vect{F^2}&=p\\
+	\sigma^2&=p(1-p)
+\end{align*}
+The distribution of the sum is: 
+\begin{align*}
+	\vect{S}&=pN\\
+	\sigma_S^2&=p(1-p)N\\
+	\frac{\sigma_S}{\vect{S}}&=\sqrt{\frac{1-p}{pN}}
+\end{align*}
+
+
+The probability that \(0\le n \le N\) of the variables is 1 is given
+\[p^n (1-p)^{N-n}\]
+However, there are \(\begin{pmatrix}N\\n\end{pmatrix}\) that subsets of size \(n\) can be chosen. Thus, the binomial distribution, denoted \(P_B(n|N)\) is given:
+\begin{equation}
+	P_B(n|N)=\begin{pmatrix}N\\n\end{pmatrix}p^n(1-p)^{N-n}\label{eq2:binomial}
+\end{equation}
+The binomial distribution get its name from the binomial theorem of how to expand binomials:
+\[[p+(1-p)]^N=\sum_{n=0}^N\begin{pmatrix}N\\n\end{pmatrix}p^n(1-p)^{N-n}\]
+
+For a very large \(N\to\infty\), the binomial distribution can be represented by a Gaussian.
+\begin{equation}
+	g(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left[-\frac{(x-x_0)^2}{2\sigma^2}\right]\label{eq2:gaussian}
+\end{equation}
+The mean and variance are as expected, with
+\[\vect{x}=x_0\qquad \sigma_x^2=\sigma^2\]
+The binomial distribution can then be written:
+\begin{equation}
+	p_B(n|N)\approx\frac{1}{\sqrt{2\pi p(1-p)N}}\exp\left[-\frac{(n-pN)^2}{2p(1-p)N}\right]\label{eq2:binomgauss}
+\end{equation}
+
+\subsection{Sterling's Approximation}
+In the simplest version, Sterling's approximation gives the logarithm of the factorial:
+\begin{align}
+	\ln N! &= \sum_{n=1}^N\ln(n)\nonumber\\
+	       &\approx \int_1^N\d{x} \ln x\nonumber\\
+	       &=N\ln N - N + 1 \label{eq2:sterling1}
+\end{align}
+
+More elaborately comes from the gamma function. At large N, the integrand is a sharp peak with a maximum at \(x=N\) and value \(N^N e^{-N}\).
+\begin{align}
+	N!&=\int_0^\infty e^{-x}x^N\d{x}\label{eq2:gamma}\\
+	  &\approx\int_0^\infty N^N e^{-N} \exp\left[-\frac{(x-N)^2}{2\sigma^2}\right]\d{x}\nonumber\\
+	  \intertext{The value of \(\sigma\) is determined by matching the second derivative of \(\ln(g)\) at the peak, which gives \(\sigma^2=N\)}
+	  &=\int_0^\infty N^N e^{-N}\exp\left[-\frac{(x-N)^2}{2N}\right]\nonumber\\
+	  &\approx \int_{-\infty}^\infty\d{x}N^N e^{-N}\nonumber\\
+	  &=N^N e^{-N}\sqrt{2\pi N} \label{eq2:sterling2}
+\end{align}
+
+Finally, is Gosper's approximation:
+\begin{equation}
+	N!\approx N^Ne^{-N} \sqrt{\left(2N+\frac{1}{3}\right)\pi}\label{eq2:gosper}
+\end{equation}
+
+Only the first Sterling approximation is necessary, as the error is of the order \(\frac{1}{N}\), which, for quantities on the order of a mole, is \(\sim 10^{-23}\).
+
+Using the first Sterling approximation, the log of the binomial distribution (at large N) becomes:
+\begin{align}
+	\ln P_B(n|N)&\approx N\ln N - N - n\ln n + n -(N-n)\ln(N-n)\nonumber\\ &\hphantom{==}+(N-n) +n\ln p + (N-n)\ln(1-p)\nonumber\\
+		    &=N\ln N - n\ln n -(N-n)\ln(N-n) + n\ln p (N-n)\ln(1-p)
+\end{align}
+Thus, we can consider the binomial distribution as a continuous variable in \(n\) to find the peak. After a little bid of calculus, the maximum is at \(n_0=pN\), which agrees with the exact result. Further, the expected value of the distribution is at the maximum.
+
+\section{Multinomial Distribution}
+The binomial distribution can be viewed as putting \(N\) objects into 2 boxes, with probability \(p\) and \(1-p\) respectively. If we instead generalize the problem to \(M\) boxes, with probabilities \(p_1,\ldots,p_M\), we obtain the \emph{multinomial distribution}.
+
+The probability of a particular subset \(N_j\) particles being assigned to box \(j\) is
+\begin{equation}
+	\prod_{j=1}^M p_j^{N_j}
+\end{equation}
+and the probabilities are normalized with
+\begin{equation}
+	\sum_{j=1}^M p_j=1
+\end{equation}
+and sets partitioned with 
+\begin{equation}
+	\sum_j^M N_j=N
+\end{equation}
+
+If the objects are distinct, the ways that the balls can be divided into M boxes is:
+\begin{equation}
+	\frac{N!}{\prod_{j=1}^M N_j}
+\end{equation}
+
+Note that this is equivalent to permutations of a string of characters with repeats, such as ``aaabbcccd,'' as each letter would represent a box, and the position of the letter represents the distinct particle.
+
+\section{Classical Gas}
+For a classical gas,we can asssume the probability of finding a particular particle in a volume \(V_j\) to be proportional to \(V_j\) (think geometric probability). Thus, the probability becomes:
+\begin{equation}
+	p_j=\frac{V_j}{V}
+\end{equation}
+That is, the probability density is uniform throughout the total volume (no areas are more probable than others). This means, that the distribution of a classical ideal gas is:
+\begin{equation}
+	P_M({N_j}) = \frac{N!}{V^N}\prod_{j=1}^M\left(\frac{V_j^{N_j}}{N_j!}\right)
+\end{equation}
+
+\chapter{Continuous Random Variables}
+\section{Definitions}
+Previously we considered discrete variables, such as a die, which can only take integer values from \(1-6\). If we instead consider a \emph{continuous} random process that can produce any real number between \(0-6\), we can no longer consider the value of a single outcome, as it becomes \(P=1/\infty=0\). Instead, we take an integral:
+\[P([a,b])=A\int_a^b \d{x}=(b-a)A\]
+where \(A\) is a normalization constant. For the continuous die, the normalization constant is \(A=\frac{1}{6}\). Similar to how discrete variables can have different probabilities, a \emph{probability density} can be ascribed to each point. Thus, instead, we have for a probability density:
+\begin{equation}
+	P([a,b])=\int_a^b P(x)\d{x} \label{eq3:probdens}
+\end{equation}
+
+Dimensionally, probability densities are unitless, but probabilitiy densities \emph{do} have densities ---for example, per volume, or per length. Further, probabilities must be normalized over the entire sample space:
+\begin{equation}
+	1=\int_\Omega P(x)\d{x}\label{eq3:normal}
+\end{equation}
+
+Marginal probabilities are then defined:
+\begin{equation}
+	P_x(x)=\int_{-\infty}^\infty P(x,y)\d{y}\label{eq3:margin}
+\end{equation}
+Conditional Probabilities:
+\begin{subequations}
+\begin{equation}
+	P(y|x)=\frac{P(x,y)}{P_x(x)}\label{eq3:condproba}
+\end{equation}
+\begin{equation}
+	P(x,y)=P(x|y)P_y(y)=P(y|x)P_x(x)\label{eq3:condprobb}
+\end{equation}
+\end{subequations}
+Which can be rearranged to form Bayes's Theorem.
+
+Indpendence maintains its definition as well:
+\begin{equation}
+	P(x,y)=P_x(x)P_y(y)\label{eq3:indep}
+\end{equation}
+
+The expected value of a function, rather than being a discrete sum, becomes an integral:
+\begin{equation}
+	\vect{F}=\int_\Omega F(x)P(x)\d{x}\label{eq3:expect}
+\end{equation}
+And similarly with the moments and central moments:
+\begin{subequations}
+\begin{equation}
+	\vect{x^n}=\int_\Omega x^n P(x)\d{x}\label{eq3:moment}
+\end{equation}
+\begin{equation}
+	\vect{(x-\vect{x})^n}=\int_\Omega (x-\vect{x})^n P(x)\d{x}\label{eq3:centralmoment}
+\end{equation}
+\end{subequations}
+
+\section{Delta Function}
+Finally, we define the Dirac delta to determine the sum of two variables. The delta funciton is defined with the following properties:
+\begin{subequations}
+	\begin{equation}
+		\delta = \lim_{\varepsilon \to 0} \delta_\varepsilon, \qquad		\delta_\varepsilon (x)\equiv\begin{cases}0 & x<-\varepsilon\\ \frac{1}{2\varepsilon} & -\varepsilon \leq x\leq \varepsilon\\ 0 & \varepsilon < x\end{cases}
+	\end{equation}
+Normalization
+	\begin{equation}
+		\int_{-\infty}^\infty \delta (x)\d{x}=1
+	\end{equation}
+	\begin{equation}
+		\int_a^b\delta (x)\d{x}=1 \iff x\in (a,b)
+	\end{equation}
+\end{subequations}
+
+Other properties are:
+\[\delta(x)=\delta(-x)\]
+\[\delta(c x) = \delta (\abs{c}x)\]
+\[\int_a^b\delta(cx)\d{x}=\int_{a/\abs{c}}^{b/\abs{c}}\delta(y)\frac{\d{y}}{\abs{c}}=\frac{1}{\abs{c}}\]
+
+\subsection{Integrating functions with \(\delta(x)\)}
+The definition of the delta function indicates that:
+\[\int_a^b f(x) \delta(x-x_0)=\begin{cases}f(x_0) & x_0\in(a,b)\\0 & \text{otherwise}\end{cases}\]
+It can be shown that this is true using a Taylor Series expansion of \(f\) about \(x_0\) with \(\delta_\varepsilon\) as \(\epsilon\to0\).
+
+This can be extended to 
+\begin{equation}
+	\int_{-\infty}^\infty f(x)\delta(c(x-x_0))\d{x}=\frac{f(x_0)}{\abs{c}}
+\end{equation}
+
+Most generally, we want to be able to solve
+\[\int_{-\infty}^\infty f(x) \delta\circ g(x)\d{x}\]
+The following applies when \(g\) has simple zeros (no algebraic multiplicity) and has a derivative \(g'(x)\).
+\begin{equation}
+	\int_a^b f(x)\delta\circ g(x)\d{x}=\sum_{j=1}^n\frac{f(x_j)}{\abs{g'(x_j)}}
+\end{equation}
+where \(\{x_j | x_j\in (a,b) \text{ and } g(x_j)=0\}\).
+
+Given two continuous variables \(x,y\), we can define a new variable \(s=f(x,y)\). Then, the probability distribution of \(s\) is:
+\begin{equation}
+P(s)=\int_{-\infty}^\infty\int_{-\infty}^\infty P(x,y)\delta(s-f(x,y))\d{x}\d{y}
+\end{equation}
+Note that this probability density is automatically 1.
+
+\begin{aside}[Continuous Dice]
+	Imagine two variable \(x,y\) which take values \([0,6]\) continously with equal probability
+	\[P(x,y)=\frac{1}{36}\]
+	Then,
+	\begin{align*}
+		P(s)&=\int_0^6\int_0^6 P(x.y)\delta(s-x-y)\d{x}\d{y}\\
+		    &=\frac{1}{36}\int_0^6\int_0^6 \delta(s-x-y)\d{x}\d{y}
+	\end{align*}
+	integrating wrt y first,
+	\[\int_0^6\delta(s-x-y)=\begin{cases} 1 & 0\leq s-x \leq 6 \\ 0 &\text{otherwise}\end{cases}\] Then, integrating over x, we get an additional constraint
+\end{aside}
+

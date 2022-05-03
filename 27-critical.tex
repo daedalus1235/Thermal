@@ -1,0 +1,318 @@
+%! TEX root = 0-main.tex
+\chapter{Critical Phenomena}
+\subsection{Validity of MFT}
+Note that MFT predicts a phase transition for \(z=2\). However, we know the \emph{exact} answer for \(z=2\) as the 1D Ising chain, \emph{which has no transition!} Thus, MFT is \emph{qualitatively wrong} in 1D. So then, can we trust the results of MFT for \(d>1\)? Indeed, the existence of the phase transition in 2D was proven by Robert Griffiths, who fixed (pyle's?) argument. Then, people used the low temperature series expansion, and similar high temperature series expansion, and drew correlations between the two to extrapolate the phase transition, by showing the two series begin to diverge at the same point. This gave validity to MFT as a technique. However, Onsager's exact solution to the 2D lattice was concerning to MFT.\@
+Further rigorous validations were conducted using series expansion, such as what was done in HW.\@ Such series are exact to the point they are truncated.
+\section{Critical Exponents}
+The behaviour of thermodynamics in the vicinity of a critical point (such as a 2nd order phase transition) is often described, to leading order by power laws. Such a critical point is where the two phase coexistence regions contract to a point (such as the two branches of the Ising model in the bond approximation). For example, in fluids, the critical point is the boundary between a two-phase coexistence region and a continuous transition through a supercritical fluid. The exponent of these power laws are known as \emph{critical exponents}.
+
+These critical exponents are thus extremely important in describing thermodynamic quantities. Most interestingly, however, these critical exponents display a ``universality'' in that they depend solely on the dimension of space \(d\), and the units of the \emph{order parameter}. The order parameter for a vdW fluid, for instance, is density; as we approach the critical point, this order parameter vanishes. Similarly, for magnetic states, we can use the magnetization as the order parameter, and as we approach the critical point, the difference in the magnetization between the two states vanishes; for alloy systems, we can use mean occupation by species as the order parameter. Yet, for all these systems, \emph{the critical exponent is the same} (for fixed \(d\)). These critical exponents are denumerated by greek letters.  
+
+\subsubsection{Heat Capacity}
+The first exponent used is \(\alpha\); this is used for the leading order in heat capacity:
+\begin{equation}
+	c\sim \abs{\frac{T-T_c}{T_c}}^{-\alpha}\equiv \abs{t}^{-\alpha}
+\end{equation}
+Where we introduce
+\begin{equation}
+	t\equiv\frac{T-T_c}{T_c}
+\end{equation}
+Recall that from the fluctuation response theorem,
+\[c\propto\sigma_E^2\]
+Thus, when \(c\) diverges (namely at \(T_c\)), the energy fluctuations similarly diverge! This breaks two things: First, in MFT, where we assume that these fluctuations are separable, our assumptions break down. Second, we can no longer apply Central Limit Theorem, as CLT assumes that the variance is finite\footnote{The Central Limit theorem states that for a random variable \(x\), and a second variable \(X = \sum_{i=1}^N x_i\), as \(N\to\infty\) the probability distribution \(P_X\) approaches a gaussian, with variance the sum of the individual variances. This applies no matter what \(P_x\) is.} 
+
+Recall that 
+\[c = \left(\pder{E}{T}\right)\]
+so
+\[E(T) = \int^T\d{T'}c(T')\]
+which means there is a boundary on how much the heat capacity can diverge. In particular, \(\alpha<1\). Further, we see that \(E(T_c)\) must be vertical. For example, recall the phase transition ice\(\to\)water. At \SI{0}{\celsius} we can pump energy in without changing the temperature---all of the energy goes into \emph{latent heat} which is used to drive the phase transition, rather than increasing the temperature of the system. For a first order transition, this region is finite, but for a continuous transition, this occurs at a point. In particular, for a first order phase transition, this region is satisfied by adding a delta function at the transition temperature. In fact, the heat capacity doesn't even need to diverge (beside the delta function).
+
+\subsubsection{Zero-field Magnetization}
+The critical exponent \(\beta\) determines how the magnetization varies with temperature at zero field strength.
+\begin{equation}
+	m\sim(-t)^\beta
+\end{equation}
+Of course, for \(T>T_c\) we have no spontaneous magnetization, but below, this is where we have our critical exponent dependence.
+
+This is very similar qualitatively to the macroscopic occupation of a Bose-Einstein condensate. In particular, when we expand about \(T\sim T_E\), the BEC has an exponent \(\beta=1\). For a magnetic system, this order parameter is typically \(<1\), but can in principle be \(=1\). This is the behaviour of a single branch of the ising model.
+
+\subsubsection{Zero field isothermal susceptibility}
+The critical exponent \(\gamma\) determines how the magnetic susceptibility changes at zero field:
+\begin{equation}
+\chi_T = \left(\pder{m}{h}\right)_T\qquad h=0
+\end{equation}
+This is the \emph{response} of the magnetization to the driving of the field. 
+\begin{equation}
+	\chi_T \sim \abs{t}^{-\gamma}
+\end{equation}
+We once again obtain a divergence at \(T=T_c\), which corresponds to the divergence of the associated fluctuations \(\sigma_m\). In fact, this is \emph{exactly} what we observed when we plotted \(h(m)\); there is a discontinuous jump between the two spontanous magnetization states.
+
+\subsubsection{Critical Isotherm}
+The exponent \(\delta\) is defined via
+\begin{equation}
+	h(m) \sim \sgn(m)\abs{m}^\delta 
+\end{equation}
+Note that this is related to \(\gamma\) in definition, but fixes \(T\) rather than \(h\).
+
+\subsubsection{Spatial Correlations}
+The last two exponents are related to spatial correlations. In particular, consider two separated spins, \(\sigma_i\) and \(\sigma_j\), separated by \(r_{ij} = r_j-r_i\). We can then define a correlation function 
+\begin{equation}
+	\Gamma(\vb r_{ij}) = \vect{s_is_j}-\vect{s_i}\vect{s_j}
+\end{equation}
+which is the covariance of the two spins. If they are uncorrelated, we expect \(\Gamma = 0\). If the spins are sufficiently far apart, we should expect \(\Gamma(r\to\infty)\to 0\). Although nearby spins are strongly correlated, as these correlations ``telephone'' the strength of the correlations decreases over time. We are concerned with the \emph{correlation length} after which the spins are essentially uncorrelated. 
+
+Thus, (for most materials)
+\begin{equation}
+	\Gamma(\vb r)\to \Gamma(r) = \frac{e^{-r/\xi}}{r^\tau}
+\end{equation}
+the length \(\xi\) is called the \emph{correlation length}, and describes how quickly the correlations die out.
+
+As temperature decreases, entropic effects die out, and we see that the correlation length should in general increase. At the critical temperature, the length \(\xi\) should diverge, and \(\Gamma\to r^{-\tau}\). Below the critical temperature, the correlations once again decrease. This is somewhat non-intuitive.
+
+The critical exponent \(\nu\) determines the correlation length via
+\begin{equation}
+	\xi\sim \abs{t}^{-\mu}
+\end{equation}
+If the correlation length diverges at \(T=T_c\), we have extremely long range ``memory'' of correlations in our systems which decays as a power law rather than an exponential. However, at the critical temperature, the exponent \(\tau\) changes---rather, we have our second critical exponent which describes our correlation decay at the critical temperature:
+\begin{equation}
+	\Gamma(r)\sim \frac{1}{r^{d-2+\eta}}
+\end{equation}
+or, \(\eta\) is the correction to the ``simplistic'' expectation.
+
+\section{Landau Theory}
+Landau theory, while its name might be intimidating, is an extremely elegant, simple, and quick way to  build a mean field theory. To do this, we expand the free energy in poswers of the order parameter, accounting for symmetries. Recall that an order parameter is a thermodynamic observable that distinguishes two phases; for example, density distinguishes the phases of a vdW fluid, and magnetization can distinguish paramagnets from ferromagnets. In particular, order parameters discontinuously jump across a first order phase transtion, or has a vertical tangent for continuous phase transitions.
+
+\subsection{Ferromagnet}
+The order parameter of a ferromagnet is the magnetization. In particular, let us first consider the zero field case. Then, the symmetry of the system invariance regardless of upward orientation or downward orientation. Thus, the sign of \(m\) doesn't matter, and we know that our series expansion must only hold even powers of \(m\). Thus, we take the ansatz
+\begin{equation}
+	F = F_0 + a_2m^2+a_4m^4+\dots
+\end{equation}
+In particular, our hamitonian is invariant under a transformation \(\sigma_i\to-\sigma_i\)
+\[H = J\sum_{\langle ij\rangle} \sigma_i\sigma_j\to J\sum_{\langle ij \rangle} (-\sigma_i\sigma_j) = J\sum_{\langle ij }\sigma_i\sigma_j = H\]
+If \(a_2>0\), a negative quartic term causes the free energy to be unbounded below, and thus we must have \(a_4\geq0\) and so the free energy is minimised at \(\vect{m}=0\)
+
+If instead \(a_2<0\) to keep the free energy bounded below, we must have \(a_4>0\), which gives us a mexican hat potential, and spontaneous magnetization, or a ferromagnetic phase.
+
+If we vary the system continuously between these two states, we find that the phase transition occurs at \(a_2 = 0\). In particular, if we consider
+\begin{equation}
+	a_2 = \tilde a_2 * t
+\end{equation}
+with \(\tilde a_2>0\) and \(t = (T-T_c)/T_c\), we obtain a very powerful theory of phase transitions. In fact, we can predict basically all critical exponents!
+
+First, we find the magnetization. If \(t>0\), we trivially have \(m=0\). For \(t<0\), we minimise the free energy
+\[0 = \pder{F}{m} = 2\tilde a_2 tm + 4 a_4 m^3\]
+so 
+\[m = \pm\sqrt{-\frac{\tilde a_2}{2a_4}t}\qquad t<0\]
+Thus,
+\begin{equation}
+	m\sim (-t)^\beta = (-t)^{1/2}
+\end{equation}
+or \(\boxed{\beta = 1/2}\)
+Inserting this into the free energy, we have 
+\[F = F_0 -\frac{\tilde a_2 ^2}{2a_4}t^2 + a_4\frac{\tilde a_2^2 t^2}{2a_4} = F_0-\frac{\tilde a^2t^2}{4a_4}\]
+We can find the heat capacity by
+\[c = \frac{T}{N}\pder{S}{T} = -\frac{T}{N}\pder{^2F}{T^2}\]
+so 
+\begin{subequations}
+\begin{equation}
+	\lim_{t\to 0-}c = \frac{\tilde a_2^2}{2NT_c a_4} 
+\end{equation}
+however, for \(t>0\), \(m=0\) and so \(F=F_0\) and 
+\begin{equation}
+	\lim_{t\to 0+}c = 0
+\end{equation}
+Thus, the specific heat has a discontinuity at \(T=T_c\) which corresponds to 
+\begin{equation}
+	\alpha = 0
+\end{equation}
+\end{subequations}
+This comes from a more formal definition the critical exponent in a function \(f(t)\) as
+\[\alpha = \at{\pder{\log[f(t)]}{\log t}}{t=t_0}\]
+Note however, a logarithm  \(\log(t)\) can also correspond to \(\boxed{\alpha = 0}\).
+
+Now, if we apply a field, our free energy gains a linear term:
+\begin{equation}
+	F \approx F_0 - hm + \tilde a_2 t m^2 + a_4 m^4
+\end{equation}
+Of course, we find equilibrium by minimizing \(F\) wrt \(m\):
+\[0 = \pder{F}{m} = -h + 2\tilde a_2 t m + 4a_4 m^3\]
+In particular, on the critical isotherm, \(T= T_c\then t=0\), we have
+\[h = 4a_4 m^3\]
+and so we find that \(\boxed{\delta = 3}\).
+
+When \(t\neq 0\), we have
+\[h = 2\tilde a_2 tm + 4a_4 m^3\]
+and so we find our susceptibility
+\[\pder{h}{m} = 2\tilde a_2 t + 12a_4 m^2\]
+\[\chi = \pder{m}{h} = \frac{1}{2\tilde a_2 t + 12 a_4 m^2}\]
+when \(t>0\), we know that \(m=0\), so
+\[\chi_+(t) = \frac{1}{2\tilde a_2 t}\sim t^{-1}\]
+however, for \(t<0\), our zero-field magnetization is \(m^2 = -\frac{\tilde a_2 t}{2a_4}\), so
+\[\chi_-(t) = -\frac{1}{4\tilde a_2 t}\sim t^{-1}\]
+Note that the negative sign cancels with the negative temperature, and so the susceptibility is still posititve. In both cases, we see that \(\boxed{\gamma = 1}\). It is interesting, however, that the prefactors are different on either side of \(t=0\). In particular,
+\[\frac{\chi(t\to 0^+)}{\chi(t\to 0^-)} = 2\]
+Thus, while the critical exponents are universal, the prefactors are in general not.
+
+Up to this point, we have not had to consider the spatial dependence of our lattice; we have not needed to care about the number of dimensions in the model. However, to calculate the exponents \(\nu\) and \(\eta\), we now need to make our Landau model \emph{local}. Thus, we define a ``free energy density'' \(f\) and define the free energy density dependent on a magnetization \(m(\vb r)\) and integrate to obtain the full free energy. To penalize a rapidly changing magnetization, we add a term that is the squared modulus of the gradient. This is known as a \emph{Ginzburg Landau Theory}\footnote{Such models are used to study superconductivite phases}. Our free energy can be written
+\begin{equation}
+	F-F_0\int\d[d]{r}\left[g(\del m)^2+\tilde a_2 tm^2+a_4 m^4\right]
+\end{equation}
+Let us consider first \(t>0\), where we don't care about \(a_4m^4\). We can then go to Fourier space, as we know \(e^{ikr}\) are eigenectors of the gradient operator\footnote{Unfortunately, the source of this derivation used a different convention from Deserno. Luckilly, these are all multiplicative prefactors, and do not affect the value of the critical exponents.}. Recall that we have
+\[\int\d[d]{r}e^{-i\vb q*\vb r} =(2\pi)^d\delta(\vb q)\]
+Our magnetization is transformed
+\[m(\vb r) = \frac{1}{(2\pi)^d}\int\d[d]{q}e^{i\vb q*\vb r} \tilde m(\vb q)\]
+\[m(\vb r) = \int\d[d]{r}e^{-i\vb q*\vb r} m(\vb r)\]
+Plugging into our free energy, we find
+\begin{equation}
+	F-F_0 =\int\frac{\d[d]{q}}{(2\pi)^d}(\tilde a_2 t + dq^2)\abs{\tilde m(\vb q)}^2
+\end{equation}
+This gives us a ``sum'' of independent quadratic terms \(\abs{\tilde m}^2\), with an effective spring constant. Using the equipartition theorem, we see for each degree of freedom
+\[\vect{(\tilde a_2 t + gq^2)\abs{\tilde m(\vb q)}^2} = k_BT\]
+Up to a factor\footnote{Deserno was unable to figure out where the factor went; perhaps the two degrees come from comples \(\tilde m\)?} \(1/2\). From this result, we are able to find the correlation function
+\[\Gamma=\vect{m(\vb r)m(0)}-\vect{m(\vb r)}\vect{m(0)}\to\vect{m(\vb r)m(0)}\]
+where we are able to throw out the second term becuase at \(t>0\) we have \(\vect{m}=0\). Considering the fourier transform,
+\begin{align*}
+	\tilde \Gamma(\vb q) &=\vect{\tilde m(\vb q)m(0)}\\
+			     &=\int\frac{\d[d]{q'}}{(2\pi)^d}\vect{\tilde m(\vb q)\tilde m (\vb q')}
+			     \intertext{However, as individual modes \(m(\vb q)\) are independent, we can rewrite the expectation\footnote{Once again, there is an inexplicable constant factor} as}
+			     &=\int\frac{\d[d]{q'}}{(2\pi)^d}\delta(q+q')(2\pi)^d\vect{\abs{\tilde m(\vb q)}^2}\\
+			     &=\vect{\abs{\tilde m(\vb q)}^2}\\
+			     &=\frac{k_BT}{\tilde a_2 t+gq^2}
+\end{align*}
+To return to real space, we can take an inverse Fourier transform. The asymptotic behaviour goes with
+\begin{equation}
+	\Gamma(\vb r)\sim \begin{cases}
+		\frac{e^{-r/\xi}}{r^{(d-3)/2}} & t>0\\
+		\frac{1}{r^{d-2}} & t=0
+	\end{cases}
+\end{equation}
+where
+\[\xi = \sqrt{\frac{g}{\tilde a_2 t}}\]
+Thus, we find the two critical exponents \(\boxed{\nu = 1/2}\) and \(\boxed{\eta = 0}\).
+
+In summary, the critical exponents we have calculated using Landau theory are
+\begin{subequations}
+	\begin{multicols}{3}
+		\noindent \begin{equation}
+			\alpha = 0
+		\end{equation}
+		\begin{equation}
+			\delta = 3
+		\end{equation}
+		\begin{equation}
+			\beta = 1/2
+		\end{equation}
+		\begin{equation}
+			\nu = 1/2
+		\end{equation}
+		\begin{equation}
+			\gamma = 1
+		\end{equation}
+		\begin{equation}
+			\eta = 0
+		\end{equation}
+	\end{multicols}
+\end{subequations}
+
+\section{MFT Validity}
+We began this discussion of critical exponents with the question of ``When is MFT valid?'' In particular, MFT ignores fluctuations, and so we exect it to be valid only when the fluctuations are unimportant. However, near critical points, we see that fluctuations actually diverge.
+
+In particular, at a critical point, we can write the free energy density of fluctuations as
+\[f_{fluc}\sim \frac{k_BT}{\xi^d}\sim \abs{t}^{\nu d}\]
+where \(k_BT\) gives us the energy, and the correlation length \(\xi\) gives us a characteristic length scale. 
+
+In addition, we can integrate the specific heat twice to compute the actual free energy denstiy
+\[f\sim\abs{t}^{2-\alpha}\]
+In particular, for MFT, we want for the fluctuations to be small compared to the free energy:
+\[1\ll\frac{f_{fluc}}{f}\sim\frac{\abs{t}^{\nu d}}{\abs{t}^{2-\alpha}}\sim \abs{t}^{\nu d-t+\alpha}\]
+At the critical point, \(t\to0\), and so MFT is valid iff
+\[0<\nu d - 2+\alpha\]
+so we obtain a self-consistency requirement
+\begin{equation}
+	\nu d> 2-\alpha
+\end{equation}
+We can plug in the values we obtained from Landau theory to find that
+\[\frac{d}{2}>2\]
+which means that MFT of the ising model is only valid when \(d>4\), even \emph{at} the critical temperature. In fact, for \(d=4\), it is correct up to logarithmic corrections. This is known as the \emph{upper critical dimension}, the minimum dimension for which MFT is valid. There are even some systems where this upper critical dimension is \(3\) and we can use MFT on real-world systems.
+
+\section{Critical Exponent Equalities}
+It turns out the critical exponents are not mutually independent; rather, they satisfy a number of identities. The first of these is 
+\begin{equation}
+	\alpha+2\beta+\gamma = 2
+\end{equation}
+which is known as the Rushbrooke's identity. It is rather simple to prove as an inequality due to convexity consideration, but it is interesting that it is actually an equality. Another is 
+\begin{equation}
+	\beta(\delta-1) = \gamma
+\end{equation}
+This is known as \emph{Widom's Identity}, after Prof.\ Mike Widom's father, Ben Widom. The (in)equality we just used to show the consistency of MFT
+\begin{equation}
+	2-\alpha = d\nu
+\end{equation}
+is known as Josephson's identity; in fact, one of the reasons MFT is questionable is because it violates Josephson's identity. Finally, we will list one more identity, whose name is unknown
+\begin{equation}
+	(2-\eta)\nu = \gamma
+\end{equation}
+The amazing insight that Ben Widom (and indeed was well known for) was that these relations follow naturally if the singular part of the free energy near the critical temperature follows a scaling relation. For the Ising model, this scaling relation is given
+\begin{equation}
+	f_s(t,h) = t^{2-\alpha}g_f\left(\frac{h}{t^\Delta}\right)
+\end{equation}
+where \(\Delta\) is known as the \emph{gap exponent}. This incredibly restrictive form of the leading order singular behaviour of the free energy gives us these equalities\footnote{We sometimes say that ``\(h\) enters only in the combination \(h/t^\Delta\).''} 
+The energy is found
+\begin{align*}
+E_s\sim \pder{f_s}{t} &= (2-\alpha)t^{1-\alpha}g_f\left(\tfrac{h}{t^\Delta}\right) - \Delta ht^{1-\alpha-Delta}g_f'\left(\tfrac{h}{t^\Delta}\right)
+\intertext{Factoring out a factor of \(t^{1-\alpha}\),}
+		      &=t^{1-\alpha}\left[(2-\alpha)g_f\left(\tfrac{h}{t^\Delta}\right) - \Delta\frac{h}{t^\Delta}g'_f\left(\tfrac{h}{t^\Delta}\right)\right]\\
+		      \intertext{Thus, we can introduce a new scaling function \(g_E\):}
+		      &=t^{1-\alpha}g_E\left(\tfrac{h}{t^{\Delta}}\right)
+\end{align*}
+Similarly, we find the dependence of the heat capacity as
+\begin{equation}
+	c_s\sim t^{-\alpha}g_c\left(\frac{h}{t^\Delta}\right)\label{eq31:ceea}
+\end{equation}
+As \(h\to 0\), we see that \(g_c\) goes to some constant, and we recover our critical exponent \(\alpha\). By construction, this is true, and not very interesting. However, we can find the other exponents in a similar manner. For instance, the magnetization can be found
+\begin{equation}
+	m_s(t,h) = \pder{f_s}{h}\sim\abs{t}^{2-\alpha-\Delta}g_m\left(\frac{h}{t^\Delta}\right)
+\end{equation}
+and with \(h\to 0\), we obtain our second critical exponent
+\begin{equation}
+	\beta = 2-\alpha - \Delta \label{eq31:ceeb}
+\end{equation}
+Similarly, as \(t\to 0\) we find \(h/t^\Delta\to\infty\). We will assume that \(g(x)\sim x^p\) as \(x\to \infty\). Thus,
+\[m(t=0,h)\sim \abs{t}^{2-\alpha-\Delta}\frac{h^p}{t^{\Delta p}} = h^p\abs{t}^{2-\alpha-\Delta-p\Delta}\]
+However, the LHS is indpendent of \(t\), while the RHS is dependent on \(t\). Thus, we conclude the exponent is zero, and we must have
+\begin{equation}
+	p\Delta = 2-\alpha-\Delta \label{eq31:ceep}
+\end{equation}
+Thus,
+\[m_s(t=0,h) \sim h^p = h^{2-\alpha-\Delta/\Delta} = h^{\beta/Delta}\]
+inverting, we find
+\[h = [m_s(t=0,h)]^{\Delta/\beta}\]
+so
+\begin{equation}
+	\delta = \frac{\Delta}{\beta}\label{eq31:ceed}
+\end{equation}
+Next, we find the susceptibility
+\[\chi_s(t,h) \sim \pder{m_s}{h}\sim \abs{t}^{2-\alpha-2\Delta}g_\xi\left(\tfrac{h}{t^\Delta}\right)\]
+The zero field susceptibility the scales with
+\[\xi_s(t, h=0)\sim \abs{t}^{2-\alpha-2\Delta}\]
+so
+\begin{equation}
+	\gamma = 2\Delta - 2+\alpha \label{eq31:ceec}
+\end{equation}
+Using these equations, we can eliminate the \(\Delta\)s and obtain the identities discussed earlier. For example, we note that twice~\ref{eq31:ceeb} gives us Rushbrooke's identiy, and subtracting one from~\ref{eq31:ceed}. In particular, these results are from a new ``toy'' that theorists had at the time---these identities are a triumph of \emph{renormalization theory}.
+
+\section{Actual Values}
+We will conclude our discussion of critical phenomena by comparing the values of the critical exponents.
+\begin{center}
+	\begin{tabular}{l|l|r|r|r|r|r|r}
+		&&\(\alpha\) & \(\beta\) & \(\gamma\) & \(\delta\) & \(\nu\) & \(\eta\)\\
+		\hline
+		MFT && 0(jump) & 1/2 & 1 & 3 & 1/2 & 0\\
+		2D Ising &2-comp scalar& 0(logarithm) & 1/8 & 7/4 & 15 & 1 & 1/4\\
+		3D ising &2-comp scalar& 0.1 & 0.33 & 1.24 & 4.8 & 0.63 & 0.04\\
+		2D Potts & q=3 comp scalar & 1/3 & 1/5 & 13/9 & 13 & 5/6 & 4/15\\
+		2D Potts & q=4 comp scalar & 2/3 & 1/12 & 7/6 & 15 & 2/3 & 1/4
+		
+	\end{tabular}
+\end{center}
+We see that the exponents obtained by exact solutions varied from MFT by a \emph{huge} amount. This led to a lot of work on explaining the failures of MFT, such as new series expansions, to improve these approximation methods. 

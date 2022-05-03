@@ -1,0 +1,184 @@
+%! TEX root = 0-main.tex
+\chapter{Quantum Canonical Ensemble}
+By analogy to the classical case, we can reasonably guess that the quantum canonical state can be defined as follows:
+\begin{equation}
+	W = \frac{1}{Z}e^{-\beta H}
+\end{equation}
+As \(W\) is a function of the Hamiltonian operator \(H\), it too is an operator. Once again, the factor \(Z\) is the partition function, chosen to normalize \(W\). As such, we have that
+\begin{equation}
+	Z = \tr(e^{-\beta H})
+\end{equation}
+Subtleties arise in the trace due to symmetry constraints. We will revisit this idea later. 
+
+Because the Hamiltonian is self-adjoint (and hopefully compact), it has real eigenvalues and its eigenvectors form an orthonormal basis over the Hilbert space \(\mathscr H\). We will denote this basis via
+\begin{equation}
+	H\k{n} = E_n\k{n}
+\end{equation}
+or equivalently, we should be able to spectrally decompose the Hamiltonian as
+\[H = \sum_n E_n \k n \b n\]
+Since the canonical stae is a function of \(H\), it is diagonalizable in the same basis. Trivially, we can then compute the partition function as
+\[Z = \tr(e^{-\beta H}) = \sum_n\b n e^{-\beta H} \k n = \sum_n e^{-\beta E_n}\]
+This equation is deceptively simple. When we actually compute it for certain systems, it may well be harder than integrating a (grand)canonical partition function for a comparable classical system, as integration has more flexibility than sums. Further, we will often have degenerate energy levels. In this case, we can sum over energy \emph{levels}, keeping in mind the degeneracy of those levels. Thus,
+\begin{equation}
+	Z = \sum_n e^{-\beta E_n} = \sum_\ell \Omega(\ell)e^{-\beta E_\ell}
+\end{equation}
+where the index \(n\) considers eigenstates, \(\ell\) considers energy levels, and \(\Omega(\ell)\) is the degeneracy of level \(\ell\). 
+
+\begin{aside}[Thermal Averages]
+From the quantum canonical state, we can then compute thermal averages:
+\[\vect{A} = \vect{W,A} = \tr(WA) = \tr(AW) = \sum_n \b n AW \k n\]
+Because we chose the trace to be calculated along an eigenbasis of \(W\), we can simplify this sum as
+\begin{equation}
+	\vect{A} = \frac{1}{Z}\sum_n e^{-\beta E_n} \b n A \k n \equiv \sum_n P_n \b n A \k n
+\end{equation}
+We can consider the term \(P_n  = e^{-\beta E_n}/Z\) as, once again, a measure of our subjective ignorance. If we take \(A= H\), then, we trivially have
+\[E = \vect{H} = \sum_n P_n E_n\]
+\end{aside}
+
+\section{Entropy}
+We argue that the free energy can be represented in a manner similar to that of the classical canonical partition function as
+\begin{equation}
+	F = -k_BT\ln Z
+\end{equation}
+We motivate this by looking at the quantum entropy
+\begin{equation}
+	S = -k_B \tr(W\ln W)
+\end{equation}
+which we also have not shown to be true (but should be compared to information entropy).
+Computing \(S\), we obtain
+\begin{align*}
+	S &= -k_B\sum_n\b n W\ln W \k n\\
+	  &=-k_B \sum_n \b{n} \frac{e^{-\beta E_n}}{Z}\ln \frac{e^{-\beta E_n}}{Z} \k{n}\\
+	&=-k_B\sum_n \frac{e^{\beta E_n}}{Z}\left(-\beta E_n - \ln Z\right)\\
+	&=\frac{1}{T}E + k_B\ln Z\\
+	TS &= E+k_B\ln Z\\
+	-k_B\ln Z&= E-TS\\
+		 &= F	
+\end{align*}
+Note that we have only shown that these arguments hold for the canonical state; however, the formula for entropy applies for \emph{any} state; this is due to analogy from Shannon entropy from information theory.
+
+\subsection{Low Temperature Limit}
+As temperature decreases, we argue we can write
+\[Z =  \sum_\ell \Omega(\ell)e^{-\beta E_\ell} = \Omega(0)e^{-\beta E_0}\left[1+\sum_{\ell>0}\frac{\Omega(\ell)}{\Omega(0)}e^{-\beta(E_\ell-E_0)}\right]\]
+We argue that the excited states (\(\ell>0\)) exponentially go to zero, leaving only the ground state contribution. Thus, for sufficiently low \(T\), the partition function can be written
+\[Z(T) \approx \Omega(0)e^{-\beta E_0}\]
+Thus, the probability of being in any one of the ground states approaches a constant \(\frac{1}{\Omega(0)}\), while the probability of being in an excited state is given
+\[P_{\ell\neq 0} = \frac{\Omega(\ell)}{\omega(0)}e^{-\beta(E_\ell-E_0)}\to 0\]
+Because we now know the probabilities of every state, we can easily calculate the entropy:
+\[\lim_{t\to 0}S = -k_B\sum_n \frac{1}{\Omega(0)}\ln\frac{1}{\Omega(0)} = k_B\ln\Omega(0)\]
+Using this result, we see that in the thermodynamic limit\footnote{We cannot know if the limits can be interchanged, which provides some degree of questionability},
+\[\lim{N\to \infty}\lim{T\to0^+}\frac{S(T)}{N} = \lim_{N\to\infty}\frac{k_B\ln\Omega(0,N)}{N} = 0\]
+which holds as long as the ground state isn't ``exponentially degenerate'', i.e. \(\Omega(0,N)\) does not scale with \(a^N\) for some \(a>1\). In such a case, we obtain the limit to be
+\[\lim_{N\to\infty}\lim_{t\to 0^+} = \lim_{N\to\infty}\frac{k_B \ln a^N}{N} = k_B\ln a\]
+Thus, the difference between the Nernst and Planck version of the 3\textsuperscript{rd} law is whether we believe it to be possible for a system to have an exponentially degenerate ground state. However, it is possible to show that there are idealized models such that the ground state is exponentially degenerate; on the other hand, we do not know whether such models represent reality well.
+
+\begin{aside}[Planck in Classical Statistical Mechanics]
+	As shown in the homework,
+	\[Z_{quantum}\leq Z_{classical}\]
+	it turns out the Golden-Thompson inequality gets closer and closer to equality as \(T\to\infty\), or \(\beta\to 0\).  As such, we want to have in the large-temperature limit, we also want the inequality of partition functions to approach an equality. As such, we use Planck's constant as a scaling factor with units of action, as opposed to some other scaling factor.
+\end{aside}
+
+Recall that Golden-Thompson shows us that
+\[F_{quantum} = -k_BT\ln \tr\left(e^{-\beta\left(\frac{P^2}{2m}+V(Q)\right)}\right)\geq -k_BT\ln \tr\left(e^{-\beta\frac{P^2}{2m}}e^{-\beta V(Q)}\right) = F_{classical}\]
+In Landau-Lifshitz \romannumeral5\relax, \textsection33, the following\footnote{This equation can be derived using the Zassenhaus formula} is derived:
+\begin{equation}
+	F_{quantum} = F_{classical}+\frac{1}{24}\frac{\hbar^2}{m(k_BT)^2}\vect{\left(V'(q)\right)^2} + \mathcal O(\hbar^3)
+\end{equation}
+note, that the leading order correction term contains the thermal average of the square-forces on the system. Further, the correction term vanishes for \(T\to\infty\) and \(m\to\infty\). The following motivates approximations such as the Born-Opppenheimer approximation, as the lighter particles experience larger quantum corrections than heavier particles.
+
+\section{Derivatives of Thermal Averages}
+Recall that we can compute the thermal average of an observable \(A\) as
+\begin{equation}
+	\vect{A} = \sum_n \frac{e^{-\beta E_n}}{Z}\b{n}A\k{n}
+\end{equation}
+Interestingly, the quantum averaging term, \(\b{n}A\k{n}\) has \emph{no temperature dependence}; all of the temperature dependence comes in the leading, ``post-quantum'' averaging term. Thus,
+\begin{align*}
+\pder{A}{\beta} &= \sum_n\pder{}{\beta}\frac{e^{-\beta E_n}}{Z}\b n A \k n\\
+		&= \sum_n\frac{(-E_n)e^{-\beta E_n}Z-e^{-\beta E_n}\pder{Z}{\beta}}{Z^2}\b{n} A\k{n}\\
+		&= \sum_n\frac{e^{-\beta E_n}}{Z}\left[-E_n-\pder{\ln Z}{\beta}\right]\b n A \k n\\
+		&= -\sum_n E_n \frac{e^{-\beta E_n}}{Z}\b n A \k n + \vect{H}\sum_n \frac{e^{-\beta E_n}}{Z}\b n A \k n\\
+		&=- \sum_n \frac{e^{-\beta E_n}}{Z}\b n A H \k n+\vect{H}\vec{A}
+\end{align*}
+and so, we obtain the important result
+\begin{equation}
+	\pder{\vect{A}}{\beta} = -\vect{AH}+\vect{A}\vect{H} = -\operatorname{Cov}(A,H)
+\end{equation}
+where \(\operatorname{Cov}\) is the \emph{covariance} of the two operators. This expression is also true classically. 
+
+Consider the specific heat
+\[c_V = \frac{1}{N}\pder{\vect H}{T} = \frac{1}{N}\pder{\beta}{T}\pder{\vect{H}}{\beta} = \frac{1}{Nk_BT^2}\operatorname{Cov}(H,H) = \frac{\sigma_H^2}{Nk_BT^2}\]
+as, of course, the covariance of an operator with itself is the variance of the operator. Dividing by Boltzmann's constant, we obtain
+\begin{equation}
+	\frac{c_V}{k_B} = \frac{1}{N}\left(\frac{\sigma_H}{k_BT}\right)^2
+\end{equation}
+This is an example of a \emph{fluctuation-response theorem}, and is the same as the classical result. The quantity \(c_V\) is an example of a response, while \(\sigma_H\) is an example of a fluctuation. Fluctuation-respose theorems show that responses result from fluctuations.
+
+\section{Merging fun!}
+
+\section{Factorization of the Partition Function}
+Recall that in classical mechanics that the additivity of Hamiltonians lead to the factorization of the partition function:
+\[H = \sum_j H_j \then Z = \prod_j Z_j\]
+
+Consider a collection of \(N\) particles. Assume we know the spectral decomposition of the each of the individual Hamiltonians.; that is we know
+\[H_j\k{n_j} = E_{n_j}\k{n_j}\]
+We consider the following state vector:
+\[\k{n} = \bigotimes_{j=1}^N\k{n_j}\]
+we can then extend the individual hamiltonians to act on this state vector:
+\[\tilde H_j = \underbrace{\mathbbm 1 \tp \dots \tp \mathbbm 1}_{\text{\(j-1\) times}}\tp H_j \tp \underbrace{\mathbbm 1 \tp \dots \tp \mathbbm 1}_{\text{\(N-j\) times}}\]
+Then, we can write the overall hamiltonan as
+\[H = \sum_{j=1}^N\tilde H_j \k{n} = \left(\sum_{j=1}^NE_{n_j}\right)\k{n} = E_n\k{n}\]
+so we have an eigenvalue problem in terms of the overall state ket \(\k n\).
+
+Thus, we have the partition function as
+\begin{align*}
+	Z &= \sum_{\{n_j\}} e^{-\beta \sum_{j=1}^N E_{n_j}}\\
+	  &= \sum_{\{n_j\}} \prod_{j=1}^Ne^{-\beta E_{n_j}}\\
+	  &= \sum_{n_1}\cdots\sum_{n_N}e^{-\beta E_{n_1}}\cdots e^{-\beta E_{n_N}}\\
+	  &= \left(\sum_{n_1}e^{-\beta E_{n_1}}\right)*\cdots *\left(\sum_{n_N}e^{-\beta E_{n_N}}\right)\\
+	  &=\prod_{j=1}^N\sum_{n_j} e^{-\beta E_{n_j}}\\
+	  &=\prod_{j=1}^NZ_j
+\end{align*}
+And so, under certain circumstances, we can factorize the partition function. However, there are two notes to this proof. First, note that we did not simply swap the sum and the product from line 2 to line 5; rather, the former has a sum over all possible energy configurations among all particles, while the latter is the sum over the energy states for a particular particle. Second, for fermions and bosons, we also need to account for (anti)symmetrizations of the state. This second point is a consequence of the indistinguishability of the particles and will be discussed later. 
+
+\subsection{Two-Level System}
+Consider a  system with a hamiltonian \(H = \varepsilon n\) with \(n = \{0,1\}\). For example, such a system could be represented by a particle in a magnetic field. We can then calculate the partition function for a single particle as
+\[Z = \sum_{n=0}^1 e^{-\beta\varepsilon n} = 1+e^{-\beta \varepsilon}\]
+Now that we know the partition function, we now know the thermodynamics of the system. The free energy can be found
+\[F = -k_BT\ln Z = -k_BT\ln ( 1+e^{-\beta\varepsilon})\]
+and the energy as
+\[E = \pder{\beta F}{\beta} = \frac{\varepsilon}{1+e^{+\beta \varepsilon}}\]
+This expression makes sense; when \(T\to 0\), \(\beta\to\infty\) so the energy is 0. However, when \(T\to\infty\), \(\beta\to 0\), the energy goes to \(\varepsilon/2\). This is slightly unexpected, but can be rationalized by considering entropy. When \(T\to\infty\), the entropic effect on the free energy dominates the thermodynamics, so the state attempts to maximise the entropy; this happens with equal occupation of the two states.
+
+Similarly, we can determine the expectation of \(n\):
+\[\vect{n} = \sum_{n=0}^1 n \frac{e^{-\beta \varepsilon n}}{z} = \frac{1}{1+e^{+\beta \varepsilon}} = \frac{E}{\varepsilon}\]
+The fact that the denominator contains two positive signs has incredibly important consequences, as we will see later. If we plot \(\vect{n}\) as a function of the temperature, we obtain a characteristic temperature \(T\ast = \varepsilon/k_B\) where the slope is the steepest, and asymptotes to \(1/2\) as \(T\to\infty\).
+Unfortunately, there is no symmetry about the critical temperature.
+\diagram\
+
+\subsection{Simple Harmonic Oscillator}
+Consider the hamiltonian given
+\[H = \frac{P^2}{2m}+\frac{1}{2}\omega^2Q^2 = \hbar\omega\left(a\adj a +\frac{1}{2}\right) = \hbar\omega\left(\hat n +\frac{1}{2}\right)\]
+The last form is convenient, as we already know the spectrum of \(\hat n\) as \(n\in \N\cup \{0\}\).
+This gives us a very simple partition funciton to compute:
+\[Z = \tr(e^{-\beta H}) = \sum_{n=0}^\infty e^{-\beta \hbar \omega(n+1/2)} = e^{-\frac{1}{2}\beta\hbar\omega}\sum_{n=0}^\infty e^{-\beta\hbar\omega n} = e^{-\frac{1}{2}\beta\hbar\omega}*\frac{1}{1-e^{-\beta \hbar\omega}}\]
+We can rewrite the partition as
+\begin{equation}
+	Z = \frac{1}{2\sinh\frac{\beta\hbar\omega}{2}}
+\end{equation}
+In the imit \(T\to\infty\),\(\beta\to 0 \), we obtain \(\sinh \frac{\beta\hbar\omega}{2}\to\frac{\beta\hbar\omega}{2}\). Then, we obtain
+\[Z \to \frac{k_BT}{\hbar\omega}\]
+which is the classical result.
+
+The free energy can of course be written as
+\[F = k_BT\ln \left(2\sinh \frac{\beta\hbar\omega}{2}\right)\]
+and the energy, after some calculation, is
+\begin{equation}
+E = \frac{\hbar\omega}{2}\tanh \frac{\beta\hbar\omega}{2} = \hbar\omega\left(\frac{1}{e^{\beta\hbar\omega}-1}+\frac{1}{2}\right)
+\end{equation}
+We recognize the expectation of the number operator is give
+\begin{equation}
+	\vect{n} = \frac{1}{e^{+\beta\hbar\omega}-1}
+\end{equation}
+notice how similar this occupancy looks to that of the two-level system, albeit with a \(-1\) instead of a \(+1\). If we once again plot \(\vect{n}\) against \(T\). We see as \(T\to\infty\), \(\beta\to0\) from above, so there is no upper bound; however, it asymptotically reaches a linear behaviour at high temperature; the intercept of this asymptote is given
+\[\frac{\hbar\omega}{k_BT} = \frac{1}{2}\]
+

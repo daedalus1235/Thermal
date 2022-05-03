@@ -1,0 +1,74 @@
+%! TEX root = 0-main.tex
+\chapter{Consequences of Extensivity}
+Recall that entropy is extensive if it satisfies:
+\[S(\lambda U, \lambda V, \lambda N)=\lambda S(U,V,N)\]
+that is, \(S,U,V,N\) are proportional to the size of the system.
+
+Entropy is considered additive if
+\[S_{A,B}(U_A,V_A,N_A; U_B,V_B, N_B)=S_A+S_B\]
+Note that both of these properties can be violated if there are surface effects, or if molecular interactions are short range.
+
+Extensivity implies addititvity, but not vice versa.
+
+\section{Euler Equation}
+Energy is also an extensive property. If we take the derivative wrt the coefficient \(\lambda\), we get
+\[U(S,V,N)=\sum_i \pder{U(\lambda x_1, \lambda x_2, \lambda x_3)}{\lambda x_i}\pder{\lambda x_i}{\lambda}=\sum_i\pder{U(\lambda \vv{x})}{\lambda}x_i\]
+Fixing \(\lambda = 1\), 
+\[U=S\pder{U}{S}+V\pder{U}{V}+N\pder{U}{N}\]
+Substituting,
+\begin{equation}
+	U=TS-PV+\mu N	\label{eq12:euler}
+\end{equation}
+or,
+\[S=\frac{U}{T}+\frac{PV}{T}-\frac{\mu N}{T}\]
+
+\section{Gibbs-Duhem Relation}
+If a system is extensive, the intensive parameters are not independent. Taking the differential of the Euler equation,
+\[\d U = T\d{S}+S\d{T}-P\d{V}-V\d{P}+\mu\d{N}+N\d{\mu}\]
+we can subtract the first law to obtain the Gibbs-Duhem Relation:
+\begin{equation}
+0=S\d{T}-V\d{P}+N\d{\mu}
+\end{equation}
+Generally, we consider \(P,T\) to be the free parameters:
+\begin{equation}
+	\d{\mu}=-\frac{S}{N}\d{T}+\frac{V}{N}\d{P}
+\end{equation}
+
+If we use a more general formulation of the first law allowing for different species,
+\[\d U = T\d{S}-P\d{V}+\sum_j^r\mu_j\d{N_j}\]
+we see that the relation becomes
+\[0 = S\d{T}-V\d{P}+\sum_j^r N_j \d{\mu_j}\]
+so there is the loss of one free parameter.
+
+Similarly, we can rewrite the Gibbs-Duhem relation in terms of the Euler equaiton for entropy:
+\begin{equation}
+	\d{\left(\frac{\mu}{T}\right)}=\frac{U}{N}\d{\left(\frac{1}{T}\right)}+ \frac{V}{N}\d{\left(\frac{P}{T}\right)}
+\end{equation}
+
+\section{Application to Ideal Gas}
+Taking the ideal gas law and equipartition theorem for a monatomic gas, we can rewrite in terms of intensive variables \(u=U/N\) and \(v=V/N\)
+\[\frac{P}{T}=k_B v^{-1}\qquad \qquad \frac{1}{T}=\frac{3}{2}k_B u^{-1}\]
+Plugging into the second form of rhe Gibbs-Duhem relation,
+\[\d{\left(\frac{\mu}{T}\right)}=-\frac{3}{2}k_B u^{-1}\d{u}-k_Bv^{-1}\d{v}\]
+we can integrate and obtain a third equation of state:
+\begin{equation}
+	\frac{\mu}{T}=-k_B\left[\frac{3}{2}\ln\frac{U}{N}+\ln\frac{V}{N}+X\right]
+\end{equation}
+
+Plugging the euler equation into the thermodynamic potentials, we obtain
+\begin{subequations}
+	\begin{align}
+		F&=-PV+\mu N\\
+		H&=TS+\mu N\\
+		G&=\mu N
+	\end{align}
+\end{subequations}
+Recall that this applies only to extensive systems.
+
+\begin{aside}[Legendre Transforms]
+	Notice that legendre transforms exchange a differential in terms of \(A\d{B}\) for \(-B\d{A}\). This corresponds to the subtraction of the term \(AB\) in the overall function. This is because:
+	\[\d{(AB)} = A\d{B}+B\d{A}\]
+	subtracting this differential shows how the differential gets exchanged; the legendre transform swaps the variables in the differential term.
+	
+\end{aside}
+

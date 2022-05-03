@@ -1,0 +1,35 @@
+%! TEX root = 0-main.tex
+\chapter{Nernst Postulate}
+Recall that the Nernst Postulate supposes that the entropy of a thermodynamic system goes toa constant as the temperature approaches absolute zero; beginning from quantum mechanics, this postulate arises naturally, but in classical mechanics requires it to be true.
+Most interestingly, it shows the impact of quantum mechanics on the values of macroscopic properties.
+
+\section{Classical Ideal Gas Violation}
+Recall the entropy of the classical ideal gas. Re-expressing using the equipartition theorem,
+\begin{equation}
+	S(T,V,N) = k_B N \left[\frac{3}{2}\left(\frac{3}{2}k_B T\right)+\ln\left(\frac{V}{N}\right)+x\right]
+\end{equation}
+Note that because \(T\) occurs within a natural logarithm, as \(T\to0\), \(S\to-\infty\); in fact, this occurs for all classical systems. As such, quantum mechanics must be used in the study of thermodyamics
+
+\subsection{Planck Extension}
+Planck's extension states that the constant that entropy approaches is zero. While this is often true, there are some exceptions; howerver, Nernst's Postulate is \emph{always} true.
+
+\section{Consequences}
+The nernst postulate imposes constraints on macroscopic quantities at low temperature; namely, specific heat and thermal expansion.
+
+\subsection{Specific Heat}
+Recall the definition of specific heat as
+\[c_X(T)=\frac{T}{N}\left(\pder{S}{T}\right)_{X,N}\]
+for \(X=V,P\). The change in entropy between two temperatures is given
+\[S(T_2)-S(T_1)=\int_{T_1}^{T_2}\d{S} = \int_{T_1}^{T_2}\left(\pder{S}{T}\right)_{X,N}\d{T}=\int_{T_1}^{T_2}\frac{Nc_X(T)}{T}\d{T}\]
+Suppose, FSOC that \(\displaystyle\lim_{T\to 0}c_X(T)=c_0\neq 0\). Then, for small temperatures,
+\[\Delta S \approx \int_{T_1}^{T_2}\frac{Nc_0}{T}\d{T}=Nc_0\ln(T_2/T_1)\]
+Fixing \(T_2\) and sending \(T_1\to 0\), we see that \(\Delta S\to+\infty\), violating the Nernst Postulate, and leading to a contradiction. Thus, we must have \(c_0=0\), and specific heats become zero at absolute zero.
+
+Recall for the Classical Ideal Gas, \(c_V=\frac{3}{2}k_B\) is a constant, independent of temperature; this contradicts the previously derived result, and is another example of how the Classical Ideal Gas violates the Nernst Postulate.
+
+\subsection{Thermal Expansion}
+A similar result can be obtained for the coefficient of thermal expansion:
+\[\alpha = \frac{1}{V}\left(\pder{V}{T}\right)_{P,N}\]
+We can rewrite this using a maxwell relation on the Gibbs Free Energy, so
+\[-V\alpha = \left(\pder{S}{P}\right)_{T,N}\]
+Because \(S\) is constant at \(T=0\), then this derivative must necessarily be zero at \(T=0\). Thus, we must have \(\alpha\to0\) as \(T\to 0\).

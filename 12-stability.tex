@@ -1,0 +1,100 @@
+%! TEX root = 0-main.tex
+\chapter{Stability Conditions}
+A system is stable if it responds to any small perturbation by trying to return to its original configuraiton. In this way, we can view it as the minimum of some sort of potential well. We will examine stability with extremum principles; while it may seem like we are examining a very specific case,the results obtained are actually general.
+
+\section{Extensive Stability Conditions}
+Consider two thermodynamic systems, denoted \(S(U,V,N)\) and \(\hat S (\hat U, \hat V, \hat N)\). We will combine these two systems to form a composite system, isolated from the rest of the universe. Similar to the previous chapter, we will perturb an extensive quantity \(X\).
+
+\subsection{Volume and Energy}
+Assume the partition between the system is a moveable wall, such that
+\[V_T=V+\hat V\]
+By the minimum energy principle, we know that
+\[\Delta U_{T}=U(S,V+\Delta V, N)+\hat U(\hat S, \hat V-\Delta V, \hat N)-U(S,V,N)-\hat U(\hat S,\hat V,\hat N)\geq0\]
+Note that equality holds only when \(\Delta V=0\). Assuming the two systems are identical, and the perturbation \(\Delta V\ll1\)
+\[U(S,V+\Delta V,N)+U(S,V-\Delta V,N)-2U(S,V,N)\geq0\]
+Dividing by \(\Delta V^2\) and taking the limit \(\Delta V\to0\), this expression, we see that this is the finite-difference expression for the second order derivative:
+\begin{equation}
+	\left(\pder{^2U}{V^2}\right)_{S,N}\geq0
+\end{equation}
+or, in terms of the isentropic compressibility (an analogue to the isothermal compressibility)
+\[\kappa_S = -\frac{1}{V}\left(\pder{V}{P}\right)_{S,N}\]
+\[\left(\pder{^2U}{V^2}\right)_{S,N}=-\left(\pder{P}{V}\right)_{S,N}=\frac{-1}{\left(\pder{V}{P}\right)_{S,N}}\]
+Thus,
+\begin{equation}
+	\frac{1}{V\kappa_S}\geq0
+\end{equation}
+further, because \(V>0\), we have \(\kappa_S>0\), or an increase in pressure always leads to a decrease in volume.
+
+\subsection{Heat and Energy}
+Instead of varying volume, we instead vary entropy. Similar to the previous section, we obtain
+\begin{equation}
+	\left(\pder{^2U}{S^2}\right)_{V,N}\geq0
+\end{equation}
+In terms of \(c_V\),
+\[\left(\pder{^2U}{S^2}\right)_{V,N}=\left(\pder{T}{S}\right)_{V,N}=\frac{T}{Nc_V}\]
+thus,
+\begin{equation}
+	\frac{T}{Nc_V}\geq0
+\end{equation}
+Or, when we add heat to a system, the temperature increases.
+
+\subsection{Helmholtz}
+We have a composite system in contact with a thermal reservoir. Thus, the Helmholtz Free Energy is minimized. Perturbing volume, as above, we obtain
+\begin{equation}
+	\left(\pder{^2F}{V^2}\right)_{T,N}\geq0
+\end{equation}
+thus,
+\[\left(\pder{^2F}{V^2}\right)_{T,N}=-\left(\pder{P}{V}\right)_{T,N}\geq0\]
+or
+\begin{equation}
+	\frac{1}{V\kappa_T}\geq0
+\end{equation}
+so
+\begin{equation}
+	\kappa_T\geq0
+\end{equation}
+
+\subsection{Enthalpy}
+Consider a composite system at a constant volume. Perturbing entropy,
+\begin{equation}
+	\left(\pder{^2H}{S^2}\right)_{P,N}\geq0
+\end{equation}
+thus,
+\[\left(\pder{^2H}{S^2}\right)_{P,N}=\left(\pder{T}{S}\right)_{P,N}=\frac{T}{Nc_P}\]
+or
+\begin{equation}
+	\frac{T}{Nc_P}\geq0
+\end{equation}
+so
+\begin{equation}
+	c_P\geq0
+\end{equation}
+
+\subsection{Inequalities}
+Recall that 
+\[c_P=c_V+\frac{\alpha^2TV}{N\kappa_T}\]
+from the stability conditions, we see that all terms are positive. Thus,
+\begin{equation}
+	c_P\geq c_V
+\end{equation}
+Similarly, the relation
+\begin{equation}
+	\kappa_S=\kappa T-\frac{\alpha^2TV}{Nc_P}
+\end{equation}
+shows us that
+\begin{equation}
+	\kappa_T\geq \kappa_S
+\end{equation}
+
+\section{Intensive Stability Conditions}
+Take the temperature of Hemlholts free energy.We have
+\[\left(\pder{F}{T}\right)_{V,N}=-S\]
+so
+\[\left(\pder{^2F}{T^2}\right)_{V,N}=-\left(\pder{S}{T}\right)_{V,N}=-\frac{Nc_V}{T}\leq0\]
+in general, the extensive equilibrium conditions are positive, while the intensive equilibrium conditions are negative. We can alternatively derive this using heat transfer at minimum energy:
+\[\left(\pder{U}{S}\right)_{V,N}=T\then\left(\pder{^2U}{S^2}\right)_{V,N}=\left(\pder{T}{S}\right)_{V,N}\geq0\]
+Thus,
+\[\left(\pder{^2F}{T^2}\right)_{V,N}=-\left(\pder{T}{S}\right)_{V,N}^{-1}=-\left(\pder{^2U}{S^2}\right)^{-1}_{V,N}\geq0\]
+Notice that this is a relation between the conjugate variable \(T,S\) between the legendre transforms \(F,U\). The legendre transform thus gives us a way to convert the stability conditions for extensive quantities to those for intensive quantities.
+
+

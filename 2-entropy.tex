@@ -1,0 +1,208 @@
+%! TEX root = 0-main.tex
+\chapter{Configurational Entropy}
+Boltzmann defined entropy of a composite system to be the natural lograrithm of the probability of extensive variables, up to an additive and multiplicative constant. The essential property of entrpy is that when two systems come into contact, the final entropy is the maximal entropy of the system.
+
+The initial state of a system is usually an improbable state; when mixing coffee and milk, the initial state of separate coffee and milk phases is not as probable as a mixed state.
+
+\subsection{Assumptions}
+We assume that the position and momenta are independent of each other. This statement allows us to separate:
+\begin{equation}
+	P(q,p)=P(q)P(p)
+\end{equation}
+ 
+The part of the entropy arising from the positions \(q\) is the \emph{configurational entropy}, and is dependent only on the volume and number of particles:
+\[S_q=S_q(V,N)\]
+The contribution of entopy from the momenta \(p\) is dependent only on the energy and the number of particles:
+\[S_p=S_p(E,N)\]
+The total entropy ends up being:
+\[S_{tot}(E,V,N)=S_1(V,N)+S_p(E,N)\]
+
+\begin{aside}[Intensivity and Extensivity]
+An extensive property depends on the amount of stuff; the volume, number of particles, and total energy are extensive properties. An intensive property does not depend on the amount of stuff, such as temperature, or density.
+\end{aside}
+
+\section{Probability Distribution of Particles}
+Imagine a composite system of two boxes; box \(J\) and box \(K\). The total number of particles in the system is:
+\[N_T=N_j+N_k\]
+and the total volume is
+\[V_T=V_j+V_k\]
+
+Remove the partition between the boxes so the particles can exchange between the boxes. The number of particles in each box then becomes a funciton of time, that is:
+\[N_T=N_j(t)+N_k(t)\]
+The functions \(N_j\) and \(N_k\) will evolve until the macroscopic state with maximal probability is obtained. 
+
+From this, we make the simplest assumption: the particle positions are mutually independent:
+\[P(q)=\prod_i P_i(r_i)\]
+Further, we assume that all infinitessimal volumes are equally likely; the probability that a particle is in a given volume is given by the geometric probability of that volume relative to the entire volume.
+
+We can then reduce the probability distribution of \(N_j, N_k\) to the binomial distribution
+\begin{equation}P(N_j,N_k)=\underbrace{\frac{N_T!}{N_j!N_k!}}_{\ncr{N_T}{N_j}}*\underbrace{\left(\frac{V_j}{V_T}\right)^{N_j}}_{p_j^{N_j}}*\underbrace{\left(\frac{V_k}{V_T}\right)^{N_k}}_{(1-p_j)^{N_T-N_j}}\label{eq4:confprob}\end{equation}
+
+Thus, the mean of \(N_j\) is given:
+\begin{subequations}
+	\begin{align}
+		\vect{N_j}&=\frac{N_T V_j}{V_T}\\
+		\sigma_{N_j}^2&=\frac{N_T V_j}{V_T}\left(1-\frac{V_j}{V_k}\right)=\frac{N_t V_j V_k}{V_T^2}
+	\end{align}
+\end{subequations}
+Similar expresions can be found for \(N_k\). From this, we find that
+\begin{equation}
+	\frac{\vect{N_j}}{V_j}=\frac{N_T}{V_T}=\frac{\vect{N_k}}{V_k}
+\end{equation}
+
+The relative standard deviation
+\[\frac{\sigma_{N_j}}{\vect{N_j}}=\sqrt{\frac{1}{\vect{N_j}}}*\sqrt{\frac{V_k}{V_T}}\]
+is small for large values of \(N\); for mole-like quantities, this will be on the order of \(10^{-10}\).
+
+\begin{aside}{Actual vs Expected Value}
+	It becomes tiresome to constantly write angle brackets around quantities, so macroscopic variables will typically represent expected values rather than their actual values. This is particularly important to remember when computing funcitons of these variables, such as entropy.
+
+	However, when discussing probabilities, we instead are using the actual value of the variable.
+\end{aside}
+
+We will introduce a new function \(\Omega\) defined to be:
+\begin{equation}
+	\Omega_q(N,V)=\frac{V^N}{N!}
+\end{equation}
+
+This then allows us to rewrite the probability~\ref{eq4:confprob} as:
+\begin{equation}
+	P(N_j, N_k)=\frac{\Omega_q(N_j, V_j)\Omega_q(N_k, V_k)}{\Omega(N_T,V_T)}\label{eq4:omegaprob}
+\end{equation}
+
+Because the logarithm is monotonic, the maximum of the probability is the maximum of the logarithm. Using the logarithm, we have:
+\begin{align}
+	\ln(P)&=\ln[\Omega_q(N_j,V_j)]+\ln[\Omega_q(N_k,V_k)]-\ln[\Omega_q(N_T,V_T)]\nonumber\\
+	k\ln(P)&=k\ln[\Omega_q(N_j,V_j)]+cN_j+k\ln[\Omega_q(N_k,V_k)]+cN_k-k\ln[\Omega_q(N_T,V_T)]-cN_T\nonumber
+\end{align}
+The expression for \(k\ln(P)\) is separated  separated into terms for each individual box, as well as the total box. In fact, the function \(k\ln[\Omega_q(N,V)]+cN\) looks like a good candidate for the entropy function, which has both the multiplicative and additive constants that Boltzmann described.
+
+Thus, we assume that we can write the configurational entropy as:
+\begin{equation}
+	S_q(N,V)=k\ln \left(\frac{V^N}{N!}\right)+k X N
+\end{equation}
+for some constants \(k\) and \(X\). 
+
+Then, the sum of the entropies of the two subsystems is
+\[	S_q(N_j, V_j)+S_q(N_k, V_k) =k\ln[P(N_j, N_k)]+S_q(N_T, V_T)\]
+Because \(S_q(N_T, V_T)\) is constant, we need only maximize the first term. Using a gaussian approximation, we note that the first term is negligible when compared to the total configurational entropy; thus we can show that when maximised, the following relation holds:
+\begin{equation}
+	S_q(N_j, V_j)+S_q(N_k, V_k) =+S_q(N_T, V_T)
+\end{equation}
+This demonstrates the crucial property of \emph{addititvity} of entropy.
+
+Generalizing to a system of \(M\geq 2\) subsystems, the probability becomes:
+\[P(\{N_j|j=1,\ldots,M\})=\frac{\prod_j^M\Omega(N_j, V_j)}{\Omega(N_T, V_T)}\]
+\begin{align}
+	k\ln [P(\{N_j|j=1,\ldots,M\})]&=-k\ln\Omega_q(N_T, V_T)+\sum_j^M k\ln\Omega(N_j, V_j)
+\end{align}
+Once again, after maximising and discarding negligible terms, we obtain:
+\begin{equation}
+	S_q(N_T, V_T) = \sum_j^M S_q(N_j, V_j)
+\end{equation}
+
+Using the sterling approximation \(\ln (N!) \approx N\ln N - N\), we obtain the configurational entropy:
+\begin{equation}
+	S_q(N,V)=kN\left[\ln\left(\frac{V}{N}\right)+X \right]\label{eq4:confent}
+\end{equation}
+
+\chapter{Energy dependence of Entropy}
+We use the same system as in the previous chapter, but rather than allowing particles to transfer, we only allow energy to transfer; there is a \emph{diathermal barrier} between the boxes. We assume that the only interactions between particles are elastic collisions. Further, we assume that every particle has the same mass \(m\).
+
+The energy of box \(\alpha\) is then:
+\begin{equation}
+	E_\alpha = \sum_{i=1}^{N_\alpha} \frac{p^2_{\alpha, i}}{2m}
+\end{equation}
+and is constrained by
+\[E_T=\sum_\alpha E_\alpha\]
+Further, all volumes and particle numbers stay constant.
+
+We assume the momentum has a constant distribution, subject to constraints by the total energy of the system; all momenta are equally likely. The probablilty distribution of the energies is:
+\begin{equation}
+	P(E_j, E_k)=\frac{\int_{-\infty}^{\infty}\delta \left(E_j-\sum_i^{N_j}\frac{p^2_{j,i}}{2m}\right)\d{p_j}*\int_{-\infty}^\infty\delta\left(E_k - \sum_i^{N_k}\frac{p^2_{k,i}}{2m}\right)}{\int_{-\infty}^\infty \delta\left(E_T-\sum_i^{N_j}\frac{p^2_{j,i}}{2m}-\sum_{i'}^{N_k}\frac{p^2_{k,i'}}{2m}\right)\d{p_j}\d{p_k}}
+\end{equation}
+where the shorthand for integrals is given
+\[\int_{-\infty}^\infty\d{p_\alpha}\equiv \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty \d[3]{p_{\alpha, 1}}\dots\d[3]{p_{\alpha, N_\alpha}}\]
+
+To simplify notation, we define \(\Omega_p(E_\alpha, N_\alpha)\)
+\begin{equation}
+	\Omega_p(E_\alpha, N_\alpha) = \int_{-\infty}^\infty \delta \left(E_\alpha-\sum_i^{N_\alpha} \frac{p^2_{\alpha,i}}{2m}\right)\d{p_\alpha}\label{eq5:omgp}
+\end{equation}
+reducing the probability to
+\begin{equation}
+	P(E_j, E_k) = \frac{\Omega_p(E_j,N_j)\Omega_p(E_k,N_j)}{\Omega_p(E_T,N_t)}
+\end{equation}
+
+Notice that we rewrite the sum of momenta in Equation~\ref{eq5:omgp} as a the norm of some \(3N\) dimensional vector. Then, the argument of the delta function becomes:
+\begin{equation}
+	\norm{\vv{P}}=\sqrt{2mE}
+\end{equation}
+Thus, the probability becomes a geometric probability on the surface of a hypersphere. While we don't know the the explicit formula for the area of a hypersphere, we can determine its form using dimensional analysis:
+\[A=S_n r^{n-1}\]
+allowing us to rewrite:
+\begin{equation}
+	\Omega_p(E,N)=\int_0^\infty S_{3N} p^{3N-1}\delta\left(E-\frac{p^2}{2m}\right)\d{p}
+\end{equation}
+
+using the change of variable
+\[S_{3N}p^{3N-1}\d{p}=\prod_i^{N}\d[3]{p_i}\]
+
+Using another change of variable \(p^2=2mu\),
+\begin{align*}
+	\Omega_p(E,N)&=\int_0^\infty S_{3N}p^{3N-2}\delta\left(E-\frac{p^2}{2m}\right)p\d{p}\\
+		     &=\int_0^\infty S_{3N}(2mu)^{3N-2}\delta(E-u)m\d{u}\\
+		     &=S_{3N}m(2Me)^{(3N-2)/2}
+\end{align*}
+Using gaussian integrals, we can determine \(S_n\) as:
+\begin{align}
+	\left[\int_{-\infty}^\infty e^{-x^2}\d{x}\right]^n&=\int_0^\infty\exp{-r^2}S_nr^{n-1}\d{r}\nonumber\\
+	 \pi^{n/2}&=\frac{1}{2}S_n\int_0^\infty e^{-t}t^{n/2-1}\d{t}\nonumber\\
+		  &=\frac{1}{2}S_n\Gamma(n/2)\nonumber\\
+	 \then S_n&=\frac{2\pi^{n/2}}{\Gamma(n/2)}
+\end{align}
+Plugging this into our expression for \(\Omega_p\):
+\begin{equation}
+	\Omega_(E,N)=\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}
+\end{equation}
+Taking the logarithm,
+\begin{equation}
+	\ln\Omega_p(E,N)=\frac{3N}{2}\ln(2\pi n)+\left(\frac{3N}{2}-1\right)\ln E-\ln\Gamma(3N/2)
+\end{equation}
+For very large \(N\), we can approximate \(\Gamma(N)\sim N! \), so
+\[\ln\Gamma(3N/2)\approx\ln\left[\left(\frac{3N}{2}-1\right)!\right]\approx\frac{3N}{2}\ln\frac{3N}{2}-\frac{3N}{2}\]
+Thus,
+\[\Omega_p(E,N)\approx N\left[\frac{3}{2}\ln\frac{E}{N}+X\right]\]
+Finally, we can rewrite the probability to find that it is proportional to:
+\begin{equation}
+	P(E_j, E_T-E_k)\propto E_j^{3N_j/2-1}(E_T-E_j)^{3(N_T-N_j)/2-1}
+\end{equation}
+
+We approximate the expected value of \(\vect{E_j}\) as the peak of the probability:
+\begin{align}
+	0&=\frac{\partial}{\partial E_j}\ln P(E_j, E_T-E_j)\nonumber\\
+	 &=\left(\frac{3N_j}{2}-1\right)\frac{1}{E_j}-\left(\frac{3(N_T-N_j)}{2}-1\right)\frac{1}{E_T-E_j}\nonumber\\
+	\then\vect{E_j}&\approx E_{j,\max}=\left(\frac{3N_j-2}{3N_T-4}\right)E_T\approx \frac{N_j}{N_T}E_T
+\end{align}
+Or, more illuminatingly,
+\begin{equation}
+	\frac{\vect{E_j}}{N_j}=\frac{E_T}{N_T}\label{eq4:equil}
+\end{equation}
+
+To show that our approximations were valid, we look at the standard deviation. We approximate the distribution as a gaussian, and find that 
+\[-\frac{1}{\sigma^2_{E_j}}=\at{\frac{\partial^2}{\partial{E_j^2}}\ln(P)}{E_j=E_{j,\max}}\]
+Computing, this results in:
+\begin{equation}
+	\sigma_{E_j}=\vect{E_j}\sqrt{\frac{1}{N_j}}\sqrt{\frac{2(N_T-N_j)}{3N_T}}
+\end{equation}
+The relative width is
+\[\frac{\sigma_{E_j}}{\vect{E_j}}=\sqrt{\frac{1}{N_j}}\sqrt{\frac{2(N_T-N_j)}{3N_T}}\]
+Finally, we get that:
+\[S_p (E, N) = k\ln\Omega_p(E,N)+cN\]
+Using Sterling's approximation, we find that
+\begin{equation}
+	S_p(E,N)=kN\left[\frac{3}{2}\ln\left(\frac{E}{N}\right)+X\right]
+\end{equation}
+
+It can be verified similar to configurational entropy that this expression satisfies the desired properties of entropy.
+
+

@@ -1,0 +1,150 @@
+%! TEX root = 0-main.tex
+\chapter{Extremum Principles}
+We saw earlier that entropy is maximised in thermal equilibrium; this is known as an \emph{extremum principle}.
+
+\subsection{Revisited}
+If the movable piston is adiabatic (i.e.\ heat cannot flow through), the system is actually indeterminate! There is no unique equilibrium; it oscillates. However, if a correction term is added for the average velocity of the particles being adjusted for the velocity of the piston, the oscillations become damped and the equilibrium can be found.
+
+\section{Energy Minimum Principle}
+Consider
+\[S(U,X)\]
+for a thermally isolated system, where \(X\) is an extensive parameter with describes the distribution of amount of something in a composite system. For example, X could be \(N\), \(U\), \(V\) of a subsystem.
+
+Fom the maximisation of entropy at equilibrium, we then must have
+\[\left(\pder{S}{X}\right)_U=0 \qquad \left(\pder{^2S}{X^2}\right)_U<0\]
+Thus, we can expand the entropy around leading order terms as
+\begin{equation*}
+	\d{S}\approx \left(\pder{S}{U}\right)_U\d{U}+\frac{1}{2}\left(\pder{^2S}{X^2}\right)_U(\d{X})^2
+\end{equation*}
+We know that
+\[\left(\pder{S}{U}\right)_X=\frac{1}{T}\]
+allowing us to write
+\begin{equation}
+	\d{S}\approx \frac{\d{U}}{T}+\frac{1}{2}\left(\pder{^2S}{X^2}\right)_U(\d{X})^2
+\end{equation}
+Considering a quasi-static process with no heat exchange, the entropy remains constant. Thus, work must be added to the energy to maintain equilibrium.
+\begin{equation}
+	\d{U}=T\d{S}-\frac{T}{2}\left(\pder{^2S}{X^2}\right)_U(\d{X})^2
+\end{equation}
+from this, we see that because there is no \(\d{X}\) term,
+\[\left(\pder{U}{X}\right)_S=0\]
+Additionally, we see that
+\[\left(\pder{^2U}{X^2}\right)_S=-T\left(\pder{^2S}{X^2}\right)_U>0\]
+thus, energy is minimized at equilibrium for a constant entropy.
+Consequently, the maximum amount of work for \(\d{S},\d{N}=0\) is \(\dbar{W}=-\d{U}\)
+
+\subsection{Revisited}
+The system once again has no heat exchanged with the environment, but the system can do work (quasistatically) via the movable piston between the two subsystems. We instead examine this system via \emph{implicit functions}. We hold entropy fixed, so 
+\[S(X,U,Y)=C\]
+creating an implicit function \(U(X,Y)\). The differential
+\[0=\d{S}=\left(\pder{S}{X}\right)_{U,Y}\d{X}+\left(\pder{S}{U}\right)_{X,Y}\d{U}+\left(\pder{S}{Y}\right)_{X,U}\d{Y}\]
+Holding \(\d{Y}=0\), we can then divide through by \(\d{X}\), yielding
+\[0 = \left(\pder{S}{X}\right)_{U,Y}+\left(\pder{S}{U}\right)_{X,Y}\left(\pder{U}{X}\right)_{S,Y}\]
+yielding
+\begin{equation}
+	\left(\pder{U}{X}\right)_{S,Y} = -\left.\left(\pder{S}{X}\right)_{U,Y}\middle/\left(\pder{S}{U}\right)_{X,Y}\right.
+\end{equation}
+Because \(S\) is constant wrt \(X\) by constraint of the problem (note however, that \(S\) is not necessarily constant wrt \(U\)), we see that
+\begin{equation}
+	\left(\pder{U}{X}\right)_{S,Y}=0
+\end{equation}
+To further show that this is a minimum, we define
+\[\phi\equiv\left(\pder{U}{X}\right)_{S,Y}\]
+Thus, \(\phi = \phi(X,U)\). Then,
+\[\left(\pder{^2U}{x^2}\right)_{S,Y}=\left(\pder{\phi}{X}\right)_{S,Y} = \left(\pder{\phi}{U}\right)_{X,Y}\left(\pder{U}{X}\right)_{S,Y}+\left(\pder{\phi}{X}\right)_{U,Y}\left(\pder{X}{X}\right)_{S,Y}\]
+Plugging in \(\phi=0\), we see that
+\begin{align*}
+	\left(\pder{^2U}{X^2}\right)_{S,Y} &=\left(\pder{\phi}{X}\right)_{U,Y}\\
+					   &=\pder{}{x}\left[-\left(\pder{S}{X}\right)_{U,Y}\middle/\left(\pder{S}{U}\right)_{X,Y}\right]_{U,Y}\\
+					   &=\hspace{4em}\vdots\\
+					   &=-T\left(\pder{^2S}{X^2}\right)_{U,Y}>0
+\end{align*}
+
+\section{Minimum Principle for Helmholtz Free Energy}
+Consider a system in contact with a thermal reservoir (e.g.\ the atmosphere). Temperature is then constant, while energy and entropy may be exchanged. We may derive this principle in two ways: minimize energy with constant entropy of system+reservoir, or maximise entropy with constant energy of system+reservoir.
+
+Consider the former. The total entropy should not change:
+\[\pder{}{X}\left(S+S_R\right)=0\then \pder{S}{X}=-\pder{S_R}{X}, \qquad \pder{^2S}{X^2}=-\pder{^2S_R}{X^2}\]
+but the total energy is at a minimum:
+\[\pder{}{X}(U+U_R)=0\qquad \pder{^2}{X^2}(U+U_R)>0\]
+Because only heat can be exchanged between the two subsystems, we further impose
+\[\d{U_R}=T_R\d{S_R}\then \pder{U_R}{X}=T_R\pder{S_R}{X}\]
+Plugging into the derivative of Helmholtz free energy, we find that
+\[\pder{F}{X}=\pder{}{X}(U-TS)=-\pder{}{X}(U_R-T_RS_R)=0\]
+We can bind a similar result for
+\[\pder{^2F}{X^2}=\pder{^2}{X^2}(U-TS)>-\pder{^2}{X^2}(U_R-T_RS_R)=0\]
+Thus, we have the conditions
+\begin{subequations}
+	\begin{align*}
+		\pder{F}{X}&=0\\
+		\pder{^2F}{X^2}&>0
+	\end{align*}
+\end{subequations}
+or, \(F\) is at a minimum.
+
+Similarly, we can examine the other setup---maximising entropy at a fixed energy. This proof is very similar to the previous and is left as a exercise.
+
+The maximum amount of work that can be done to the system is given
+\[\d{F}=\cancel{-S\d{T}}-P\d{V}+\cancel{\mu\d{N}}=\dbar{W}\]
+thus, the maximum amount of work the system can do is given
+\begin{equation}
+	-\dbar{W}=-\d{F}
+\end{equation}
+
+
+\section{Minimum Principle for Enthalpy}
+When pressure is held constant, equilibrium occurs when enthalphy is minimized. The proof is similar to that of Helmholtz free energy, albeit with pressure reservoir. We hold the only work that can be done is through \(PV\) work
+\[\d{U_R}=-P_R\d{V_R}\then \pder{U_R}{X}=-P_R\pder{V_R}{X}\]
+and either hold entropy constant and minimize energy, or hold energy constant and maximise entropy.
+Holding the total volume constant
+\[\pder{}{X}(V+V_R)=0\]
+The derivative of enthalpy is given
+\[\pder{H}{X}=\pder{}{X}(U+P_RV)=\pder{}{X}(U+U_R)=0\]
+and the second derivative as
+\[\pder{^2H}{X^2}=\pder{^2}{X^2}(U+P_RV)=\pder{^2}{X^2}(U+U_R)>0\]
+Further, we have
+\[\d{H}=T\d{S}+\cancel{V\d{P}}+\cancel{\mu\d{N}}=\dbar{Q}\]
+so the maximum amount of heat that can be released is
+\begin{equation}
+	-\dbar{Q}=-\d{H}
+\end{equation}
+The enthalpy is often useful in chemistry, as most reactions are done at atmospheric pressure, and may be refered to as the ``heat content''
+
+\section{Minimum Principle for Gibbs Free Energy}
+The Gibbs free energy is also minimized at equilibrium. Again, the proof is similar to the Helmholtz free energy and Enthalpy.
+\[\d{G}=-S\d{T}+\cancel{V\d{P}}+\cancel{\mu\d{N}}=-S\d{T}\]
+
+\subsection{Chemical Reactions}
+For a system of \(r\) components, the Gibbs free energy is given
+\[G = \sum_j^r\mu_jN_j\]
+A chemical reaction can be written, in terms of integral stoichiometric coefficients can be written
+\begin{equation}
+	0\ce{<=>} \sum_j\nu_jA_j
+\end{equation}
+for chemical species \(A_j\). For example, the reaction
+\[\ce{4H2 + CO2 <=> CH4 + 2H2O}\]
+has coefficients
+\[\nu_{\ce{CH4}}=1\quad\nu_{\ce{H2O}}=2 \quad \nu_{\ce{H2}}=-4 \quad \nu_{\ce{CO2}}=-1\]
+Each of the chemical species can only change in number through stoichiometric reaction, so we have
+\[\frac{\d{N_i}}{\nu_i}=\d{\mathcal N}\]
+Thus, at constant temperature and pressure, the Gibbs free energy becomes
+\[\d{G}=\d{N}\sum_j^r\mu_j\nu_j=0\]
+If the system starts out of equilibrium at \(N_j^0\), the equilibrium number will become
+\[N_j = N_j+\nu_j\Delta \mathcal{N}\]
+Because the number of particles must be positive, there must be a maxumim and minimum \(\Delta \mathcal N\). From this, we define a degree of reaction
+\begin{equation}
+	\varepsilon\equiv\frac{\Delta \mathcal N-\Delta \mathcal N_{\min}}{\Delta\mathcal N_{\max}-\Delta\mathcal N_{\min}}
+\end{equation}
+From chemistry we know that at constant \(T,P\), the change in Gibbs free energy is given
+\begin{equation}
+	\Delta G = \Delta H - T \Delta S
+\end{equation}
+The values \(\Delta H\) and \(\Delta S\) can be obtained from a table of standard values. At equilibium, \(\Delta G=0\), and \(\Delta G<0\) means that the reaction will occur in the forward direction and \(\Delta G>0\) means the reaction will occur in the reverse direction.
+
+Returning to the previous chemical reaction, we start with \SI{5}{mol} \ce{H2}, \SI{1}{mol} \ce{H2}. \SI{1}{mol} \ce{CH4}, and \SI{3}{mol} \ce{H2O}. The new component numbers are given:
+\[N_{\ce{H2}} = 5-4\Delta\mathcal N\]
+\[N_{\ce{H2O}}=3+2\Delta \mathcal N\]
+\[N_{\ce{CH4}}=1+\Delta \mathcal N\]
+\[N_{\ce{CO2}}=1-\Delta N\]
+The limits are defined by the depletion of \ce{CO2} with \(\Delta \mathcal N_{\max}=0\) and the depletion of \ce{CH4} with \(\Delta \mathcal N_{\min}=0\). Thus, the degree of reaction for this system is
+\[\varepsilon = \frac{1}{2}(1+\Delta\mathcal N)\]

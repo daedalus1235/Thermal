@@ -1,0 +1,133 @@
+%! TEX root = 0-main.tex
+\chapter{Thermodynamic Variables}
+From the equilibrium conditions, we can see that the derivatives of entropy are important thermodynamic quantities characteristic of the equilibrium. The values of these derivatives are related to extensive physical properties of the system, namely temperature, pressure, and chemical potential.
+
+\section{Pressure}
+\subsection{Velocity Distribution}
+We can define the probability density of all locations and momenta as:
+\begin{equation}
+	P(q,p)= \frac{1}{\Omega}\frac{1}{h^{3N}N!}\delta(E-H)
+\end{equation}
+with
+\begin{equation}
+	\Omega = \frac{1}{h^{3N}N!} \iint\delta(E-H)\d{q}\d p
+\end{equation}
+
+We are interested in the marginal probability for one particle, with no interactions:
+\begin{equation}
+	P(r_1, p_1) = \frac{\Omega (E-p^2_1/2, V, N-1)}{Nh^3\Omega(E,V,N)}
+\end{equation}
+
+Fuurther integrating over the position,
+\begin{equation}
+	P(p_1)=\frac{V}{Nh^3}\frac{\Omega (E-p^2_1/2m, V, N-1)}{\Omega(E,V,N)}
+\end{equation}
+Taking the logarithm, we can treat the energy of the single particle as ery small compared to the total energy. Thus,
+
+\begin{align*}
+	\ln P &\approx \ln\Omega (E,V,N-1)-\ln\Omega (E,V,N) - \frac{p^2_1}{2m}\pder{E}\ln\Omega(E,V,N-1)+\ln(V/Nh^3)\\
+	      &\approx \frac{p^2_1}{2m}\pder{E}\ln\Omega(E,V,N)+\text{constants}\\
+	      &\equiv -\frac{p^2}{2m}\beta+\text{constants}
+\end{align*}
+Where the approxmation \(\ln\Omega( E, V, N) - \ln\Omega (E, V, N-1)\sim1/N\) is takne, and the quantity
+\begin{equation}
+	\beta \equiv \pder{E}\ln\Omega (E,V,N)
+\end{equation}
+Thus, exponentiating the logarithm, the probability becomes:
+\begin{equation}
+	P(p_1) = \left(\frac{\beta}{2\pi m}\right)^{3/2}\exp\left[-\beta \frac{p^2_1}{2m}\right]
+\end{equation}
+Separating component wise, 
+\begin{equation}
+	P(p_{1,x}) = \left(\frac{\beta}{2\pi m}\right)^{1/2}\exp\left[-\beta \frac{p^2_{1,x}}{2m}\right]
+\end{equation}
+Converting to speed,
+\begin{equation}
+P(v) = \left(\frac{\beta m}{2\pi}\right)^{3/2}4\pi v^2\exp\left[\frac{1}{2}\beta m v^2\right]
+\end{equation}
+with 
+\begin{equation}
+	\vect{v}=\sqrt{\frac{8}{\pi \beta m}} \qquad v_{mp} = \sqrt{\frac{2}{\beta m}} \qquad \vect{v^2}=\frac{3}{\beta m}
+\end{equation}
+
+\subsection{Temperature and the Ideal Gas Law}
+Consider a gas in a box colliding with a small, flat portion of the wall with area \(A\).
+When a particle colliudes with a wall, the momentum transfered is in the direction of the normal to a surface.
+During a small time \(\Delta t\), only particles with \(v_x>0\) and within \(v_x\Delta t\) will hit the wall. 
+
+The average number of particles that will strike the section of wall will be 
+\begin{equation}
+	\d{N}_c(p_x, \Delta t) = \underbrace{\left(\frac{N}{V}\right)}_{\text{density}}*\underbrace{(P(p_x)\d{p_x})}_{\text{prob.}}*\underbrace{\left(\frac{Ap_x}{m}\right)\Delta t}_{\text{volume}}
+\end{equation}
+
+The impulse of the collisions is \(\Delta p_x = 2 p_x\). Additionally, we are only concerned about pressure, or force per area. The pressure is then:
+\begin{equation}
+	P = \int\Delta p_x\d{N}_c
+\end{equation}
+Substituting and evaluating this integral, we get
+\begin{equation}
+	PV=N\beta^{-1}
+\end{equation}
+Comparing to the empirical ideal gas law,
+\begin{equation}
+	PV=Nk_B T=nRT
+\end{equation}
+We see that the inverse temperature, thermodynamic beta, is
+\begin{equation}
+	\beta = \frac{1}{k_B T}
+\end{equation}
+Thus, we see that the equilibrium condition for energy exchange is when the two systems have the same temperature \(T\). Further, from the ideal gas law, and the fact that \(P\), \(V\), \(N\) are all positive, we see that temperature must be positive. Thus, an absolute temperature scale must be used---the one we use is Kelvin. Given the Kelvin scale and the ideal gas law, the Boltzmann constant is experimentally determined to beo 
+\begin{equation}
+	k_B=\SI{1.38e-23}{J.K^{-1}}
+\end{equation}
+
+\section{Derivatives of Entropy}
+Taking the derivative of entropy with respect to temperature, we get 
+\begin{equation}
+	\left(\pder{S}{V}\right)_{E,N}=\frac{P}{T}
+\end{equation}
+Taking the derivative of entropy wrt energy yields:
+\begin{equation}
+	\left(\pder{S}{E}\right)_{V,N}=\frac{1}{T}
+\end{equation}
+Evaluating this derivative with the expression for entropy, we obtain
+\[\frac{3k_B N}{2E} = \frac{1}{T}\]
+Rearranging, we get the a case of the equipatition theorem:
+\begin{equation}
+	\frac{E}{N}=3*\frac{1}{2}k_B T
+\end{equation}
+
+The chemical potential is defined to be
+\begin{equation}
+	-\frac{\mu}{T} = \left(\pder{S}{N}\right)_{E,V}
+\end{equation}
+
+\section{Asymmetric Pistons}
+Imagine two boxes connected by a movable piston. 
+The piston for box \(j\) has area \(A_j\), and the piston for box \(k\) has area \(A_k\).
+As the piston moves, the total volume of the system changes.
+At equilibrium, the force on the piston on each side is given \(F = P_jA_j = P_kA_k\), and the temperatures are equal.
+Thus, we have
+\[\frac{F}{T}=\frac{P_iA_i}{T_i}=A_i\left(\pder{S_i}{V_i}\right)_{E_i, N_i}\]
+Thus, the equilibrium condition is actually
+\begin{equation}
+	A_j \pder{S_j}{V_j}=A_k\pder{S_k}{V_j}
+\end{equation}
+Note that this implies that the partial derivatives are not equal.
+
+\section{Differential form of thermodynamics}
+Thermodynamics is concerned primarily with small changes in macroscopic parameters. Using the total differential of entropy,
+\[\d{S}=\pder{S}{E}\d{E}+\pder{S}{V}\d{V}+\pder{S}{N}\d{N}\]
+and substituting in the equations of state, we obtain the differential form of thermodynamics in the entropy representation:
+\begin{equation}
+	\d{S}=\frac{1}{T}\d{E}+\frac{P}{T}\d{V}-\frac{\mu}{T}\d{N}\label{eq7:diffform}
+\end{equation}
+This is valid for all thermodynamic systems. 
+\begin{aside}[1st Law]
+	The quantity \(E\) is most often denoted \(U\) Notice, by multiplying Equation~\ref{eq7:diffform} with temperature, we obtain
+	\[T\d{S} = \d{U}+P\d{V}-\mu\d{N}\]
+	\[\d{U}=T\d{S}-P\d{V}+\mu\d{N}\]
+	This last equation is a differential statement of the First Law of Thermodynamics.
+\end{aside}
+\section{Measurements and Reservoirs}
+A measuring device is a tiny device where when it comes into equilibrium with a system, the system barely changes. A reservoir is the opposite; when a system get into equilibrium with a reservoir, the reservoir barely changes.

@@ -1,0 +1,75 @@
+%! TEX root = 0-main.tex
+\chapter{Canonical Ensembles}
+\section{Grand Canonical Ensemble}
+THe grand canonical ensemble is a system in contact with both thermal and particle reservoirs, so the system is at a fixed temperature \(T\) and chemical potential \(\mu\). The relevant thermodynamic potential is
+\begin{equation}
+	U[T,\mu] = U-TS-\mu N
+\end{equation}
+which is known as the \emph{grand potential}.\footnote{This is sometimes also known as the Landau potential. Confusingly, this is often denoted \(\Omega\), which conflicts with the microcanonical partition function. Luckily, we can distinguis via context; the Grand Potential is a thermodynamic potential, whereas the Microcanonical Partition Function is a statistical mechanics partition function.} For extensive systems, we can apply the Euler relation and obtain
+\[U[T,\mu] = -PV\]
+\subsection{Probability Distribution}
+The system+reservoir is isolated from the rest of the universe, so
+\[E_T = E+E_R\qquad\qquad N_T=N+N_R\]
+Recall that
+\[P(E,N) = \frac{\Omega(E,N)\Omega_R(E_T-E, N_T-N)}{\Omega_T(E_T,N_T)}\]
+where
+\[\Omega_\alpha(E_\alpha, N_\alpha) = \frac{1}{h^{3N_\alpha}N_\alpha!}\iint \delta(E_\alpha-H_\alpha)\d{q_\alpha}\d{p_\alpha}\]
+Taking the logarithm of the probaility, and noting that the reservoir is much larger than the system, we can write:
+\begin{align*}
+	\ln P(E,N)&\approx \ln\Omega(E,N)+\ln \Omega_R(E_T,N_T) -E\left(\pder{}{E}\ln\Omega_R(E_T,N_T)\right)\\
+		  &\hphantom{===}-N\left(\pder{}{N}\ln\Omega_R(E_T,N_T)\right)-\ln\Omega_T(E_T,N_T)+\dots
+\end{align*}
+Once again recognizing \(\Omega = \frac{S}{k_B}\), we can rewrite the derivatives to obtain
+\[\ln P(E,N)=\beta-\beta\mu +\ln\Omega(E,N)+\ln\Omega_R(E_T,N_T)-\ln\Omega_T(E_T,N_T)\]
+We define the quantity 
+\[\ln \mathcal Z = \ln\Omega_T(E_T,N_T)-\ln\Omega_T(E_T,N_T)\]
+or
+\[P(E,N) =\frac{1}{\mathcal Z} \Omega(E,N)e^{-\beta E}e^{\beta \mu N}\]
+thus we obtain the grand canonical partition function
+\begin{equation}
+	\mathcal Z(T,V,\mu) = \int_{N=0}^\infty\int_0^\infty\d{E}\Omega(E,V,N)\exp[-\beta E +\beta\mu N]
+\end{equation}
+We can see that the grand canonical partition function is related to the partition function via
+\begin{equation}
+	\mathcal Z(T,V,\mu) = \sum_{N=0}^\infty Z(T,V,N)e^{\beta \mu N}
+\end{equation}
+so \(\mathcal Z\) is a discrete Laplace transform of \(Z\). In terms of the hamiltonian, we thus have
+\begin{equation}
+	\mathcal Z(T,V,\mu) = \sum_{N=0}^\infty \int\d{q^{(N)}}\int\d{p^{(N)}}e^{-\beta H^{(N)}(q,p)}e^{\beta \mu N}
+\end{equation}
+The term \(z=e^{\beta\mu}\) is known as the \emph{fugacity}, so we may rewrite the partition function as
+\begin{equation}
+	\mathcal Z(T,V,z) = \sum_{N_i} Z(T,V,N_i)z^{N_i}
+\end{equation}
+
+Similar to the Canonical Partition Function, all of the thermodynamic information may be obtained from the Grand Canonical Partition Function. In a similar argument, we see that
+\begin{equation}
+	\ln \mathcal Z = -\beta U[T,\mu]
+\end{equation}
+Using this, we may obtain all other thermodynamic information
+
+\section{Classical Ideal Gas}
+Calculating the parittion function for the classical ideal gas, we can obtain
+\[\mathcal Z = \sum_{N=0}^\infty \frac{1}{N!}\left(\frac{(2\pi mk_BT)^{3/2}Ve^{\beta \mu}}{h^3}\right)^N = \exp\left[\frac{(2\pi m k_B T)^{3/2} V e^{\beta \mu}}{h^3}\right]\]
+We may then express the grand canonical potential as
+\[-\beta U[T,\mu] = -PV = \ln \mathcal Z\]
+so we see that
+\[P= k_BT(2\pi mk_BT)^{3/2}h^{-3}e^{\beta\mu}\]
+
+\section{Other Classical Ensembles}
+It turns out that every thermodynamic potential corresponds to an ensemble in statistical mechanics. The legendre transforms between potentials corresponds to a discrete Laplace transform between ensembles. For each ensemble, the logarithm can be used to recover the potential.
+
+\subsection{Gibbs Free Energy}
+We define Gibbs partition function as
+\begin{equation}
+	Z_G(T,P,N) = \int_0^\infty\d{V}\int\frac{\d[3N]{p}\d[3N]{q}}{h^{3N}N!}e^{-\beta(H+PV)}
+\end{equation}
+This can be rewritten as
+\[Z_G = \int_0^\infty\d{V} Z e^{-\beta PV}\]
+We can obtain the Gibbs Free Energy in the expected way:
+\[G(T,P,N) = -k_BT\ln Z_G(T,P,N)\]
+
+\begin{aside}[Legendre Transform Alt. Notation]
+	An alternative (more rigorous) notation of the legendre transform is given as:
+	\[G(T,P,N) = \min_{V}\left\{F(T, V, N)+PV\right\}\]
+\end{aside}

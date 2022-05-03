@@ -1,0 +1,112 @@
+%! TEX root = 0-main.tex
+\chapter{Quantum Mechanics}
+Rather than an in-depth review of quantum mechanics, we instead state some remarks comparing quantum mechanics to classical mechanics in the context of statistical mechanics. We will use a simple view, in 1D, non relativistic, and no spin. These are summarized in the table on the following page. Here are some important remarks about the table.
+
+
+\begin{table}[!htbp]
+\begin{center}
+	\caption{Table 1: Comparison of Classical and Quantum Mechanics}\label{tab:comparison}
+	\begin{tabular}{l||l|ll}
+		Concept&Classical Mechanics & Quantum Mechanics\\
+		\hline\hline
+		``arena'' & Phase Space \(\Gamma\simeq \R^2\) & Hilbert Space\footnotemark\ \(\mathscr H\simeq L^2(\R)\)&\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline 
+		Canonical Variables & real coordinates \(p,q\) & hermitian operators \(\hat P, \hat Q\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline
+		Elements of & Complex functions on \(\Gamma\) & operators on \(\mathscr H\) \\
+		Liouville Space\footnotemark\ & \(a(p,q)\) & \(A(P,Q)\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline 
+		Scalar Products\footnotemark\ & \(\vect{a,b} = \int_\Gamma \frac{\d{p}\d{q}}{h}a\ast b\) & \(\vect{A,B} = \tr(A\adj B)\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline 
+		Lie Product\footnotemark\ & Poisson Bracket & Commutator\footnotemark\\
+					  & \(\{a,b\} = \pder{a}{q}\pder{b}{p}-\pder{a}{p}\pder{b}{q}\)& \([A,B] = AB-BA\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline 
+		Observables & Real functions on \(\Gamma\) & Hermitian operators on \(\mathscr H\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline 
+		States & Probability densities on \(\Gamma\) & Statistical Operators\footnotemark\ on \(\mathscr H\)\\
+		       & \(\ast w = w \geq 0\), \(\vect{w,1}=1\) & \(W\adj = W \geq 0\), \(\vect{W,1}=1\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline
+		Pure States\footnotemark\ & A point in phase space \(\Gamma\) & Idempotent operators\\
+			    &\(w(p,q) = h\delta(p-p_0)\delta(q-q_0)\) & \(W=W^2 \iff W = \k\p\b\p\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		\hline
+		Eigenstate of &\(w(p,q) = \rho(p,q)\delta[a(p,q)-\alpha]\)&\(AW = \alpha W,\alpha\in\R\)&\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\
+		an Observable &&\\
+		\hline
+		Expectation Values & & \\
+		of an Observable & \(\vect{a} = \vect{w,a}\)& \(\vect{A} = \vect{W,A}\)\\
+		in State \(a\) & & \\
+		\hline
+		Propery/Event & Characteristic functions on  & Projection \(E\) onto \\
+			      & a subset \(\mathcal E \subset \Gamma\) & a subspace \(\mathcal E \subset \mathscr H\)\\
+			      & \(\chi_{\mathcal E} (p,q) = \begin{cases}
+				      1 & (p,q)\in \mathcal E\\
+				      0 & \text{otherwise}
+			      \end{cases}\)&
+				      \begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\	
+		\hline
+		Probability of Event & \(\vect{\chi_E}\) & \(\vect{E}\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\	
+		\hline 
+		Entropy of State\footnotemark\ & \(-k_B\vect{w,\ln w}\)& \(-k_B\vect{W,\ln W}\)\\
+					      & \(= -k_B\int\frac{\d{p}\d{q}}{h}w\ln w\) &  \begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\	
+		\hline
+		Liouville Equation\footnotemark\ & \(\pder{w}{t} = \{w,h\}\) for hamiltonian \(h\)&  \(\pder{W}{t} = -\frac{1}{i\hbar}\left[W,H\right]\)\begin{minipage}[c][10mm][t]{0.1mm}\end{minipage}\\	
+	\end{tabular}
+\end{center}
+\end{table}
+\footnotetext[1]{\(L^2(\R)\) is the space of square-integrable functions defined on the real line.}
+\footnotetext[2]{A Liouville Space is an example of an ``Algebra.''}
+\footnotetext[3]{The operator \(\int_\Gamma\frac{\d{p}\d{q}}{h}\) is often called the trace over phase space, due to the analogy with quantum mechanics.}
+\footnotetext[4]{A Lie product is a anti-symmetric bilinear operator satisfying the Jacobi Identity: \(\{a,\{b,c\}\}+\{b,\{c,a\}\}+\{c,\{a,b\}\}=0\). The vector cross product in \(\R^3\) is such a Lie product.}
+\footnotetext[5]{Occasionally, the commutator is given the prefactor \(\frac{1}{i\hbar}\). If \(A\) and \(B\) are hermitian, then the commutator is purely imaginary; further, most commutators have a factor of \(\hbar\), which goes to zero in the classical limit. For example, this definition would make the canonical commutation relation \([\hat x,\hat p] = 1\) rather than \(i\hbar\).} 
+\footnotetext[6]{The notation \(W\geq0\) is used to denote the fact that \(W\) must be positive semi-definite, or that all eigenvalues are non-negative. It is more useful to have the notion that the Statistical Operator is the state rather than the waveket. This is because mixed states can be represented by statistical operators, while wavekets can only denote pure states.} 
+\footnotetext[7]{A pure state is contrasted to a mixed state where the former is a well defined state, while the second is a probability distribution of states (such as a macrostate in Stat Mech, or the more familiar notion in matrix mechanics)}
+\footnotetext[8]{The classical entropy is motivated by Shannon's notion of information entropy.} 
+\footnotetext[9]{The Liouville equation defines the equation of motion for a probabilty density through phase space in classical mechanics. The quantum analogue is the von Neumann equation. The analogy between these two equations is another motivation for the factor of \(\frac{1}{i\hbar}\) in the commutator}
+
+Pure states can be characterized as states of \emph{minimal entropy}, and in classical mechanics represent a single point in phase space. However, due to the Heisenberg uncertainty principle, this does not translate well to quantum mechanics. Rather, in quantum mechanics, a minimum entropy state must be a ``minimized blob'' in phase space. 
+
+Eigenstates can be characterizerd as states for which repeated ideal measurements of the corresponding observable don't scatter---there is no variance. We have shown that \(\sigma=0\) implies eigenvectors; we will show the converse now. Assume \(AW = \alpha W\). Then, 
+\[\sigma^2 = \vect{A^2}-\vect{A}^2 = \tr(A^2W)-\tr(AW)^2 = \tr(\alpha^2W)-\tr(\alpha W)^2 = 0\]
+Similarly, pure eigenstates can be characterized by normalized eigenvectors such \(\k\p\) such that \(W = \k\p\b\p\) and \(\bk\p\p=1\)
+\[AW = (A\k\p)\b\p = (\alpha\k\p)\b\p = \alpha W\]
+\[W^2 = \k\p\bk\p\p\b\p = \bk\p\p\k\p\b\p = \k\p\b\p\]
+
+Mixed states are \emph{convex combinations} of states \(W_j\) with coefficients \(p_j\) such that \(\sum_j p_j = 1\). The mixed state \(W\) is then given
+\[W = \sum_j p_j W_j\]
+Trivially, for real coefficients, the linearity of the adjoint and trace guarantee that \(W\) is trace 1 and self-adjoint. The positive-semidefiniteness follows from the positive real coefficients on the sum of positive-semidefinite matrices. If all of the \(W_j\) are pure and belong to the same eigenspace \(AW_j =\alpha W_j\), then \(W\) is not pure, but is still an eigenstate of \(A\). Thus, \emph{eigenstates need not be pure states}.
+
+Expectation values are ``weighted means'' of a stochastic observable. Given a state \(W\), with eigenvectors \(\k{\p_n}\) such that \(\bk{\p_n}{\p_m}=1\) and \(\sum_n\k{\p_n}\b{\p_n}=\mathbbm1\), then, we can write 
+\[W = \sum_n p_n \k{\p_n}\b{\p_n}\]
+for suitable coefficients \(p_n\) such that \(0\leq p_n\leq 1\) and \(\sum_n p_n = 1\). This is the \emph{spectral theorem} for a general quantum state. This spectral decomposition is useful in computing expectation values:
+\begin{align*}
+	\vect{A}& = \tr(A\adj W) = \tr (W\adj A) = \tr(WA)\\
+		&= \tr\left(\sum_n p_n \k{\p_n}\b{\p_n}A\right)\\
+		&=\sum_{nm} \b{\p_m}p_n\k{\p_n}\b{\p_n}A\k{\p_m}\\
+		&=\sum_{n}p_n \b{\p_n}A\k{\p_n}
+\end{align*}
+The term \(p_n\) in the sum is what Deserno calls ``subjective ignorance,'' or that we haven't prepared our state carefully enough, which leads to error. The term \(\b{\p_n}A\k{\p_n}\) is what he calls ``objective indeterminacy,'' which is that some states cannot be well defined given perfect conditions. In other words, the former is limitations due to our preparation, while the latter is limitations due to the nature of physics. Thus, there are two sources for stochasticity in quantum mechanics.
+
+The entropy of a state is then a measure of both our subjective ignorance and objective indeterminacy.This leads to a difference between classical and quantum mechanics. In classical mechanics, the entropy is bounded by\footnote{in \(\Gamma \simeq \R^2\)}
+\[-\infty \leq S_{cl} \leq k_B \ln\left(\int_\Gamma \frac{\d{q}\d{p}}{h}\right) = +\infty\]
+However, in quantum mechanics, the entropy is bounded below\footnote{in \(\mathscr H \simeq L^2(\R)\)}
+\[0\leq S_{qm} \leq k_B \ln \left(\dim\mathscr H\right) = +\infty\]
+In the proof of the classical version, the entropy of a Gaussian can be used to show the unboundedness. We will show the proof of the quantum version. From the spectral decomposition, we can show that for \(W = \sum_n p_n \k{\p_n}\b{\p_n}\)
+\[W\ln W = \sum_n p_n \ln p_n \k{\p_n}\b{\p_n}\]
+The entropy is then 
+\[S = -k_B\tr(W\ln W) = -k_B\sum_n p_n \ln p_n\]
+The minimum entropy (maximal knowledge) state is that of a pure state: \(p_n = \delta_{n,n_0} \then S = 0\).
+The maximal entropy (minimal knowledge) state is given by a state where \(p_n = \frac{1}{\dim\mathscr H}\) This gives the entropy as
+\[S = -k_B\sum_{n=1}^N \frac{1}{N}\ln \frac{1}{N} = k_B\ln N = k_B\ln (\dim \mathscr H)\to\infty\]
+An intermediate step, \(S = k_B N\) should be familiar---we saw a similar statement of entropy earlier as \(S = k_B\ln \Omega\).
+
+
+\begin{aside}[Functions of Operators]
+	Under certain circumstances, (most importantly hermiticity with compactness\footnotemark), an operator can be spectrally decomposed as
+	\[A = \sum_n \lambda_n\k{n}\b{n}\]
+	Spectral decomposition is a very powerful property of an operator. For example, if we can define a function of an operator by using its taylor series. To see why, when an operator is spectrally decomposed, it is trivial to take powers:
+	\[A^m = \sum_n \lambda_n^m\k{n}\b{n}\]
+	From this, we use the taylor series to show
+	\[f(A) = \sum_n f(\lambda_n)\k{n}\b{n}\]
+\end{aside}\footnotetext[12]{a linear operator \(A\) on \(\mathscr H\) is considered compact if the closure of the image of any bounded subset of \(H\) is compact.}
+
+

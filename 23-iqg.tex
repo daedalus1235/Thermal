@@ -1,0 +1,205 @@
+%! TEX root = 0-main.tex
+\chapter{Ideal Quantum Gas}
+\section{Fermions and Bosons}
+Consider a wavefunction of \(N\) particles. 
+\[\p(\vb r_1, \vb r_2, \dots, \vb r_N)\]
+There is no obvious permutation symmetries. However, if we swap two particles, say \(\vb r_i, \vb r_j\), the system is physically the same, so the modulus squared must be conserved and the only difference between these two wavefunctions must be a phase. However, by performing such a swap twice, we should return to the original phase; thus, the only two possible phase differences are \(0\) and \(\pi\)---the wavefunction must be either be totally symmetric or totally antisymmetric with respect to those indices.\footnote{Apparently \emph{anyons} can exist, where the phase difference can take \emph{any} value, but these exist solely as quasi-particles in 2D systems} We define the symmetric case to be bosons, while the anti-symmetric case to be fermions.\footnote{The \emph{Pauli Exclusion Principle} arises trivially from the antisymmetry of the fermion wavefunction.} Note, that fermions have half-integer spin, while bosons have full-integer spin. The connection between the spin properties and the statistical properties is known as the \emph{Spin-Statistics Theorem}. We can easily  (anti)symmetrize an arbitrary function. Our symmetrization for bosons is given:
+\[\p_B(\vv r) = X_{B}\sum_{\pi\in S(N)}\p(\pi \vv r)\]
+and our antisymmetrization for fermions is given
+\[\p_F(\vv r) = X_F\sum_{\pi\in S(N)} \sigma(\pi)\p(\pi \vv r)\]
+where \(\pi\) is an element in the permutation group \(S(N)\), \(\sigma(\pi)\) is the parity of the permutation \(\pi\), and \(X_{F,B}\) is a normalization constant.In the special case where we can separate a wavefunction into a product of single particle wave functions,
+\[\p(\vv r) = \prod_i \p_{\alpha_i}(r_i)\]
+then, our (anti)symmetrization becomes
+\[\p_{F,B} = X_{F,B}\sum_\pi \{\sigma(\pi),1\}\p_{\alpha_i}(r_{\pi(i)})\]
+In the Fermion case, this is known as the \emph{Slater Determinant}
+
+\subsection{Partition Function}
+Recall from our discussion of the multi-particle partition function that if \(H =\sum_j H_j\) where all \(H_j\) are identical, we can write
+\[H\p_{F,B} = \sum_j \varepsilon_{\alpha_j}\p_{F,B}\]
+so
+\[Z = \sum_{\{\alpha\}} e^{-\beta \sum_j\varepsilon_{\alpha_j}} = \sum_{\{\alpha\}}\prod_{j=1}^\infty e^{-\beta E_{\alpha_j}}\]
+which is the sum over \emph{all} quantum states. However, not all possible states are \emph{valid} states that satisfy the necessary (anti)symmetry properties of Fermions and Bosons---this means that the partition function \emph{does not factorize}. Instead we write
+\[Z = \left.\sum_{\{\alpha\}}\right.' e^{-\beta \sum_j\varepsilon_{\alpha_j}} = \left.\sum_{\{\alpha\}}\right.'\prod_{j=1}^\infty e^{-\beta E_{\alpha_j}}\]
+The prime indicates that this sum is subject to the (anti)symmetrization condition; the partition function does not factorize because the sum of one state depends on the other states, \emph{even in the absence of interactions}.
+
+It is possible, however, through a change in notation, to make this sum possible to do. Consider an arbitrary energy spectrum with arbitrary degeneracy with states denumerated \(n\). There are two ways to characterize a configuration of particles. For example, we can list the state in which a list of particles is occupying, such as \(\{\alpha_j\}=\{1,2,2,5,7,8\}\) stating that particle 1 is in state 1, particles 2,3 are in state 2, and so forth.\footnote{Note this does not account for the indistinguishability of particles}. We can also describe a state by describing the occupancy of the states. For the same state as the previous example, we can write \(\{n_\alpha\} = \{1,2,0,0,1,0,1,1,0,\dots\}\). We call \(n_\alpha\) the occupancy number of state \(\alpha\). The advantage of this occupancy number representation is that we are no longer constrained by the indistinguishability of particles, we can instead write the partition function as
+\begin{equation}
+	Z_N = \sum_{\{n_\alpha\}}^{\sum_\alpha n_\alpha = N}\prod_{\alpha} e^{-\beta \varepsilon_\alpha n_\alpha}
+\end{equation}
+In this manner, the partition function neatly factorizes, \emph{even for fermions}, where we restrict \(n_\alpha \in \{1,0\}\). However, we still have the constraint where \(\sum_\alpha n_\alpha = N\) for all \(\{n_\alpha\}\). However, there is luckily an incredibly elegant solution for this constraint: \(N\) need not be fixed!
+
+Indeed we do have an ensemble where we need not fix \(N\)---the Grand Canonical Ensemble. Thus, we exchange fixed \(N\) for fixed \(\mu\). Recall that the grand canonical partition function is the discrete Laplace transform of the canonical partition function:
+\[\mathcal Z = \sum_{N=0}^\infty Z_Ne^{\beta\mu N}\]
+Thus, for our system, we can write the partition function as
+\[\mathcal Z = \sum_{N=0}^\infty\sum_{\{n_\alpha\}}^{\sum_\alpha n_\alpha=N}\prod_\alpha e^{-\beta(\varepsilon_\alpha-\mu)n_\alpha}\]
+We see after a little thought the Laplace transform and the constraint cancel each other out, leaving us with the sum over all possible configurations:
+\begin{align}
+	\mathcal Z &= \sum_{\{n_\alpha\}} \prod_\alpha \exp[-\beta(\varepsilon_\alpha-\mu)n_\alpha]\\
+	\intertext{expanding out the sums and products,}
+		   &=\sum_{n_1}\sum_{n_2}\cdots e^{-\beta(\varepsilon_1-\mu)n_1}e^{\beta(\varepsilon_2-\mu)n_2}\cdots\nonumber\\
+		   \intertext{Thus, we see that we can factorize the partition function as desired:}
+		   &=\sum_{n_1}e^{-\beta(\varepsilon_1-\mu)n_1}\sum_{n-2}\cdots\nonumber\\
+		   &=\prod_\alpha\sum_{n_\alpha}e^{-\beta(\varepsilon_\alpha-\mu)n_\alpha}
+\end{align}
+We can then write our Grand potential as
+\[-\beta \Omega = \ln \mathcal Z = \sum_\alpha \ln\sum_{n_\alpha}e^{-\beta(\varepsilon_\alpha-\mu)n_\alpha}\]
+Now, it makes a difference between fermions and bosons, as for fermions, we have \(n_\alpha\in\{0,1\}\), while for bosons we have \(n_\alpha\in\N\cup\{0\}\). The innermost sum for the fermion case yields the simple result
+\[\sum_{n_\alpha=0}^1 = 1+e^{-\beta(\varepsilon-\mu)}\]
+while for the boson case, we see that we can rewrite the sum as a geometric series, so
+\[\sum_{n_\alpha=0}^\infty = \frac{1}{1-e^{-\beta(\varepsilon_\alpha-\mu)}}\]
+Note however, the geometric series only converges if \(\mu<\min\limits_\alpha\{\varepsilon_\alpha\}\), or the chemical potential must be lower than the ground state. Thus, we have the grand potential as
+\begin{equation}
+	\beta\Omega_\pm = \mp \sum_\alpha\ln\left[1\pm e^{-\beta(\varepsilon_\alpha-\mu)}\right]
+\end{equation}
+where \(\Omega_+\) corresponds to Fermions, and \(\Omega_-\) corresponds to bosons.
+
+\section{Distribution Functions}
+Now that we have the partition function, we are interested in the average particles in a given state. We have
+\begin{align*}
+	\vect{n_\alpha}&=\frac{1}{\mathcal Z}\left(\prod_{\alpha'}\sum_{n_{\alpha'}}n_{\alpha}e^{-\beta(\varepsilon_{\alpha'}-\mu)n_{\alpha'}}\right)\\
+		       &=\frac{1}{\mathcal Z}\left[\prod_{\alpha'}\sum_{n_{\alpha'}}\left(-\frac{1}{\beta}\pder{}{\varepsilon_{\alpha}}\right)e^{-\beta( \varepsilon_{\alpha'}-\mu)n_\alpha'}\right]\\
+		       &=\frac{1}{\mathcal Z}\left(-\frac{1}{\beta}\pder{}{\varepsilon_\alpha}\right)\left[\prod_{\alpha'}\sum_{n_{\alpha'}}e^{-\beta( \varepsilon_{\alpha'}-\mu)n_\alpha'}\right]\\
+		       &=\frac{1}{\mathcal Z}\left(-\frac{1}{\beta}\pder{}{\varepsilon_\alpha}\right)\mathcal Z\\
+		       &=\pder{}{\varepsilon_\alpha}\left(-k_BT\ln \mathcal Z\right)\\
+		       &= \pder{\Omega}{\varepsilon_{\alpha}}\\
+		       &= \pder{}{\varepsilon_{\alpha}}\left[\mp k_BT\sum_{\alpha'}\ln\left(1\pm e^{-\beta(\varepsilon_{\alpha'}-\mu)n_{\alpha'}}\right)\right]\\
+		       &=\pm k_BT\frac{\pm e^{-\beta(\varepsilon_\alpha-\mu)}(-\beta)}{1\pm e^{-\beta(\varepsilon_\alpha-\mu)}}
+\end{align*}
+Thus, we obtain the the Fermi and Bose distributions:
+\begin{equation}
+	\vect{n_\alpha} = \frac{1}{e^{\beta(\varepsilon_\alpha-\mu)}\pm 1}
+\end{equation}
+We will often write using
+\begin{equation}
+	f_\pm(\varepsilon) = \frac{1}{e^{\beta \varepsilon}\pm 1}
+\end{equation}
+so our distributions become
+\[\vect{n_\alpha} = f(\varepsilon_{\alpha}-\mu)\]
+
+Plotting our funcitons, we see that the fermi distribution looks like a logistic curve, starting at \(1\), then crossing \(f_+(0)=\frac{1}{2}\) to become \(0\) at infinity. On the other hand, the bose distribution diverges at zero, which is where the chemical potential no longer satisfies the criterion \(\mu<\min\limits_\alpha\{\varepsilon_\alpha\}\) We see that at sufficiently high energy, the states are to high to be occupied. However, as the energy decreases wrt the temperature, the state approaches maximum occupancy, which for fermions is \(1\), while for bosons, there is no maximum.
+
+\section{Density of States}
+As sums are rather annoying to deal with, we will reformulate everything in terms of integrals over densities of state. Consider the differential DoS 
+\begin{equation}
+	D_\varepsilon = \sum_\alpha \delta(\varepsilon-\varepsilon_\alpha)
+\end{equation}
+Note that after integration, this becomes \emph{identical} to our discrete sum (we will consider continuous density of states later). Then, our cumulative density of states can be written
+\begin{equation}
+	W(\varepsilon) = \int_{-\infty}^\varepsilon \d{\varepsilon'}D_\varepsilon(\varepsilon')
+\end{equation}
+Thus, we can, for instance, write the grand potential as
+\[\Omega_\pm =\mp k_BT\int\d{\varepsilon}D_{\varepsilon}(\varepsilon) \ln \left[1\pm e^{-\beta(\varepsilon-\mu)}\right]\]
+which is \emph{equivalent} to our discrete sum. However, as an integral, we have far more techniques of manipulation---for instance, integration by parts.
+\begin{align*}
+	\Omega_\pm&=\mp k_BT\cancelto{0}{\eval{W(\varepsilon)\ln\left[1\pm e^{-\beta(\varepsilon-\mu)}\right]}{0}{\infty}}-\int\d{\varepsilon}W(\varepsilon)f_\pm(\varepsilon-\mu)
+\end{align*}
+so,
+\begin{equation}
+	\Omega_\pm = -\int\d{\varepsilon}W(\varepsilon)f_\pm(\varepsilon-\mu)
+\end{equation}
+Similarly, we can rewrite the average occupation 
+\begin{align*}
+	\vect{N}&= \sum_\alpha \vect{n_\alpha}\nonumber\\
+		&=\int\d{\varepsilon}D(\varepsilon)f_\pm(\varepsilon-\mu)=-\pder{\Omega}{\mu}
+\end{align*}
+where the last equality comes from differentiating our integral equation for the grand canonical potential then integrating by parts (or by basic thermodynamics). More explicitly, we can write
+\begin{equation}
+	N(\mu) = \int\d{\varepsilon}\frac{D(\varepsilon)}{e^{\beta(\varepsilon-\mu)}-1}
+\end{equation}
+This equation is frequently used to find \(\mu(N)\) if we wish to use \(N\) rather than \(\mu\). 
+
+We can also find the average energy as
+\[E = \sum_{\alpha}\varepsilon_\alpha\vect{n_\alpha}\]
+so
+\begin{equation}
+	E =\int\d{\varepsilon}D(\varepsilon)\varepsilon f_\pm (\varepsilon-\mu)
+\end{equation}
+We can rewrite this expression in terms of \(\Omega\) by using the following identity
+\begin{equation}
+	\pder{}{\beta}\ln \left[1\pm e^{-\beta(\varepsilon-\mu)}\right] = \frac{\mp e^{-\beta(\varepsilon-\mu)}}{1\pm e^{-\beta(\varepsilon-\mu)}}(\varepsilon-\mu) = \mp(\varepsilon-\mu) f_\pm(\varepsilon-\mu)
+\end{equation}
+Thus, we can rewrite
+\begin{align}
+	E&=\int\d{\varepsilon}D(\varepsilon)\left(\mp \pder{}{\beta}\ln\left[1\pm e^{-\beta(\varepsilon-\mu)}\right]+\mu f_\pm(\varepsilon-\mu)\right)\nonumber\\
+	 &=\left( \pder{}{\beta}\mp\int\d{\varepsilon}D(\varepsilon)\ln\left[1\pm e^{-\beta(\varepsilon-\mu)}\right]\right) + \mu\int\d{\varepsilon}D(\varepsilon)f_\pm(\varepsilon-\mu)\nonumber\\
+	 &=\pder{}{\beta}(\beta\Omega) -\mu\pder{\Omega}{\mu}
+\end{align}
+We recognize the first term as \(E-\mu N\) and the second term as \(+\mu N\), as follows from thermodynamics and our previous derivation respectively. Because we have the grand potential \(\Omega(T,V,\mu)\), as a result of our manipulation of the original sum, it is useful to have a way to write the other thermodynamic variables in terms of the one we have based all of our discussion on.
+
+\section{Model Systems}
+In order to analyze model systems, we need to determine the density of states as follows from the spectrum \(\{\varepsilon_\alpha\}\) of the Hamiltonian for those states.\footnote{Recall that this is not a general discussion of quantum statistical mechanics; we have assumed that our hamiltonian factorizes into a sum of individual, uncoupled particles with identical spectra.} Consider the spectrum of a particle in a \(L^d\) box. Of course, we have the energy as
+\[\varepsilon = \frac{P^2}{2m} = \frac{\hbar^2k^2}{2m} = \frac{\hbar^2}{2m}\left(\frac{\pi}{L} \vb n\right)^2\qquad N\in \N_0^d\setminus\{\vv 0\}\]
+To simplify the calculation, we will consider a continuous density of space---the density of \(\vb n\) in \(n\)-space is unity. By the transformation theorem, we can calculate the density of states in energy space:
+\begin{align*}
+	D(\varepsilon) &= \int_{\N_0^D\setminus\{\vv0\}}\d[d]{n} 1 \delta \left(\varepsilon-\frac{\hbar^2}{2ml^L}n^2\right)\\
+		       &=\frac{1}{2^d}\int_{\R^d}\d{d}n \delta\left(\varepsilon - \frac{\hbar^2 \pi^2}{2m L^2}n^2\right)&\d{y} = \frac{\pi\hbar}{\sqrt{2mL^2}}\d{n}\\
+		       &=\frac{1}{2^d}\left(\frac{\sqrt{2mL^2}}{\hbar\pi}\right)^d\int_{\R^d}\d[d]y\delta(\varepsilon-y^2)\\
+		       &=V\left(\frac{\sqrt{2m}}{2\pi\hbar}\right)^d\int_0^\infty\d{y}A_dy^{d-1}\delta(\varepsilon-y^2)\\
+		       \intertext{Where, of course, \(A_d\) is the surface area of a \(d\)-dimensional sphere. Substituting \(x=y^2\), we can rewrite as}
+		       &=\frac{1}{2^d}\left(\frac{\sqrt{2m}}{\pi\hbar}\right)^d V\int_0^\infty \frac{\d{x}}{2\sqrt{x}}A_d x^{(d-1)/2}\delta (\varepsilon-x)\\
+		       &=\frac{1}{2}\frac{(2m)^{d/2}}{h^d} VA_d \varepsilon^{\frac{d}{2}-1}\\
+		       \intertext{Recall, of course, that we have \(A_d = \frac{2 \pi^{d/2}}{\Gamma(d/2)}\)}
+		       &=\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma(d/2)}\varepsilon^{\frac{d}{2}-1}
+\end{align*}
+If we have spin angular momentum, we multiply this by a factor of the spin degeneracy, \((2s+1)\).
+
+\subsection{Equation of Clapeyron}
+There is an older result that can be found to be the direct consequence of \(D_E\sim E^{\frac{d}{2}-1}\). We see that we can write
+\[D(E) = \frac{2}{d}\pder{}{E}[ED(E)]\]
+This can be verified by expanding the RHS.\@ Recall that for extensive systems we have \(PV=-\Omega\). We have an espression for \(\Omega\), which allows us to rewrite
+\begin{align*}
+	PV &=\pm k_BT\int_0^\infty \d{\varepsilon}D(\varepsilon)\ln \left(1\pm e^{-\beta(\varepsilon-\mu)}\right)\\
+	   &=\pm k_BT\frac{2}{d}\int_0^\infty \d{\varepsilon}\left(\pder{}{\varepsilon}\left[\varepsilon D(\varepsilon)\right]\right)\ln \left(1\pm e^{-\beta(\varepsilon-\mu)}\right)\\
+	   \intertext{Integrating by parts (and noticing the boundary terms vanish),}
+	   &=\mp k_BT \frac{2}{d}\int_0^\infty \d{\varepsilon}\varepsilon D(\varepsilon)\frac{\mp \beta e^{-\beta(\varepsilon-\mu)}}{1\pm e^{-\beta(\varepsilon-\mu)}}\\
+	   &=\frac{2}{d}\int_0^\infty \d{\varepsilon}\varepsilon D(\varepsilon)f_\pm(\varepsilon-\mu)\\
+	   &=\frac{2}{d}E
+\end{align*}
+Thus, we obtain the equation of Clapeyron:
+\[E= \frac{d}{2}PV\]
+It is amazing that considering quantum contributions, we obtain the same relation as the classical result even though the ideal gas law, \(PV=Nk_BT\), and equipartition theorem, \(E=\frac{d}{2}Nk_BT\) do \emph{not} hold in quantum mechanics!
+
+\subsection{Grand Potential}
+Recall our expression for the grand potential,
+\[\Omega = \mp k_BT\int_0^\infty \d{\varepsilon} \varepsilon D(\varepsilon) \ln\left(1\pm e^{-\beta(\varepsilon-1)}\right)\]
+where we define the ground state \(\varepsilon_0 = 0\). It is often useful to define (in both classical and quantum statistical mechanics) a quantity
+\begin{equation}
+	z = e^{\beta\mu}
+\end{equation}
+known as the \emph{fugacity}. This allows us to evaluate
+\begin{align}
+	\Omega_\pm &= \mp k_BT\int_0^\infty\d{\varepsilon} (2s+1)\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma\left(\tfrac{d}{2}\right)}\varepsilon^{\frac{d}{2}-1}\ln \left(1\pm ze^{-\beta \varepsilon}\right)\nonumber\\
+		   &= \mp k_BT (2s+1)\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma\left(\tfrac{d}{2}\right)}\int_0^\infty\d{\varepsilon}\varepsilon^{\frac{d}{2}-1}\ln \left(1\pm ze^{-\beta \varepsilon}\right)\nonumber\\
+		   \intertext{Substituting \(t = \beta\varepsilon\),}
+		   &= \mp k_BT (2s+1)\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma\left(\tfrac{d}{2}\right)}\frac{1}{\beta^{d/2}}\int_0^\infty\d{t}t^{\frac{d}{2}-1}\ln \left(1\pm ze^{-t}\right)\nonumber\\
+		   &= \mp k_BT (2s+1)\left(\frac{\sqrt{2\pi mk_BT}}{h}\right)^d V\frac{1}{\Gamma\left(\tfrac{d}{2}\right)}\int_0^\infty\d{t}t^{\frac{d}{2}-1}\ln \left(1\pm ze^{-t}\right)\nonumber\\
+		   \intertext{We recognize the integral with the factor of the Gamma as a polylog, and the term in parentheses corresponds to the thermal de Broglie wavelength. Thus,}
+	\Omega_\pm &= \pm k_BT(2s+1)\frac{V}{\lambda_{\text{th}}^d} L_{\frac{d}{2}+1}(\mp z)\label{eq26:qiggp}
+\end{align}
+From this, we can obtain two important relations. First,
+\begin{equation}\frac{PV}{k_BT} = -\beta \Omega = \mp \frac{V}{\lambda_{\text{th}}^d}(2s+1)L_{\frac{d}{2}+1}(\mp z)\end{equation}
+Second, using the fact that
+\[z\pder{}{z} = z\pder{\mu}{z}\pder{}{\mu} = z\left(\pder{}{z}\frac{\ln z}{\beta}\right)\pder{}{\mu} = \frac{1}{\beta} \pder{}{\mu}\]
+\[z\pder{}{z}\beta = \pder{}{\mu}\]
+we can make use of the ladder property of the polylog to obtain
+\begin{equation}N = -\pder{\Omega}{\mu}= z\pder{}{z}\left(-\beta\Omega\right) = \mp \frac{V}{\lambda_{\text{th}}^d}(2s+1)L_{\frac{d}{2}}(\mp z)\end{equation}
+We can view these two equations as a parametric representation of the thermal equation of state, with \(z\) being the parameter. Dividing these two equations, we obtain
+\begin{equation}
+	\frac{PV}{Nk_BT} = \frac{L_{\frac{d}{2}+1}(\mp z)}{L_{\frac{d}{2}}(\mp z)}
+\end{equation}
+From the facts that
+\begin{multicols}{2}
+	\noindent \[L_\nu(0)=0\]
+	\[L_\nu'(0)=1\]
+	\[\der{}{z}L_\nu>0\]
+	\[\der{}{\nu}L_\nu<0\]
+\end{multicols}
+we see that for bosons we have
+\[\frac{PV}{Nk_BT}\leq 1\]
+while for fermions we will have
+\[\frac{PV}{Nk_BT}\geq1\]
+Finally, for our classical ideal gas (boltzmannons) we have exactly\footnote{Note that this occurs on the polylogs at \(z=0\), so the classical limit is \(z\to 0\).}
+\[\frac{PV}{Nk_BT} = 1\]
+Thus, fermions exhibit a greater pressure than we would classically expect, while bosons exhibit a weaker pressure than we would classically expect. We can interpret this as Fermi (Bose) statistics leads to an addition repulsion (attraction) between particles. While these particles do not interact through any forces, the exchange statistics lead to what we can view as an interaction between particles.
+
+

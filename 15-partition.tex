@@ -1,0 +1,318 @@
+%! TEX root = 0-main.tex
+\chapter{Statistical Ensembles}
+A thermodynamic ensemble is a virtual assembly of copies of a thermodynamic system, each representing an accessible microstate of the thermodynamic system, subject to external requirements on teh original system; if there are \(g\) accessible microstates, there are \(g\) systems in teh ensemble. The three most common ensembles are the microcanonical ensemble (isolated system), canonical (variable energy), and grand cannonical ensemble (variable particles and energy).
+
+\section{Microcanonical Ensemble}
+The Hamiltonian for an isolated system of \(N\) particles with pairwise interactions is
+\begin{equation}
+	H(q,p) = \sum_{j=1}^N \frac{p_j^2}{2m}+\sum_{j=1}^N\sum_{i>j}^N\phi(r_i,r_j)
+\end{equation}
+To fix the energy, we introduce the constraint
+\begin{equation}
+	\delta(E-H)
+\end{equation}
+The constant energy defines the \emph{microcanonical ensemble}. Fixing temperature, volume, and particle number, recall that the entropy can be written
+\begin{equation}
+	S(E,V,N) = k_B\ln\Omega(E,V,N)= k_B\ln\left[\frac{1}{h^{3N}N!}\int\d{q}\int\d{p}\delta(E-H(p,q))\right]
+\end{equation}
+This is a \(6N\) dimensional integral which is often difficult, if not impossible to evaluate for interacting systems.\footnote{The quantity \(\Omega\) is the \emph{microcanonical partition function}. It is sometimes refered to as the \emph{density of states}. Its identity as the microcanonical partition function is why the logarithm yields the potential \(S\).} Such systems can be approximated using molecular dynamcis simulations, where the differential equations
+\[\der{q_j}{t}=\frac{p_j}{m}\]
+\[\der{p_j}{t}=\sum_kF_{jk}\]
+lead to evolution
+\[q_j(t+\delta t) = q_j(t)+\frac{p_j(t)}{m}\delta t\]
+\[p_j(t+\delta t) = p_j(t)+\sum_kF_{jk}(t)\delta t\]
+if \(\delta t\) is too large, there is noise due to discretization, and for large \(N\), there are too many particles to hold in memory.
+
+\section{Canonical Ensemble}
+The canonical ensemble is held at a constant temperature by contact with a heat reservoir; energy can flow between the ensemble and reservoir throught the interface. Thus, the canonical ensemble involves a probability distribution for the energy. 
+
+\subsection{Canonical Distribution of Energy}
+Assume that the system in contact with a thermal reservoir at temperature \(T\).  Because we fix the volume and particle number, the entropy of the reservoir can be written
+\[S_R = k_B\ln\Omega_R(E_R)\]
+Assuming that the energy of the system+reservoir is isolated from the rest of the universe, we may write
+\[E_T = E+E_R\]
+From a previous chapter, we determined the probability distribution to be in the form
+\[P(E) = \frac{N_T!}{N!N_R!}\frac{\iiiint\delta(E-H)\delta(E_R-H_T)\d{q}\d{p}\d{q_R}\d{p_R}}{\iiiint\delta(E_T-H_T)\d{q}\d{p}\d{q_R}\d{p_R}}\]
+for compactness, we defined a function
+\[\Omega_\alpha(E_\alpha)\equiv\frac{1}{h^{3N_\alpha}N_\alpha!}\iint\delta(E_\alpha-H_\alpha)\d{q_\alpha}\d{p_\alpha}\]
+thus,
+\[P(E) = \frac{\Omega(E)\Omega_R(E_T-E)}{\Omega_T(E_T)}\]
+Taking the logarithm,
+\[\ln P(E) = \ln\Omega(E) + \ln\Omega_R(E_T-E) - \ln\Omega_T(E_T)\]
+With the assumption that for a reservoir, \(E_T>E_R\gg E\), we Taylor expand the second term to obtain
+\[\ln P(E) = \ln\Omega(E)+\ln\Omega_R(E_T) - E\left(\pder{\ln\Omega_R(E_T)}{E}\right)-\ln\Omega_T(E_T)+O\left[\left(E/E_T\right)^2\right]\]
+Because we know the system and reservoir are in thermal equilibrium, we have
+\[\pder{\ln\Omega_R(E_T)}{E}=\beta_R=\beta=\frac{1}{k_BT}\]
+Defining a quantity \(\ln Z\equiv=\ln\Omega_T(E_T)-\ln\Omega_R(E_T)\), we have
+\[\ln P(E) = \ln\Omega(E)-\beta E +\ln(Z)\]
+or
+\begin{equation}
+	P(E) = \frac{\Omega(E)}{Z}e^{-\beta E}
+\end{equation}
+\(Z\) is independent of E, but depends on \(T,V,N\). We can integrate an expression for \(Z\) by normalizing the probability.
+\begin{equation}
+	Z(T,V,N) = \int\Omega(E,V,N)e^{-\beta E}\d{E}\label{eq18:zint}
+\end{equation}
+\(Z\) is the \emph{partition function}\footnote{The \(Z\) stands for the German \emph{Zustandssumme}, or ``sum over states''}. From Equation~\ref{eq18:zint}, we see that the partition function has the form of the Laplace transform of the function \(\Omega(E)\).
+
+\subsection{Canonical Distribution in Phase Space}
+Rather than using the microcanonical distribution of the previous section, we start from phase space considerations. Making the usual assumption of a universal probability distribution over total phase space, the Joint probability distribution for a given energy \(E_T\) is
+\[P(q,p,q_R,p_R) = Y\delta(E_T-H-H_R)\]
+where \(Y\) is the normalization constant that satisfies
+\[\iiiint P \d{q}\d{p}\d{q_R}\d{p_T}=1\]
+Thus, 
+\[Y = \left[\iiiint \delta(E_T-H-H_R) \d{q}\d{p}\d{q_R}\d{p_T}\right]^{-1}=\frac{1}{h^{3N_T}N_T!\Omega_T(E_T)}\]
+Integrating over \(\{q_R,p_R\}\) to obtain the marginal distribution,
+\begin{equation}
+	P(q,p) = \frac{h^{3N_R}N_R!\Omega_R(E-H)}{h^{3/N_T}N_T!\Omega_T(E_T)}
+\end{equation}
+taking the logarithm and making use of \(E_T\gg H(q,p)\),
+\[\ln P(q,p) = \ln\Omega_R(E_R)-H(q,p)\left(\pder{\ln\Omega_R(E_T)}{E_T}\right)-\ln\Omega_T(E_T)+\ln\left(\frac{h^{3N_R}N_R!}{h^{3N_T}N_T!}\right)\]
+Using a similar definition to \(Z\), we define another function \(\tilde Z\) which yields
+\[\ln P(q,p) = \ln(\tilde Z)-\beta H(q,p)\]
+or
+\[P(q,p) = \frac{1}{\tilde Z}e^{-\beta H}\]
+where normalization yields 
+\[\tilde Z = \iint e^{-\beta H}\d{p}\d{q}\]
+Comparing the two expressions, we ses
+\begin{align*}
+	Z(T,V,N) &= \frac{1}{h^{3N}{N!}}\iiint\delta (E-H)e^{-\beta E}\d{E}\d{q}\d{p}\\
+		 &=\frac{1}{h^{3N}N!}\iint e^{-\beta H}\d{q}\d{p}\\
+		 &=\frac{1}{h^{3N}N!}\tilde Z(T,V,N)
+\end{align*}
+Thus, we define the partition function to be
+\begin{equation}
+	Z(T,V,N) =\frac{1}{h^{3N}N!}\iint e^{-\beta H}\d{q}\d{p}\label{eq19:part}
+\end{equation}
+We will see that we can obtain all thermodynamic information from the partition function.
+
+\subsection{Liouville Theorem}
+Recall that from Hamiltonian Mechanics, that any microscopic state of \(N\) particles cand be viewed as a point in \(6N\)-dimensional \emph{phase space}, with coordinates of position \(q\) and momentum \(p\). From the Hamiltonian, the time evolution is given
+\begin{equation}
+	\dot q_j = \pder{H}{p_j} \qquad\qquad \dot p_j = \pder{H}{q_j}
+\end{equation}
+These microscopic states thus move through phase space along a trajectory defined by these canonical equations. If we consider the density of the points \(\varrho(q,p,t)\), we are interested in how the density evolves with time.
+\[\der{\varrho}{t}=\pder{\varrho}{t}+\sum_{j=1}^{3N}\left[\pder{\varrho}{q_j}\dot q_j + \pder{\varrho}{p_j}\dot p_j\right]\]
+Because \(\varrho\) is a density of trajectory, it must satisfy the continuity equation, as trajectories can neither begin nor end, and can neither join nor split off into different trajectories:
+\[\pder{\rho}{t} + \sum_{j=1}^{3N}\left[\pder{}{q_j}(\varrho \dot p_j) + \pder{}{p_j}(\varrho \dot p_j)\right]=0\]
+Expanding the continuity equation,
+\[\pder{\varrho}{t}+\varrho\sum_{j=1}^{3N}\left[\pder{\dot q_j}{q_j}+\pder{\dot p_j}{p_j}\right]+\sum_{j=1}^{3N}\left[\pder{\varrho}{q_j}\dot q_j + \pder{\varrho}{p_j}\dot p_j\right]=0\]
+and substituting the time derivative,
+\[\der{\varrho}{t}+\varrho\sum_{j=1}^{3N}\left[\pder{\dot q_j}{q_j}+\pder{\dot p_j}{p_j}\right]=0\]
+From hamilton's equations, we have
+\[\pder{}{q_j}\dot q_j = \pder{}{q_j}\pder{H}{p_j} = \pder{}{p_j}\pder{H}{q_j} = -\pder{\dot p_j}{p_j}\]
+thus, we obtain Liouville's Theorem,
+\begin{equation}
+	\der{\varrho}{t}=0
+\end{equation}
+
+Taking the density as the canonical probability distribution \(\varrho = P(H(q,p))\),
+\begin{align*}
+	0&=\der{\varrho}{t}\\
+	 &=\pder{\varrho}{t}+\sum_{j=1}^{3N}\left[\dot q_j \pder{\varrho}{H}\pder{H}{q_j}+\dot p_j \pder{\varrho}{H}\pder{H}{p_j}\right]\\
+	 &=\pder{\varrho}{t} + \pder{\varrho}{H}\sum_{j=1}^{3N}\left[-\dot q_j \dot p_j+\dot q_j \dot p_j\right]\\
+	 &=\pder{\varrho}{t}
+\end{align*}
+thus, the distribution does not change in time. The microcannonical and canonical ensembles depend only on energy and so the probability distributions don't change with time---this leads to stable equilibria.
+
+\subsection{Canonical Distribution Peak}
+Previously we showed that
+\[P(E) = \frac{\Omega(E)}{Z}\exp[-\beta E]\]
+The function \(\Omega(E)\) has the form
+\[\Omega = \frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}\]
+For most systems, we see that
+\[\Omega\propto E^f\]
+for a funciton \(f\) that varies slowly for \(E\) and can be approximated as a constant. Finding the peak by
+\[0=\pder{}{E}\ln P = \frac{f}{E}-\beta\]
+we see the equilibrium peak is 
+\[E_{eq}=fk_BT\]
+The width may be approximated to a gaussian as
+\[-\frac{1}{\sigma_E^2} = \at{\pder{^2\ln P}{E^3}}{E=E_{eq}} = -\frac{f}{E_{eq}^2}\]
+or, the relative width is given
+\[\frac{\sigma_E}{E}=\frac{1}{\sqrt{f}}\]
+Generally, \(f\propto N\), so for a mole, the relative width is on the order of \SI{e-11}{}.
+
+\section{Partition Function and Free Energy}
+The canonical probability distribution is given
+\[\ln P = -\beta E + \ln \Omega - \ln Z\]
+Using the fact that \(S=k_B\ln\Omega\), we see that
+\begin{align*}
+	\ln Z &= -\beta E + S/k_B - \ln P\\
+	      &= -\beta E + TS/k_B T -\ln P\\
+	      &= -\beta(E-TS) - \ln P\\
+	      &= -\beta F -\ln P
+\end{align*}
+However, the peak height of \(P\) is proportialnal to a power of \(N\), so \(\ln P \sim O(\ln N)\). As an extensive parameter, the Helmholtz free energy is \(F\sim O(N)\), so for \(N\sim\SI{e20}{}\),
+\[\frac{\ln N}{N}\approx 5\times 10^{-19}\]
+which is negligible. Thus,
+\begin{equation}
+	F = -k_BT\ln Z
+\end{equation}
+Additionally, using \(\Omega = e^{S/k_B}\)
+\begin{equation}
+	\Omega*e^{-\beta E} = e^{-\beta F}
+\end{equation}
+
+\subsection{Identities}
+There are numerous thermodynamic identities which can be derived from statistical mechanics.
+\begin{align*}
+	\pder{}{\beta}\ln Z & = \frac{1}{Z}\pder{Z}{\beta}\\
+			    &= \frac{1}{Z}\pder{}{\beta}\left[\frac{1}{h^{3N}N!}\int\d{q}\int\d{p}\exp[-\beta H]\right]\\
+			    &=-\frac{1}{Z}*\frac{1}{h^{3N}N!}\int\d{q}\int\d{p}H\exp[-\beta H]\\
+			    &=-\frac{\int\d{q}\int\d{p}H\exp[-\beta H]}{\int \d{q}\int\d{p}\exp[-\beta H]}\\
+			    &=\vect{E}=U
+\end{align*}
+or,
+\begin{equation}
+	\pder{}{\beta}(\beta F) = U
+\end{equation}
+As statistical mechanics takes into account microscopic effects, it can be used to show relationships inaccessible to thermodynamics. Using the fact that
+\[\der{\beta}{T} = -\frac{1}{k_BT^2}\]
+we return to the definition
+\[c_V = \frac{T}{N}\left(\pder{S}{T}\right)_{V,N}\]
+At fixed \(V,N\), we divide through \(\d{U}+T\d{S}\) to obtain
+\[c_V = \frac{1}{N}\left(\pder{U}{T}\right)_{V,N} = \frac{1}{N}\left(\pder{U}{\beta}\right)_{V,N}\der{\beta}{T} = -\frac{1}{Nk_BT^2}\left(\pder{\vect{E}}{\beta}\right)_{V,N}\]
+Taking the derivative
+\begin{align*}
+	\pder{\vect{E}}{\beta} &=\pder{}{\beta}\left[\frac{\int\d{q}\int\d{p}H\exp[-\beta H]}{\int \d{q}\int\d{p}\exp[-\beta H]}\right]\\
+			    &=-\frac{\int\d{q}\int\d{p}H^2\exp[-\beta H]}{\int \d{q}\int\d{p}\exp[-\beta H]}+\left[\frac{\int\d{q}\int\d{p}H\exp[-\beta H]}{\int \d{q}\int\d{p}\exp[-\beta H]}\right]^2\\
+			    &=-\vect{E^2}+\vect{E}^2
+\end{align*}
+yielding
+\begin{equation}
+	c_V = \frac{1}{Nk_BT^2}\left(\vect{E^2}-\vect{E}^2\right)
+\end{equation}
+which supposedly cannot be obtained through thermodynamics alone. This above equation is the most accurate way to compute the specific heat through computational methods. Similar expressions exist for other quantities.
+
+\section{Momentum-Independent Interactions}
+Computation of the partition function simplifies when forces do not depend on momenta, which applies to large systems, but notably not particles in magnetic fields. For momentum-independent interactions, we can easily integrate over momentum to obtain:
+\begin{align*}
+	Z &= \frac{1}{h^{3N}N!}\int\d{q}\int\d{p}\exp\left[-\beta\left(\sum_j\frac{p^2_j}{2m}+\sum_j\sum_{i>j}\phi(r_i, r_j)\right)\right]\\
+	  &=\frac{(2\pi m k_B T)^{3N/2}}{h^{3N}N!}\int\d{q}\exp\left[-\beta\sum_j\sum_{i>j}\phi(r_i, r_j)\right]
+\end{align*}
+For the classical ideal gas, there are no interparticle interactions, so \(\phi = 0\), so
+\begin{equation}
+	Z_{ideal} = \frac{(2\pi m k_B T)^{3N/2}V^N}{h^{3N}N!}
+\end{equation}
+Computing the Helmholtz free energy from this partition function agrees to the previously determined expression to within an additive constant.
+
+\subsection{Markov-chain Monte Carlo Simulations}
+In general, the integral of the interactions are typically obtained numerically. Monte Carlo integration with Markov-chain importance sampling is a common method.
+\subsubsection{Monte Carlo Integration}
+Typical numerical integration techniques, such as Trapezoidal/Simpson's rule are not feasible for thermodynamic integrals, as too many function evaluations must be made. Rather, Monte Carlo integration is used. The basic theorem is that
+\[\int_V f(\vv x) \d{D}x \approx V\vect F \pm V \sqrt{\frac{\vect{f^2}-\vect{f}^2}{N}}\]
+where
+\[\vect{f} = \frac{1}{N}\sum_i f(\vv{ x}_i) \qquad \qquad \vect{f^2} =\frac{1}{N} \sum_i f(\vv {x}_i)^2\]
+and \(V\) is the volume being integrated over. \(N\) points are chosen independently and randomly with uniform probability distribution through this volume to obtain the average and variance of the function. This method derives its validity through the Law of Large Numbers and the Central Limit Theorem.\footnote{For 1D integrals, this is fairly inefficient, as \(N\sim \SI{1e5}{}\) samples must be taken for good accuracy}
+
+This method works well if the function is relatively flat; if it is sharply peaked, importance sampling can be used to greatly improve the efficiency of the integration. Recall the riemann sum of integration:
+\[\int_a^b f(x)\d{x}\approx \frac{b-a}{N}\sum_j^N f(x_j)\]
+Instead, we choose a \(g(x)>0\) with \(\int_a^b g\d{x}=1\) such that \(f = hg\). Then,
+\[\int_a^b f(x)\d{x} =\int_a^b h(x)g(x) \approx \frac{b-a}{N}\sum_j^N h(x_j)\]
+where \(x_j\) are chosen with probability density \(g(x_j)\) and have the observable \(h(x_j)\).
+
+\subsubsection{Markov Chains}
+The probability densities are chosen via a stationary stochastic process, and the stationary stochastic process is determined via Markov Chains. 
+
+A \emph{discrete markov chain} is a stochastic process withc generates a sequence of states with probabilities depending on the current state. A state cah be in one of \(R\) states, \(s_i\). If a state is in state \(s_i\), the probability of moving to state \(s_j\) is given by the transition probability \(p_{ij}\). These transition probabilities form a matrix \(P\) known as a \emph{transition matrix} or \emph{Markov matrix}. This generalizes naturally to continuous systems, such as our integration.
+
+A probability vector \(w\) is called \emph{stationary}, \emph{invariant}, or a \emph{fixed-point} if
+\[w\T = w\T P\]
+The probability vector is a description of the system. Repeated steps (or \emph{thermalization})
+\[w\T = w\T P^n\]
+converges to the fixed point, whereupon it reaches equilibrium. The sufficient condition for a Markov chain to have such a fixed point is \emph{detailed balance}:
+\[w_iP_{ij} = w_j P_{ji}\]
+We want the the fixed point of the Markov Chain to be \(P_{eq}(q)\).
+
+To find this probability density, we need to sample. For a canonical ensemble, we generate \(q\) with the probability distribution
+\[P_{eq}(q) = \frac{e^{-\beta V(q)}}{\int\d{q'}e^{-\beta V(q')}}\]
+If the ensemble weight is real and positive, we can use this as a probability interpretation for the Monte Carlo integration. The simplest way to construct the Markov transition matrix \(P(\tilde q \leftarrow q)\) is via the \emph{Metropolis-Hastings} method.\footnote{The probability distribution \(P_{eq}\) is not the same as the transition matrix \(P(\tilde q\leftarrow q)\)} 
+
+
+\subsubsection{Metropolis-Hastings Method}
+A proposal density \(R(\tilde q \leftarrow q)\) which is normlaized, can be evaluated for all \(\tilde q, q\) and can be easily sampled is chosen---note, that \(R\) does not have to have any relationship to \(P_{eq}\).
+
+We use the matrix \(R\) to propose a new \(\tilde q\). The new value \(\tilde q\) is accepted with probability
+\[P_{acc} = \min\left(1, \frac{R(q\leftarrow\tilde q)P_{eq}(\tilde q)}{R(\tilde q \leftarrow q)P_{eq}(q)}\right)\]
+If the proposal density is reversible
+\[R(\tilde q \leftarrow q) = R(q\leftarrow \tilde)\]
+the acception becomes
+\[P_{acc} = \min\left(1, \frac{P_{eq}(\tilde q)}{P_{eq}(q)}\right)\]
+thus, the integral need not be evaluated and the acceptance condition is related to a ratio of boltzmann factors. To adequately travel through phase space, we want the acceptance of a new state to be about 50\%; this can be adjusted by modifying \(R\).
+
+This algorithm satisfies detailed balance, so it will eventually reach a fixed point.
+
+{\huge I have no idea what happened here}
+
+Typical computations are for estimating the expectations for potential \(\vect{V},\vect{V^2}\) to obtain 
+\[E = \frac{3N}{2\beta}+\vect{V}\]
+\[c_V = \frac{3}{2}k_B + \frac{k_B\beta^2}{N}\left(\vect{V^2}-\vect{V}^2\right)\]
+
+\section{Factorization of the Partition Function}
+If particles don't interact with each other, but just an external potential, the partition functio factorizes naturally. Take
+\[H(q,p) = \sum_{j=1}^N \frac{p_j^2}{2m} +\sum_{j=1}^N\phi(r_j)\]
+such a hamiltonian is satisfied if \(\phi\) is the mean field of all of the particles, for example. The partition function then naturally becomes
+\begin{equation}
+	Z = \frac{1}{h^{3N}N!}(2\pi m k_B T)^{3N/2} \left(\int\d[3]r\exp[-\beta \phi(r)]\right)^N
+\end{equation}
+Such an integral can always be evaluated (even if only numerically) so we can consider such problems to be solved. 
+
+\subsection{Simple Harmonic Oscillator}
+A collection of uncoupled simple harmonic oscilators may be solved using factorization. Take the hamiltonian to be
+\[H = \sum_{j=1}^N \frac{p_j^2}{2m_j}+\frac{1}{2}K_jx_j^2\]
+Because the particles are localized, particle exchange is not an issue, so we do not need to divide by \(N! \) to account for degeneracy. Thus, the partition function may be easily seen to take the form
+\begin{equation}
+	Z=\frac{1}{h^N} \prod_{j=1}^N(2\pi m_j k_BT)^{1/2}(2\pi k_BT/K_j)^{1/2}
+\end{equation}
+Taking
+\[\omega_j = \sqrt{\frac{K_j}{m_J}}\]
+we can simplify this as
+\[Z = \prod_{j=1}^N \frac{1}{\beta \hbar \omega_j}\]
+
+\subsection{Lennard-Jones Potential}
+Another common potential is the Lennard-Jones potential:
+\begin{equation}
+	\phi\sim\left(\frac{r_0}{r}\right)^{12}-\left(\frac{r_0}{r}\right)^{6}
+\end{equation}
+The 6th power term comes from the interaction of two induced dipoles (\((r^3)^2\) from temporary dipoles) while the 12th power term comes from the Pauli Exclusion repulsion force.
+
+\subsection{Mayer Cluster Expansion}
+For a pairwise potential, the partition function becomes
+\begin{equation}
+	Z = \frac{1}{h^{3N}N!}\left(\frac{2\pi m}{\beta}\right)^{3N/2}\int\prod_{i=1}^N(\d[3]{r_i})\exp\left[-\beta\sum_{j<k}\phi(\abs{r_j-r_k})\right]
+\end{equation}
+We cannot expand the exponential, as the factor is not small. Instead, we expand in terms of 
+\begin{equation}
+	f(r) \equiv e^{-\beta\phi(r)}-1
+\end{equation}
+in the \emph{Mayer Cluster Expansion}. Let
+\[f_{ij} = f(\abs{r_i-r_j})\]
+Then, the partition function becomes
+\[Z = \frac{1}{h^{3N}N!}\left(\frac{2\pi m}{\beta}\right)^{3N/2}\int\prod_{i=1}^N(\d[3]{r_i})\prod_{j<k}(1+f_{jk})\]
+Using logarithms and exponentials, we can further rewrite as
+\[Z = \frac{1}{h^{3N}N!}\left(\frac{2\pi m}{\beta}\right)^{3N/2}\int\prod_{i=1}^N(\d[3]{r_i})\exp\left[\sum_{j<k}\ln(1+f_{jk})\right]\]
+We define
+\[L = \sum_{j<k}\ln(1+f_{jk}) \qquad \qquad F_n = \sum_{j<k}f^n_{jk}\]
+so we can expand \(L\) as
+\[L = F_1-\frac{1}{2}F_2+\frac{1}{3}F_3-\frac{1}{4}F_4+\cdots\] 
+Expanding the exponential,
+\[\exp[L] = 1+F_1 +\frac{1}{2}\left(F_1^2-F_2\right)+\frac{1}{6}\left(F_1^3-3F_1F_2+2F_3\right)+\cdots\]
+Considering only the first two terms, the first term yields \(V^N\) in the after integration---the same as for an ideal gas. The second term involves summing over \(\frac{1}{2}N(N-1)\) pairs, yielding
+\[\int\d[3N]{r} \sum_{j<k}f_{jk} = \frac{1}{2}N(N-1)V^{N-2}\int\d[3]{r_1}\d[3]{r_1}f(r_{12})\]
+Changing variables to \(R = \frac{1}{2}(r_1+r_2)\) and \(r = r_1-r_2\), we can further simplify to
+\[\frac{1}{2}N(N-1)V^{N-1}\int\d[3]{r}f(r)\]
+Because \(f\) only acts on atomic-scale distances, transforming the limits of integration provides a negligible effect. For large \(N\), \(N-1\approx N\), so we obtain
+\begin{equation}
+	Z = \frac{1}{h^{3N}N!}\left(\frac{2\pi m}{\beta}\right)^{3N/2}V^N\left[1+\frac{N^2}{2V}\int\d[3]{r}f(r)\right]
+\end{equation}
+We can then obtain the the free energy as
+\begin{align*}
+	F&=-\frac{1}{\beta}\ln Z \\
+	 &=-k_BT\left(X+N\ln V +\ln[1+\frac{N^2}{2V}\int\d[3]rf(r)+\cdots]\right)\\
+	 &\approx -k_BT	\left[X+N\ln V + \frac{N^2}{2V}\int\d[3]rf(r)+\cdots\right]
+\end{align*}
+Differentiating, we can obtain the \emph{Virial Expansion},
+\[P=\frac{Nk_BT}{V}\left(1-\frac{N}{V}\int\d[3]{r}f(r)+\cdots\right)\]
+Thus, using the cluster expansion, we can obtain the \emph{Virial Coefficients}, \(B_j(T)\) via
+\[\frac{P}{k_BT} = \frac{N}{V}+B_2(T)\frac{N^2}{V^2}+B_3(T)\frac{N^3}{V^3}+\cdots\]
+The clusters can be viewed as graphs; these graphs are necessary to evaluate higher order Mayer cluster expansion terms. it turns out that if we consider only connected clusters, we can obtain the Grand Canonical Partition Function as the exponential of all connected diagrams.

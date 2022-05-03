@@ -1,0 +1,98 @@
+%! TEX root = 0-main.tex
+\chapter{Bose-Einstein Condensation}
+\section{Macroscopic Occupation}
+In a Bose gas with a non-interacting hamiltonian, as \(T\to 0\), we expect that all the particles occupy the same ground state. However, this is not remarkable; it is not even what a Bose-Einstein condensate (BEC) is. What makes a BEC special is that for a given density \(n=N/V\), there exists a temperature \(T_E>0\) such that for \(T\leq T_E\), the ground state is \emph{macroscopically occupied}, or that the density of the ground state \(n_0 = \lim_{V\to\infty}\vect{n_{\alpha_0}}/V>0\). That is, a finite percent of the particles exist in the ground state, and the occupation in all other states go to zero.
+
+Recall that we have
+\begin{equation}
+	\vect{n_{\alpha_0}} = \frac{1}{e^{\beta(\varepsilon_0-\mu)}-1} = \frac{1}{z-1}= \frac{z}{1-z}\sim V = L^d 
+\end{equation}
+where we take the ground state to be \(\varepsilon_0\to 0\) and \(z=e^{\beta\mu}\) is the fugacity. What follows from this is that we must have
+\[z\sim\frac{\alpha L^d}{1+\alpha L^d} \approx 1-O(L^{-d}) = 1-c/V\approx 0\]
+or, the chemical potential must approach \(0=\varepsilon_0\) from below, which is the convergence limit!.
+
+If we consider the next excited state, \(\varepsilon_k\sim k^2 \equiv \delta k^2/L^2\), we see
+\[\vect{n_{\alpha_1}} = \frac{1}{e^{\beta\varepsilon-\mu}-1} = \frac{z}{e^{\beta \delta/L^2}-z}\approx  \frac{1-cL^{-d}}{\beta\delta/L^2+cL^{-d}} = \frac{L^d-c}{\beta\delta L^{d-2}+c}\sim L^2\]
+Taking \(\vect{n_{\alpha_{n\geq 1}}}/L^d\sim L^{-(d-2)}\), we see that in 3D this trivially goes to zero. However, for 1 and 2D, this ratio becomes a constant.\footnote{For 1D, the equaiton given \(L^{-(d-2)}\) is not valid, as the denominator is instead dominated by \(c\), so the relation instead becomes \(\vect{n_{\alpha_{n\geq1}}}\sim L^{d=1}\).}
+As such, when we integrate/sum over all states, we see that the integral/sum diverges, which is a non-physical result. Thus, we cannot have a finite fraction in the ground state, and correspondingly, we cannot have BECs in 1,2D. However, while we showed that there is no contradiction for BECs to exist in 3D, we have not shown that such macroscopic occupation \emph{does} exist.
+
+\section{Condensation}
+Recall our expression for the integral density of states,
+\begin{equation}
+	N = (2s+1)\frac{V}{\lambda^d_{\text{th}}}L_{\frac{d}{2}}(z)
+\end{equation}
+Recall from our discussion that \(z\) is bounded above by 1. Further, we showed that \(L_\nu(1) = \zeta(\nu)\). Thus, because the polylog is monotonic, we see that we must have
+\begin{equation}
+	N\leq (2s+1)\frac{V}{\lambda_{\text{th}}^2}\zeta\left(\tfrac{d}{2}\right)
+\end{equation}
+We know that for \(d=1,2\) the polylog diverges as \(z\up 1\), but \emph{converges} for \(d=3\), as we have \(\zeta\left(\tfrac 3 2\right)\approx 2.612\). Thus, in three dimensions, we expect to have 
+\[N\leq(2s+1)\frac{V}{\lambda^3_{\text{th}}}*2.612\dots\]
+bounded above by a finite number (for a finite volume/temperature). For a bose system, we should not expect there to be any bounds, as an infinite number of bosons should, in principle, be able to fit in any state. There are no repulsions, and the particles have no volume, and so there should not be any upper bound.
+
+This contradiction arises because we used a continuous model for the density of states to derive \(N\) rather than the true discrete energy spectrum. The ``smearing out'' of the DoS is generally a valid approximation, but it fails for the ground state. Recall, that we had in 3D that \(D(\varepsilon)\sim \sqrt{\varepsilon}\), which \emph{destroys the macorscopically occupied state} at \(\varepsilon = 0\). In other words, if we miss the ground state particles, we miss a finite fraction of all particles.
+
+Thus, our integrated density of states measures just the number of particles in \emph{excited} states:
+\begin{equation}
+	N_{\text{excited}} = (2s+1)\frac{V}{\lambda^d_{\text{th}}}L_\frac{d}{2}(z)\leq (2s+1)\frac{V}{\lambda ^d_{\text{th}}}\zeta\left(\tfrac{d}{2}\right)
+\end{equation}
+When the number of particles in our system then exceeds this number, \emph{the rest must go to the ground state}. Thus, we observe macroscopic occupation of the ground state! This point marks the transition from a bose gas to a BEC.\@
+
+We can thus calculate the ground state occupation, \(N_0\) as trivially
+\begin{equation}
+	N_0 = N-(2s+1)\frac{V}{\lambda^d_{\text{th}}}\zeta\left(\tfrac{d}{2}\right)
+\end{equation}
+Trivially, we see that the macroscopic occupation is then given
+\begin{equation}
+	\frac{N_0}{N}=1-(2s-1)\zeta\left(\tfrac{d}{2}\right)\frac{V}{N\lambda_{\text{th}}^d}
+\end{equation}
+In 3D, and reinserting the definition of \(\lambda_{\text{th}} = \frac{h}{\sqrt{2\pi mk_BT}}\), we see that
+\[\frac{N_0}{N} = 1-\left(\frac{T}{T_E}\right)^{3/2}\]
+where the einstein temperature is given
+\begin{equation}
+	T_E = \frac{h^2}{2\pi mk_B}\left[(2s+1)\frac{V}{N}\zeta\left(\tfrac{3}{2}\right)\right]^{2/3}
+\end{equation}
+For \(T<T_E\), we have macroscopic ground state occupation. However, for \(T>T_E\), we cannot have \(N_0/N<0\), so we fix \(N_0/N=0\), and we no longer have macroscopic occupancy of the ground state. There is trivially a discontinuity in the derivative of this fraction, so we must have a phase transition. At this critical temperature, we see that
+\[(2s+1)\zeta\left(\frac{3}{2}\right)\frac{1}{n\lambda_{T_E}^3} = 1\]
+or
+\[n\lambda_T^3 = \frac{1}{\zeta\left(\frac{3}{2}\right)(2s+1)}\approx \frac{0.38}{2s+1}\]
+which is a very large density. In comparison, at STP, nitrogen has a thermal wavelength
+\[\lambda = \frac{h}{\sqrt{2\pi mk_BT}}\approx \SI{1.9e-10}{m}\]
+Thus, we would expect the particle density to be
+\[n = \frac{N}{V} = \frac{P}{k_BT} \approx \frac{\SI{e5}{Pa}}{4.1e-31}{J}=\SI{2.4e25}{m^{-3}}\]
+so
+\[n\lambda^3_{th}=\SI{1.6e-7}{}\ll1\]
+which is \emph{tiny} compared to what we need for a BEC.\@
+
+There are two ways we can achieve a BEC:\@ we can either increase the density manually (which would make interactions important), or decrease the temperature to increase \(\lambda_{th}\).
+
+\section{Properties of a BEC}
+Once a BEC forms, we have the fugacity becomes \(z\approx 1\) with incredible accuracy. Thus, we have
+\[\frac{PV}{k_BT}=-\beta\Omega = (2s+1)\frac{V}{\lambda_{th}^3}L_{\frac{5}{2}}(z)\approx (2s+1)\frac{V}{\lambda^3_{th}}\zeta\left(\tfrac{5}{2}\right)\]
+so
+\begin{equation}
+	P = (2s+1)\zeta\left(\tfrac{5}{2}\right)*\frac{k_BT}{\lambda_{th}^3}\propto T^{5/2}
+\end{equation}
+or, the pressure doesn't depend on the volume! Thus,
+\[\left(\pder{P}{V}\right)_{T} = 0 \then \kappa = -\frac{1}{V}\left(\pder{V}{P}\right)=\infty\]
+so the system is \emph{infinitely compressible}. We recognize another case with an infinitely compressible system as the phase transition between a liquid and a gas; at this transition, the system has constant pressure regardless of volume, as the gas which would have exerted a pressure condenses into a liquid. This analogy is why a BEC is called a \emph{condensate}---as the volume decreases, we have more of the gas condensing into a BEC.\@ 
+
+We can also calculate the heat capacity,
+\[c_V = \frac{1}{N}\left(\pder{U}{T}\right)_V = \frac{3}{2}\frac{V}{N}\left(\pder{P}{T}\right)_V\]
+so
+\begin{equation}
+c_V/k_B = \frac{15}{4}\frac{\zeta(\frac{5}{2})}{\zeta(\frac{3}{2})}\left(\frac{T}{T_E}\right)^{3/2}
+\end{equation}
+where the constant prefactor is \(\approx 1.926\). Above \(T_E\), the heat capacity decays, so the Bose gas has highest heat capacity at \(T=T_E\) of \(c_V/k_B\approx 1.926\).
+
+Finally, at \(T=T_E\), we can write
+\begin{align*}
+	P &=(2s+1)k_BT_E\frac{1}{\lambda^3_{th}}\zeta\left(\tfrac{5}{2}\right)\\
+	  &=(2s+1)\frac{h^2}{2\pi m}\frac{2\pi m k_BT_E}{h^2}\frac{1}{\lambda^3_{th}}\zeta\left(\tfrac{5}{2}\right)\\
+	  &=(2s+1)\frac{hbar^2}{2m}\frac{1}{\lambda_{th}^5}4\pi\zeta\left(\tfrac{5}{2}\right)\\
+	  &=(2s+1)\frac{\hbar^2}{2m}\left[(2s+1)\zeta\left(\tfrac{3}{2}\right)\frac{N}{V}\right]^{5/3}4\pi\zeta\left(\tfrac{5}{2}\right)\\
+	  &=(2s+1)^{8/3}\frac{\hbar^2}{2m}\left(\frac{N}{V}\right)^{5/3}4\pi\zeta\left(\tfrac{5}{2}\right)\left[\zeta\left(\tfrac{3}{2}\right)\right]^{5/3}
+\end{align*}
+which is the transition line in the PV diagram of the BEC.\@ Above this line, we have a normal gas, while below, we have the two-phase system. Plotting isotherms, we see in the gas phase that \(P\sim 1/V\), which will intersect the transition line, then become a constant as \(V\to 0\).
+
+
+

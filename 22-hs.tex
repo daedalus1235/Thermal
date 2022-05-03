@@ -1,0 +1,123 @@
+%! TEX root = 0-main.tex
+\chapter{Harmonic Solid}
+Consider a chain of beads with separation \(a\),  which are each coupled to their neighbours by a spring with constant \(k\). Thus, we consider the resting (mean) position of the \(j\)\textsuperscript{th} bead to be \(R_j=ja\). However, in general, the beads are displaced by a position \(x_j\) from their resting point. Thus,
+\[r_j = ja + x_j\]
+The energy of such a system would be given
+\[E = \sum_{j=1}^{N}\frac{1}{2}m\dot x_j^2+\frac{1}{2}k(x_j-x_{j+1})^2\]
+There are two ways to determine \(x_{0}\) and \(x_{N+1}\): fixed boundary conditions or periodic boundary conditions. We will ignore the former and use the latter: \(x_{N+1} = x_{1}\). Periodic boundary conditions are equivalent to putting the system on a torus. The benefit of periodic boundary conditions is that you have translational symmetry with no true boundary.
+
+Luckily, even though the hamiltonian couples neighbouring particles, it is a quadratic form---we can rewrite in terms of a basis where the hamiltonian is diagonal, allowing us to decouple the hamiltonian. Recall that quadratic forms are necessarily hermitian, and thus can be diagonalized wrt an eigenbasis.
+
+It turns out the eigenbasis for this hamiltonian is given by plane waves. We can write this basis as a discrete fourier transform
+\[\tilde x_k = \frac{1}{\sqrt{N}}\sum_{j=1}^Nx_j e^{-kR_{j}} = \frac{1}{\sqrt{N}}\sum_{j=1}^Nx_je^{-ikaj}\]
+where \(j\) is an integer, and the wavevector \(k=\frac{2\pi n}{L}\). The inverse transformation is naturally another fourier transform
+\[x_j = \frac{1}{\sqrt{N}}\sum_{k}\tilde x_k e^{+ikaj}\]
+We can confirm this is the inverse transformation by plugging in the former to the latter:
+\begin{align*}
+	\frac{1}{\sqrt{N}}\sum_k\frac{1}{\sqrt{N}}\sum_{j'}x_{j'}e^{ikaj'}e^{ikaj}&=\sum_{j'}x_{j'}\frac{1}{N}\sum_k e^{ika(j-j')}\\
+	\intertext{recognizing \(k=\frac{2\pi}{L}n = \frac{2\pi}{Na}n\), we can rewrite}
+																		&=\sum_{j'}x_{j'}\frac{1}{N}\sum_ne^{-\frac{2\pi}{N}n(j-j')}
+																		\intertext{If \(j\neq j'\), we obtain a sum of the \(N\)\textsuperscript{th} roots of unity, which is equally zero. Thus, we have the exponential as a Kronecker delta, \(\frac{1}{N}\sum_ke^{ika(j-j')} = \delta_{j,j'}\). Thus,}
+																		&=\sum_{j'}x_j\delta_{j,j'}\\
+																		&=x_j
+\end{align*}
+
+Rewriting the Hamiltonian in Fourier space,
+\begin{align*}
+	T &= \frac{1}{2}m\sum_j\dot x_j^2 \\
+	  &= \frac{1}{2}m\sum_j\left(\frac{1}{\sqrt{N}}\sum_k\dot{\tilde x}_ke^{ikR_j}\right)\left(\frac{1}{\sqrt{N}}\sum_{k'}\dot{\tilde x}_{k'}e^{ik'R_j}\right)\\
+	  &=\frac{1}{2}m\sum_{k,k'}\dot{\tilde x}_k\dot{\tilde x}_{k'}\frac{1}{N}\sum_j e^{i(k+k')R_j}\\
+	  \intertext{Which we can rewrite again as a delta function, considering when the argument of the exponential is zero:}
+	  &=\frac{1}{2}m\sum_{k,k'}\dot{\tilde x}_k\dot{\tilde x}_{k'}\delta_{k,-k'}\\
+	  &=\frac{1}{2}m\sum_{k}\dot{\tilde x}_k\dot{\tilde x}_{-k}
+	  \intertext{Recalling the definition of \(\tilde x_k\), we see that \(k\to-k\) is the same as \(\tilde x_{-k} = \tilde x_k\ast\)}
+	  &=\frac{1}{2}m\sum_{k}\abs{\dot{\tilde x}_k}^2
+\end{align*}
+
+Similarly, we can rewrite the potential energy
+\begin{align*}
+	U&= \frac{1}{2}K\sum_j\left(x_j-x_{j+1}\right)^2\\
+	 &=\frac{1}{2}K\sum_j\left[\frac{1}{\sqrt{N}}\sum_{k}\tilde x_k\left(e^{ikR_j}-e^{ikR_{j+1}}\right)\right]\left[\frac{1}{\sqrt{N}}\sum_{k'}\tilde x_{k'}\left(e^{ik'R_j}-e^{ik'R_{j+1}}\right)\right]\\
+	 &=\frac{1}{2}K\sum_j\left[\frac{1}{\sqrt{N}}\sum_{k}\tilde x_k e^{ikaj}\left(1-e^{ika}\right)\right]\left[\frac{1}{\sqrt{N}}\sum_{k'}\tilde x_{k'}e^{ik'aj}\left(1-e^{ik'a}\right)\right]\\
+	 &=\frac{1}{2}K\sum_{k,k'}\tilde x_k\left(1-e^{ika}\right)\tilde x_{k'}\left(1-e^{ik'a}\right)\underbrace{\frac{1}{N}\sum_je^{i(k+k')R_j}}_{=\delta_{k,-k'}}\\
+	 &=\frac{1}{2}K\sum_{k}\tilde x_k\tilde x_{-k}\left(1-e^{ika}\right)\left(1-e^{-ika}\right)\\
+	 &=\frac{1}{2}K\sum_k\tilde x_k\tilde x_{k}\ast(2-2\cos ka)\\
+	 &=\sum_k\frac{1}{2}K(k)\abs{\tilde x_k}^2
+\end{align*}
+where we define 
+\[K(k)\equiv 4K\sin^2\frac{ka}{2}\]
+Thus, the potential is also diagonal in reciprocal space. Thus, we see that in reciprocal space, the modes are uncoupled. However, we see that the spring constant is dependent on the mode of the vibration in reciprocal space. 
+
+\begin{aside}[Why reciprocal space?]
+	Consider the original form of our potential:
+	\[U = \sum_j \frac{Ka^2}{2}\frac{(x_j-x_{j+1})^2}{a^2}\sim\frac{Ka^2}{2}\left(\pder{u}{x}\right)^2\]
+	We recognize the finite difference as a derivative. We can then consider it in terms of the \(\hat p = \frac{i}{\hbar}\der{}{x}\). The momentum eigenfunctions are plane waves \(\p_p = e^{\pm ikx}\) which explains how the diagonal basis can be found in fourier space.
+\end{aside}
+
+We can then find the dispersion relation of our harmonic solid as
+\[\omega(k) = \sqrt{\frac{K(k)}{m}} = \sqrt{\frac{K}{m}}2\abs{\sin\frac{ka}{2}}\equiv2\tilde \omega \abs{\sin \frac{ka}{2}}\]
+Note we need only know the region \(k\in[-\frac{\pi}{a},\frac{\pi}{a}]\), which is known as the \emph{First Brillouin Zone}. The points where we have valid wavevectors are spaced by \(2\pi/L\). Note that the modes at the boundaries of the first Brillouin zone are the identical, as we have periodic boundary conditions. The first Brillouin zone is the only necessary domain we need to know the dispersion relation, as higher wavevectors are made redundant by the Sampling theorem and the Nyquist frequency.
+
+For small \(k\), the dispersion relation approaches \(\omega(k\ll1)=\tilde \omega a \abs k\).
+
+Note that there are two types of velocity. The first is called \emph{phase velocity}, and detemines how the phase of a wave moves. It is defined
+\[v_p = \frac{\omega(k)}k\]
+The other is the group velocity, and is the velocity of the enevelope of a wavepacket
+\[v_g = \pder{\omega(k)}{k}=c_s\]
+where \(c_s\) is the speed of sound in the material. Notice that as \(k\to0\), we have \(v_g = v_p = \tilde \omega a\).
+
+\section{Energy}
+\subsubsection{Classical Energy}
+The classical energy is trivial to determine, as there are \(N\) quadratic degrees of freedom for both position and momentum; thus, we should expect
+\[U = Nk_BT\]
+Thus, we will have the specific heat
+\begin{equation}
+	c_v = \frac{1}{N}\left(\pder{U}{T}\right)_{V,N}=k_B
+\end{equation}
+This last expression is known as the \emph{Law of Dulong-Petit}. In a solid, there are 2 more degrees of freedom each for momentum and position, so in an ideal solid
+\[c_v = 3k_B\]
+which was what was measured at standard temperatures. However, when \(T\to0\), the measurements started diverging---the effects of quantum mechanics began to dominate.
+\subsubsection{Quantum Energy}
+Because we were able to decouple the Hamitonian in \(k\)-space, we can factorize the hamiltonian. Thus,
+\begin{equation}
+	Z_{QM} = \prod_{j=1}^N Z_{Qm, k_j} = \prod_{j=1}^N \frac{1}{2\sinh\frac{\beta\hbar\omega(k_j)}{2}}
+\end{equation}
+The quantum free energy is then
+\begin{equation}
+	F_{QM} = -k_BT\log Z_{QM} = k_BT\sum_{j=1}^N\log\left(2\sinh \frac{\beta\hbar\omega(k_j)}{2}\right)
+\end{equation}
+the energy is
+\begin{equation}
+	U_{QM} = \pder{\beta F}{\beta}= \sum_k \left[\frac{\hbar\omega(k)}{2}+\frac{\hbar\omega(k)}{e^{\beta\hbar\omega(k)}-1}\right]
+\end{equation}
+
+Unfortunately, if we extend this to 3D, we would need to consider crystal symmetries, extra degrees of freedom, etc., and the sum becomes unreasonable to evaluate analytically
+\subsection{Debye Approximation}
+Debye developed an approximation to evaluate these sums. Restricting to low temperatures, we need only consider low \(\omega\), so
+\[\hbar\omega(\vb k) = \hbar\omega ak = \hbar c_s \frac{2\pi}{L}n\]
+where
+\[n = \norm{\vb n} = \norm{\vect{n_x, n_y, n_z}}\]
+and 
+\[n_i = \frac{N}{2}+m\quad\qquad m\in[1,N]\subseteq \N\]
+Further, we assume the Brillouin zone is spherical region that contains the \(3N\) modes we need for the waves in 3D. Further, note that the boundary of the Brillouin zone are at high energies/high temperatures, and thus their impact will not be very significant. Considering a continuum approximation of the states, we have
+\[3N = 3\int_0^{n_D/2}\d{n}4\pi n^2= \then n_d = \left(\frac{6N}{\pi}\right)^{1/3} \]
+The division by \(2\) is in analogy to the max value of \(n_i\) being \(N/2\); it is a sphere centred at the origin. Further, the \(3\) counts the independent modes a particle can vibrate; each wave has 2 transverse and one longitudinal mode.
+
+The Debye energy is then
+\begin{align*}
+	U_{D} &= 3\int_0^{n_D/2}\d{n}4\pi n^2 \frac{\hbar\omega(n)}{e^{\beta\hbar\omega(n)}-1}\\
+	      &=12pi\int_0^{n_D/2}4\pi n^2 \frac{\hbar c_s\frac{2\pi}{L}n}{e^{\beta\hbar c_s \frac{2\pi}{L}n}-1}&x\equiv \beta\hbar c_s \frac{2\pi}{L}n\\
+	      &=12\pi\int_0^{\beta\hbar c_s\pi n_D/L}\frac{x^2\d{x}}{\left(\beta\hbar c_s \frac{2\pi}{L}\right)^3}\frac{x/\beta}{e^x-1}\\
+	      &=\frac{12\pi}{\beta}\left(\frac{L}{\beta\hbar c_s 2\pi}\right)^3\int_0^{\beta\hbar c_s \pi n_D/L}\d{x}\frac{x^3}{e^x-1}\\
+	      &=\frac{3\pi}{2}\frac{L^3(k_BT)^4}{(\pi\hbar c_s)^3}\int_0^{\Theta_D/T}\d{x}\frac{x^3}{e^x-1} & \Theta_d\equiv\frac{\hbar c_s\pi n_D}{Lk_B}
+\end{align*}
+
+Unfortunately, this is an ugly finite integral, and is \(T\) dependent from the boundary. We can however, inspect two limits. If\footnote{Note that this contradicts our initial assumption that we enforce low temperature so our dispersion relation is approximately linear, but the result is still valid.} we send \(T\to\infty\), we can taylor expand our integrand to obtain
+\[\frac{x^3}{e^x-1}\to\frac{x^3}{1+x+O(x^2)-1} = \frac{x^2}{1+O(x)}=x^2[1-O(x)]=x^2-O(x^3)\]
+where we expand the denominator as a geometric series. Thus,
+\[U_D(T\to\infty)\approx \frac{3\pi}{2}\frac{L^3(k_BT)^4}{(\pi\hbar c_s)^3}\int_0^{\Theta_D/T}\d{x}x^2= 3Nk_BT\]
+which is in fact, the classical result! Further, we see there is no \(\hbar\) in this expression. If we take the low temperature limit, we see
+\[U_D(T\to 0) \approx \frac{3\pi}{2}\frac{L^3(k_BT)^4}{(\pi\hbar c_s)^3}\int_0^\infty \frac{x^3}{e^x-1}\then \frac{U_D(T\to 0)}{V} =u \approx \frac{3\pi^2}{30\hbar^3c_s^3}(k_BT)^4\]
+It is important to recognize the 3 in the numerator because it comes from the number of independent modes a wave could have. Further, we see that this is very similar to the blackbody radiation, albeit with a factor of 2 rather than 3; this is because light only has 2 transverse modes but no longitudinal modes. Similarly, we replace \(c_s\to c\) because light travels at \(c\) through a solid.Once again, the factor of \(\hbar\) indicates we cannot understand this result classically. If we consider the heat capacity at low temperature, we see
+\[c_V = \frac{1}{N}\left(\pder{U}{T}\right)_V\propto T^3\]
+This temperature dependence has been experiementally observed, and could not be explained classically. Debye's explaination was another early triumph for quantum mechanics. The analogy between blackbody radiation and the Debye approximation shows that both systems are fundamentally the same---they are an ideal gas of bosons.

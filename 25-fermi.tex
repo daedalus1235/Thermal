@@ -1,0 +1,446 @@
+%! TEX root = 0-main.tex
+\chapter{Ideal Fermi Gases}
+Recall the Fermi-Dirac distribution function
+\[f_+(\varepsilon-\mu) = \frac{1}{e^{-\beta(\varepsilon-\mu)}+1}\]
+For sufficiently large \(\varepsilon\), we obtain the gibbs/boltzmann factor \(e^{-\beta\varepsilon}e^{+\beta\mu}\), and similarly we obtain \(1-e^{\beta(\varepsilon-\mu)}\). At \(\varepsilon = \mu\), we have \(f=1/2\) and a slope of \(-\beta/4\).
+
+Our basic equations for the discussion of the fermi gas are
+\[N=\sum_\alpha\vect{n_\alpha} = \sum_\alpha \frac{1}{e^{\beta(\varepsilon_\alpha-\mu)}+1} = \int\d{\varepsilon}\frac{D(\varepsilon)}{e^{\beta(\varepsilon-\mu)}+1}\]
+which allows us to find \(\mu(N)\), and 
+\[U = \sum_\alpha \varepsilon_\alpha\vect{n_\alpha} = \sum_\alpha\frac{\varepsilon_\alpha}{e^{\beta(\varepsilon_\alpha-\mu)}+1} = \int\d{\varepsilon}\frac{\varepsilon D(\varepsilon)}{e^{\beta(\varepsilon-\mu)}+1}\]
+
+\subsubsection{Fermi Energy}
+We define the Fermi Energy \(\varepsilon_F\) to be the zero temperature limit of the chemical potential.
+\begin{equation}
+	\varepsilon_F\equiv \lim_{T\to 0} \mu(T,N)
+\end{equation}
+It is \emph{not} the energy at which the Fermi distribution is \(1/2\), as that is the chemical potential. This is often a good approximation, however, as for small temperature, the corrections are correspondingly small.
+
+We also have a rule-of-thumb regarding the Fermi energy---it lies halfway between the Highest Occupied state and the Lowest Unoccupied state (at, of course \(T=0\)). Thus, if we have \(N\) particles, the fermi energy is the energy between \(\varepsilon_N\) and \(\varepsilon_{N+1}\).
+
+Finally, we have a useful identity
+\[\frac{1}{1+x}+\frac{1}{1+x^{-1}}=1\]
+which allows us to rewrite
+\[\frac{1}{e^{\beta(\varepsilon-\mu)}+1} = 1-\frac{1}{1+e^{-\beta(\varepsilon-\mu)}}\]
+
+\subsubsection{Two-level system}
+Consider, for instance the two-level system with spectrum \(\{0,\varepsilon\}\). Trivially, we can write
+\begin{align*}
+	N &= \frac{1}{e^{-\beta\mu}+1}+\frac{1}{e^{\beta(\varepsilon-1)}+1}\\
+	\intertext{Plugging in our useful identity,}
+	  &=1 - \frac{1}{e^{+\beta\mu}+1}+\frac{1}{e^{\beta(\varepsilon-\mu)}+1}
+\end{align*}
+Let us fix \(N=1\). Then, we see
+\[\frac{1}{e^{\beta\mu}+1} = \frac{1}{e^{\beta(\varepsilon-\mu)}+1}\]
+\[\mu=\varepsilon-\mu\]
+\[\mu = \frac{1}{2}\varepsilon = \varepsilon_F\]
+so we see that the chemical potential in the two-level system is always the same as the Fermi level, and \emph{does not depend on temperature}. Further, we note that this agrees with our rule-of-thumb for the value of the Fermi energy.
+
+\section{Free Particle}
+Consider the spectrum of a free particle, which has the DoS of
+\[D(\varepsilon) = (2s+1)\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma\left(\frac{d}{2}\right)}\varepsilon^{\frac{d}{2}-1}\]
+Thus, at \(T=0\), we can write
+\begin{subequations}
+\begin{align}
+	N&=\int_0^{\varepsilon_F}\d{\varepsilon} D(\varepsilon)\\
+	 &=(2s+1)\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\Gamma(\frac{d}{2})} \frac{2}{d}\varepsilon_F^{d/2}=(2s+1)\left(\frac{\sqrt{2\pi m\varepsilon_F}}{h}\right)^d\frac{V}{\frac{d}{2}\Gamma(\frac{d}{2})} \nonumber\\
+	 &\equiv \frac{2}{\Gamma(\frac{d}{2}+1)}\frac{V}{\lambda^d_{\text{th},F}}
+\end{align}
+\end{subequations}
+where we define 
+\begin{equation}
+	T_F = \frac{\varepsilon_F}{k_B}
+\end{equation}
+in a characteristic Fermi thermal wavelength \(\lambda_{\text{th},F}\).
+
+In 3D, we have 
+\[N = \frac{V}{3\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\varepsilon_F^{3/2}\]
+so
+\[\varepsilon_F = \frac{\hbar^2}{2m}\left(3\pi^2 n\right)^{2/3}\]
+where \(n=N/V\).
+
+Similarly, we can obtain the energy (at \(T=0\)!)
+\begin{align}
+	U &= \int_0^{\varepsilon_F}\d{\varepsilon}\varepsilon D(\varepsilon)\\
+	  &=\int_0^{\varepsilon_F}\d\varepsilon2\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{V}{\gamma(\frac{d}{2})}\varepsilon^{d/2}\nonumber\\
+	  &=2\left(\frac{\sqrt{2\pi m}}{\hbar}\right)^d\frac{V}{\Gamma(\frac{d}{2})(\frac{d}{2}+1)}e^{\frac{d}{2}+1}
+\end{align}
+Dividing by \(N\), we obtain (at \(T=0\))
+\begin{equation}
+	u\equiv\frac{U}{N} = \frac{d}{d+2}\varepsilon_F
+\end{equation}
+Using the Clapeyron equation, we can find the Fermi pressure at \(T=0\)
+\begin{equation}
+	P = 2\left(\frac{\sqrt{2\pi m}}{h}\right)^d\frac{\varepsilon_F^{\frac{d}{2}+1}}{\Gamma(\frac{d}{2})(1+\frac{2}{d})}
+\end{equation}
+Because \(\varepsilon_F\sim n^{2/d}\), we have \(P\sim n^{1+\frac{2}{d}}\sim1/V^{1+\frac{2}{d}}\). More explicitly, at \(T=0\) and \(d=3\), we obtain
+\[P = 2\left(\frac{\sqrt{2\pi m}}{h}\right)^3\frac{[\frac{\hbar^2}{2m}(3\pi^2n)^{2/3}]^{5/2}}{\frac{5}{3}\Gamma(\frac{3}{2})} = \frac{9}{10}(3\pi^2)^{2/3}\frac{\hbar^2}{2m}n^{5/3}\]
+\subsubsection{Electrons in a metal}
+Consider electrons inside of a metal as an example of a Fermi gas\footnote{Why we can (considering charge, potential, etc) is entirely non-obvious; however, we will see later why we can do so.}. In particular, we will assume that copper has valence of one. We can then calculate the number density (of free electrons) in copper as \(n\sim\SI{8.5e28}{m^{-3}}\). The mass of the electrons is \(m_e = \SI{9.11e-31}{kg}\). We now have all of the information we need to calculate the zero-temperature fermi pressure as
+\[P=\SI{86}{GPa}\approx \SI{8.6e5}{bar}\]
+which begs the question: how does copper not explode? We haven't even included the electrostatic repulsions of the other electrons, nor the fermi pressure of the nuclei! With regard to the latter, we see that the mass of the nuclei makes their fermi pressure negligible, while with regard to the former, it is actually the electrostatic attractions which holds the metal together.
+
+If we consider the isothermal compressibility,
+\[\kappa_T = \frac{1}{V}\left(\pder{V}{P}\right)_{T,N}\]
+or rather, the isothermal bulk modulus (incompressibility),
+\[K = -V\left(\pder{P}{V}\right)_{T,N}\]
+we find
+\[K = -V\left(-1-\frac{2}{d}\right)\frac{P}{V} = \left(1+\tfrac{2}{d}\right)P\]
+rewriting, 
+\[K = \left(1+\frac{2}{d}\right)\frac{PV}{N}*\frac{N}{V} = \frac{d+2}{d}\frac{2}{d}\frac{u}{n}\]
+inserting our expression for the energy density, we obtain
+\begin{equation}
+	K = \frac{2}{d}\varepsilon_F n
+\end{equation}
+Thus zero temperature bulk modulus of a free fermi gas is \(2/d\) times the fermi energy per particle volume\footnote{Interestingly, the bullk modulus of \emph{virtually anything} is given by the physically relevant energy scale divided by the physically relevant volume corresponding to that scale---up to a prefactor of order \(\sim \SI{e0}{}\). Considering bulk moduli often vary by orders of magnitude over a given range, this is a very useful approximation.}. For example, calculating the bulk modulus for the free electron gas in copper gives us \SI{143}{GPa}; the actual bulk modulus is \SI{123}{GPa}, so this is \emph{very} close. This shows us the majority of the ridigity of materials comes not from electrostatic repulsions, but from the Pauli exclusion principle; squishing a material forces electrons into electrons to go into states they do not want to be.
+
+\section{Sommerfeld Expansion}
+We have focused on the case \(T=0\), but this is in general not useful. For small \(T\), the thermodynamics is determined by the density of states near the Fermi energy. At \(T=0\), the fermi distribution is an exact step function; for small, finite \(T\), this transition goes over a small region near the fermi energy, with width as a function of temperature.
+
+We will consider an incredibly general problem. We wish to evaluate
+\[I = \int\d{\varepsilon}g(\varepsilon)f_+(\varepsilon-\mu)\]
+for small \(T\). The function \(g\) could be a density of states, a factor for an energy expectation, etc. In order to evaluate this integral, we employ the \emph{Sommerfeld expansion}. We will make the following assumptions. First,
+\[\lim_{\varepsilon\to-\infty} g = 0\]
+or, the function is bounded below. Further, we wish for the function \(g(\varepsilon)\) to grow at most like a power law
+\[g(\varepsilon) = \mathscr{O}(\varepsilon^n)\]
+so after dividing by an exponential, the entire function vanishes and remains integrable. We must have \(g\) to be ``sufficiently smooth'' at the fermi energy \(\varepsilon= \varepsilon_F\) as we will be expanding around this point. Finally, we let
+\[G(\varepsilon)\equiv\int_{-\infty}^\varepsilon \d{\varepsilon'}g(\varepsilon')\iff G'(\varepsilon) = g(\varepsilon)\]
+First, let \(\mu\) be fixed. Then,
+\begin{align*}
+	I &= \int_{-\infty}^\infty\d{\varepsilon}G'(\varepsilon) \tilde f\left(\frac{\varepsilon-\mu}{k_BT}\right)&\tilde f(x) \equiv\frac{1}{e^{x}+1}\\
+	\intertext{Integrating by parts,}
+	  &=[] - \int_{-\infty}^\infty\d\varepsilon G(\varepsilon)\tilde f'\left(\frac{\varepsilon-\mu}{k_BT}\right)\frac{1}{k_BT}
+	  \intertext{We can throw out the boundary term because \(G\) vanishes at \(-\infty\) and grows slower than \(\tilde f\) vanishes at \(+\infty\). Substituting \(x\equiv\frac{\varepsilon-\mu}{k_BT}\),}
+	  &=-\int_{-\infty}^\infty\d{x}G(\mu+k_BTx)\tilde f'(x)
+	  \intertext{We can now expand \(G\) for small \(T\),}
+	  &\approx -\int_{-\infty}^\infty \d{x}\tilde f'(x)\left[G(\mu)+xk_BT G'(\mu) +\frac{1}{2}(xk_BT)^2G''(\mu)+\mathscr{O}(T^3)\right]
+	  \intertext{Note that while we integrate over all \(x\), the behaviour of \(\tilde f'(x) = -\frac{1}{4\cosh^2(x/2)}\), only values near \(x=0\) are relevant; the \(\cosh\) grows exponentially symmetrically about \(x=0\), so \(f'\) acts as a sort-of finite, wide delta function.}
+	  &=G(\mu)\int_{-\infty}^\infty \tilde f'(x) \d{x} - k_BTG'(\mu)\int_{-\infty}^\infty x\tilde f'(x)\d{x}\\
+	  &\hphantom{===}-\frac{1}{2}(k_BT)^2G''(\mu)\int_{-\infty}^\infty\d{x}x^2\tilde f'(x)-\mathscr{O}(T^3)
+	  \intertext{The first term can be calculated trivially, as the boundary terms of \(\tilde f(x)\). The second requires more thought, but is a symmetric integral of an odd function, and thus vanishes; in fact, all even terms vanish. The third term is far more difficult, but using special functions, we can find it as \(-\pi^2/3\). Thus, we can write}
+	  &=G(\mu)+\frac{\pi^2}{6}(k_BT)^2 G''(\mu) + \mathscr{O}(T^4)
+\end{align*}
+We can interpret this as resulting from a low-temperature expansion of the Fermi distribution at fixed \(\mu\):
+\[f_+(\varepsilon-\mu) = \Theta(\mu-\varepsilon)-\frac{\pi^2}{6}(k_BT)^2\delta'(\varepsilon-\mu) + \mathscr{O}(T^4)\]
+where \(\Theta\) is the \emph{Heaviside function} or unit step function and \(\delta'\) is the derivative of the delta function. We can justify this by plugging our ``expansion'' into the integral, where we will obtain the Sommerfeld expansion.
+
+\subsection{Chemical Potential}
+Using the Sommerfeld potential, we can find \(\mu(T)\) for a given \(N\). Let
+\[W(\varepsilon) = \int_{-\infty}^\varepsilon \d{\varepsilon'}D(\varepsilon')\]
+be the integrated density of states. We can find \(N\) as
+\[N = \int\d{\varepsilon}D(\varepsilon)f_+(\varepsilon-\mu) = W(\mu) + \frac{\pi^2}{6}(k_BT)^2W''(\mu)+\mathscr{O}(T^4)\]
+To obtain \(\mu\), we need to invert this expression. However, this tends to be very difficult to invert, especially if we want to include higher order terms. Luckily, we can still obtain an expression for \(\mu\) \emph{even without knowing \(W\)}.
+
+The solution is to write \(\mu\) as a series expansion in the temperature, then \emph{expand again} for small \(T\). Matching coefficients, we can obtain our result. 
+\[\mu = \varepsilon_F + \mu_1 k_BT + \mu_2 (k_BT)^2 + \mathscr{O}(T^3)\]
+Plugging this ansatz into the equation we wish to invert, \hfuzz=1cm
+\begin{align*}
+	N&= W(\varepsilon_F+\mu_1k_BT+\dots)+\frac{\pi^2}{6}(k_BT)^2W(\varepsilon_F+\mu_1k_BT+\dots)+O(T^2)\\
+	 &=W(\varepsilon_F) + W'(\varepsilon_F)[\mu_1k_BT+\mu_2(k_BT)^2+\dots] + \frac{1}{2}W''(\varepsilon_F)[\mu_1k_BT+\mu_2(k_BT)^2+\dots]^2+\\
+	 &\hphantom{===}+\frac{\pi^2}{6}(k_BT)^2W''(\varepsilon_F) +\frac{\pi^2}{6}(k_BT)^2W'''(\varepsilon_F)[\mu_1k_BT+\mu_2(k_BT)^2+\dots]+\dots\\
+	 \intertext{We recognize \(W(\varepsilon_F)=N\). Cancelling this, and collecting terms,}
+	0&=k_BT[\mu_1 W'(\varepsilon_F)]+(k_BT)^2\left[\mu_2 W'(\varepsilon_F)+\frac{1}{2}\mu_1^2W''(\varepsilon)+\frac{\pi^2}{6}W''(\varepsilon_F)\right]+\mathscr{O}(T^3)
+\end{align*}
+We can then solve progressively for the coefficients \(\mu_n\) by setting the coefficient of \((k_BT)^n\) to zero. Assuming the density of states doesn't vanish near the Fermi energy, we obtain
+\begin{align*}
+	\mu_1 &= 0\\
+	\mu_2 &= -\frac{\pi^2}{6}\frac{W''(\varepsilon_F)}{W'(\varepsilon_F)}\\
+	      &\vdots
+\end{align*}
+Or, in terms of the density of states,
+\[\mu_2 = -\frac{\pi^2}{6}\frac{D'(\varepsilon_F)}{D(\varepsilon_F)}\]
+Thus, we can write
+\begin{equation}
+	\mu(T,N) = \varepsilon_F - \frac{\pi^2}{6}\frac{D'(\varepsilon_F)}{D(\varepsilon_F)}(k_BT)^2+\mathscr{O}(T^3)
+\end{equation}
+where \(\varepsilon_F = \varepsilon_F(N)\), \(N\) is held constant, and for small temperature. Thus, we see that the chemical potential is approximately quadratic near \(T=0\), and is completely determined by the shape of the density of states \emph{at the Fermi Energy}\footnote{This general strategy of obtaining an inverse is incredibly useful, especially as these taylor series can be computed entirely within Mathematica.}.
+
+We can now insert this into the distribution function, yielding
+\begin{align*}
+	f_+(\varepsilon-\mu(T,N))&\approx\Theta\left(\varepsilon_F - \frac{\pi^2}{6}(k_BT)^2\frac{D'}{D}-\varepsilon\right) 0 \frac{\pi^2}{6}(k_BT)^2\delta\left(\varepsilon-\varepsilon_F + \frac{\pi^2}{6}(k_BT)^2\frac{D'}{D}\right)\\
+				 &\approx \Theta(\varepsilon_F-\varepsilon)+\Theta'(\varepsilon_F-\varepsilon)\left(-\frac{\pi^2}{6}(k_BT)^2\frac{D'}{D}\right)-\frac{\pi^2}{6}(k_BT)^2\delta'(\varepsilon-\varepsilon_F) +\mathscr{O}(T^3)\\
+				 &=\Theta (\varepsilon_F-\varepsilon) - \frac{\pi^2}{6}(k_BT)^2\left[\frac{D'(\varepsilon_F)}{D(\varepsilon_F)}\delta(\varepsilon-\varepsilon_F)+\delta'(\varepsilon-\varepsilon_F)\right]
+\end{align*}
+which is the low-temperature expansion of the Fermi distribution function at fixed \(N\). With these results, we are now equipped to examine the low-temperature properties of several thermodynamic observables.
+
+\section{Thermodynamic Observables}
+We can now calculate the Grand Potential as
+\begin{align*}
+	\Omega(T,\mu) &= -\int\d{\varepsilon}W(\varepsilon) f_+(\varepsilon-\mu)\\
+		      &\approx -\int_{-\infty}^\mu\d{\varepsilon}W(\varepsilon) - \frac{\pi^2}{6}(k_BT)^2D(\mu)+\mathscr{O}(T^4)\\
+		      \intertext{The free energy is given as athe legendre transform}
+	F(T,N) &= \max_{\mu}\left\{\Omega(T,\mu)+\mu N\right\} = \Omega(T,\mu(T,N)) + N\mu(T, N)\\
+	       &\approx -\int_{-\infty}^{\mu(T,N)}\d\varepsilon W(\varepsilon) - \frac{\pi^2}{6}D(\mu(T,N)) + N\mu(T,N)\\
+	       &\approx -\int_{-\infty}^{\mu(T,N)}\d\varepsilon W(\varepsilon) - \frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F) + N\left[\varepsilon_F - \frac{\pi^2}{6}(k_BT)^2\frac{D'}{D}\right]+\mathscr{O}(T^3)\\
+	       &=-\left(\int_{-\infty}^{\varepsilon_F}\d{\varepsilon}W(\varepsilon)\right)+\underbrace{W(\varepsilon_F)}_{=N}\frac{\pi^2}{6}\frac{D'}{D} (k_BT)^2 -\frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)\\
+	       &\hphantom{===}+N\left[\varepsilon_F-\frac{\pi^2}{6}(k_BT)^2\frac{D'}{D}\right]+\mathscr{O}(T^3)\\
+	       &=-\left(\int_{-\infty}^{\varepsilon_F}\d\varepsilon \int_{-\infty}^\varepsilon\d{\varepsilon'}D(\varepsilon')\right)-\frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)+N\varepsilon_F\\
+	       \intertext{flipping the order integration,}
+	       &=-\left(\int_{-\infty}^{\varepsilon_F}\d{\varepsilon'} \int_{\varepsilon'}^{\varepsilon_F}\d{\varepsilon} D(\varepsilon')\right)-\frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)+N\varepsilon_F\\
+	       &=-\left(\int_{-\infty}^{\varepsilon_F}\d{\varepsilon'}(\varepsilon_F-\varepsilon') D(\varepsilon')\right)-\frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)+N\varepsilon_F\\
+	       &=-(\varepsilon_FN -U_0)-\frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)+N\varepsilon_F\\
+	       &= U_0 - \frac{\pi^2}{6}(k_BT)^2D(\varepsilon_F)+\mathscr{O}(T^4)
+\end{align*}
+and so, the free energy is the ground state energy with a quadratic correction. The entropy can be found easily by
+\[S(T,N) = -\left(\pder{F}{T}\right)_{V,N} = \frac{\pi^2}{3}k_B^2T D(\varepsilon_F) + \mathscr{O}(T^3)\]
+The energy is simply a Legendre transform,
+\[U(T,N) = F(T,N)+TS(T,N) = U_0+\frac{\pi^2}{6}(k_BT)^2D(\varepsilon)\]
+the heat capacity is a derivative,
+\[C_v(T,N) = \pder{U(T,N)}{T} = \frac{\pi^2}{3}k_B^2TD(\varepsilon_F) + \mathscr{O}(T^3)\]
+Of course, the volume dependence is hidden inside \(D(\varepsilon_F)\). Interestingly, to first order, our heat capacity goes linearly with temperature; contrast this to the bosons we have studied (namely, the phonon and photon gases), where the low temperature heat capacity goes with \(\sim T^3\). Thus, for metals, we observe the linear order in the electron heat capacity to dominate the cubic heat capacity for metals. From this slope, we can even measure the density of states at the fermi energy (though, this is a very costly method to do so).
+
+\begin{aside}[Why Linear \(C_V\)?]
+Recall the distribution function, 
+\[f_+(\varepsilon-\mu) = \frac{1}{e^{\beta(\varepsilon-\mu)}+1}\]
+We have that the interval over which the fermi occupation changes over a range of \(\sim k_BT\). If we wish to increase the energy of the system, we need to move particles from below the fermi energy to above the fermi energy; this energy change is also on the order of \(k_BT\) (The tail above \(\varepsilon>\mu\) comes from the missing region below \(\varepsilon<\mu\)). The number of particles is given roughly by the triangular region of the tail, given \(\sim\frac{1}{2}k_BT*\frac{1}{2}\). Thus, we have \(N\sim k_BT\) particles raised in energy by \(\Delta u \sim k_BT\), and thus, \(\Delta U\sim (k_BT)^2\) and \(C_V\sim k_BT\). The density of states in the prefactor comes from weighting the ``triangular'' tail, and how many of the states are \emph{actually} occupied.
+\end{aside}
+
+\chapter{Insulators and Semiconductors}
+Losely speaking, this discussion is not so much statistical mechanics, but more so quantum mechanics and solid state physics. We wish to consider the theory of electrons in a solid, but this is its own vast field of research; however, we can give a brief study of crystaline solids, and examine the constraints the crystallinity imposes. This symmetry results in what is known as the \emph{Bloch Theorem}.
+\section{Bloch Theorem}
+Consider electrons in a potential with bravais lattice symmetry. This lattice has so-called lattice basis vectors \(\{\e\alpha\},\alpha\in\{1,2,3\}\) with which we can construct arbitrary lattice vectors \(\vb R_{\vb n} = n^\alpha\e\alpha, n^\alpha\in\Z\) (using einstein summation notation), which gives us an invariant translation vector. If we then have a hamiltonian
+\[H =\frac{p^2}{2m}+U(\vb r)\]
+with a periodic potential \(U(\vb r +\vb R_{\vb n}) = U(\vb r)\), then the Bloch Theorem states that the eigenfunctions of the hamiltonian can be written as \emph{bloch waves} in the form
+\begin{equation}
+	\p_{\vb k}(\vb r) = e^{i\vb k *\vb r}u_{\vb k}(\vb r)
+\end{equation}
+with the following properties:
+\begin{enumerate}
+	\item \(u_{\vb k}\) has lattice symmetry: \(u_{\vb k}(\vb r+\vb R_{\vb n})=  u_{\vb k}(\vb r)\)
+	\item The bloch wave is dependent on a plane wave with lattice momentum \(\vb k\).
+\end{enumerate}
+we can prove this as follows. First, define the reciprocal basis vectors \(\hat e^\beta\) such that \[\hat e^\beta*\e\alpha = 2\pi\delta^\beta_\alpha\]We need to define this reciprocal basis as our original lattice basis set is not necessarily orthonormal. Next, we define the translation operator in position space \(T_{\vb R_{\vb n}}\) such that the very obvious property is true:
+\[T_{\vb R_{\vb n}}f(\vb r) = f(\vb r+\vb R_{\vb n})\]
+Obviously, we have the property
+\[T_{\vb R+\vb R'} = T_{\vb R}T_{\vb R'} = T_{\vb R'}T_{\vb R}=T_{\vb R'+\vb R}\]
+so all translations commute with each other (note that this would \emph{not} be true if we had use rotations \(R_\theta\) rather than translations). Further, this implies that there is a functional relation satisfied by the translation operator, which implies that the eigenvalues of the translation operator satisfy the exponential function's relation
+\[\exp[x]\exp[y] = \exp[x+y]\]
+or, 
+\[T_{\vb R+\vb R'}\k\p = c_{\vb R+\vb R'}\k\p = c_{\vb R}c_{\vb R'}\p\]
+so
+\[c_{\vb R}c_{\vb R'}=c_{\vb R+\vb R'}\]
+or the eigenvalue is an exponential.
+This follows from simultaneous diagonalization. Further, because
+\[T_{\vb R}U = U \qquad \forall \vb R\]
+we have the following:
+\[[H, T_{\vb R}] = [p^2, T_{\vb R}] = 0\]
+because, as we recall, momentum is the generator of translation and necessarily commutes (alternatively, the momentum is independent of position and thus necessarily commutes). Because the hamiltonian commutes with translation operators, we can simultaneously diagonalize them; thus, the eigenvectors of the hamiltonian (eigenstates) are necessarily eigenvectors of the arbitrary translation operators. We thus must have
+\[T_{\vb R_{\vb n}}\p(\vb r) = \p(\vb r+\vb R_{\vb n}) = c_{\vb n}\p(\vb r) \equiv e^{2\pi i n^\alpha\vartheta_\alpha}\p(\vb r)\]
+We define \(\vb k = \vartheta_\beta \hat e^{\beta}\), so then 
+\[\vb k * \e\alpha = \vartheta_\beta \hat e^{\beta}*\e\alpha = 2\pi \vartheta_\beta \delta_\alpha^\beta = 2\pi\vartheta_\alpha\]
+so we can rewrite our eigenstate using \(2\pi i n^\alpha \vartheta_\alpha = in^\alpha k*\e\alpha = i\vb k*\vb R_{\vb n}\). Thus,
+\[T_{\vb R_{\vb n}} \p(\vb r) = e^{i \vb k*\vb R_{\vb n}} \p(\vb r)\]
+Clearly, the vector \(\vb R_{\vb n}\) comes from the operator, but \(\vb k\) comes from \(\p\). Thus, we use it to label the eigenfunction, \(\p = \p_{\vb k}\). Now, we define \(u_{\vb k} (\vb r) = e^{-i\vb k *\vb r}\p_{\vb k}(\vb r)\). When we apply the translation operator and use our eigenvalue property for \(\p_{\vb k}\),
+\[T_{\vb R_{\vb n}}u_{\vb k}(\vb r) = e^{-i\vb k(\vb r+\vb R_{\vb n})}\p_{\vb k}(\vb r+\vb R_{\vb n}) = e^{i\vb k*\vb r}\p_{\vb k}(\vb r) = u_{\vb k}\]
+so \(u_{\vb k}\) is also an eigenfunction of \(T_{\vb R_{\vb n}}\), but more importantly has lattice symmetry. Inverting our definition for \(u\), we see that our eigenstates are given
+\[\p_{\vb k}(\vb r) = e^{i\vb k*\vb r}u_{\vb k}(\vb r)\]
+as desired.
+
+\section{Schr\"odinger Equation}
+Now that we have the form of our wavefunction, we can obain the energy spectrum of our hamiltonian
+\[H\p_{\vb k} = \left[\frac{P^2}{2m}+U(r)\right]e^{i\vb k*\vb r}u_{\vb k} \varepsilon_{\vb k} e^{i\vb k*\vb r} u_{\vb k}\]
+Left multiplying by the conjugate of the plane wave
+\[\left[e^{-i\vb k*\vb r}\frac{P^2}{2m} e^{i\vb k*\vb r}+U\right]u_{\vb k} = \varepsilon_{\vb k}u_{\vb k}\]
+Note that because the plane wave is a function of the position operator, it does not commute with a function of the momentum, and thus we cannot cancel out the exponential. The first term is annoying to compute directily. However, we can consider a new operator
+\begin{align*}
+	(-\del + \vb k)^2f&= (-i\del + \vb k)(-i\del f + \vb k f)\\
+			  &= - \del^2 f - 2i \vb k*\del f+ k^2 f
+\end{align*}
+We can compare this operator to the operator we are interested in
+\begin{align*}
+	e^{-i\vb k*r}(-i\del)^2e^{i\vb k*\vb r}f&=e^{-i\vb k*\vb r}(-i\del)(-i)\left[i\vb k e^{i\vb k*\vb r}f + e^{i\vb k*\vb r}\del f\right]\\
+						&=e^{-i\vb k*\vb r}(-1)\left[i\vb k*(i\vb k)e^{i\vb k * \vb r}f + i\vb k* e^{i\vb k*\vb r}\del f + ik *e^{i\vb k * \vb r} \del f + e^{i\vb k*\vb r}\del^2 f\right]\\
+						&=k^2 f -2ik*\del f - \del^2 f
+\end{align*}
+which gives us the same result. Because the test function \(f\) was arbitrary, we thus have
+\[\frac{(-i\hbar\del + \hbar\vb k)^2}{2m}=\frac{\hbar^2(-i\del +\vb k)^2}{2m} = e^{-i\vb k*\vb r}\frac{P^2}{2m}e^{i\vb k * \vb r}\]
+so we can rewrite the schrodinger equation 
+\begin{equation}
+	\left[\frac{(\vb P+\hbar \vb k)^2}{2m}+U(\vb r)\right] u_{\vb k}(\vb r) = \varepsilon_{\vb k}u_{\vb k}(\vb r)
+\end{equation}
+and so our index \(\vb k\) now appears in our schrodinger equation. Interestingly, while \(u_{\vb k}\) has periodicity in real space, we have that \(\p_{\vb k}\) has periodicity \emph{in Fourier space}:
+\(\p_{\vb k+\vb G} = \p_{\vb k}\)
+where \(\vb G\) denotes a reciprocal lattice vector. We can show this as follows.
+
+\subsection{Reciprocal Space}
+Let us return to the Bloch theorem and expand \(\p\) in terms of Fourier modes
+\[\p(\vb r) = \sum_{\vb q}c_{\vb q} e^{i\vb q*\vb r}\]
+when we now translate this as an eigenvector of a lattice translation \(T_{\vb R}\), we obtain
+\[\sum_{\vb q}c_{\vb q}e^{iq*(\vb r+\vb R)} = \lambda_{\vb R}\sum_{\vb q}c_{\vb q}e^{i\vb q*\vb r}\]
+or,
+\[0 = \sum_{\vb q}c_{\vb q}(\lambda_{\vb R}-e^{i\vb q*\vb R})e^{i\vb q*\vb r} = 0\]
+Recognizing \(e^{i\vb q*\vb r}\) as a basis of fourier space, we can match coefficients with the RHS, and note that we must have
+\[0=\lambda_{\vb R}-e^{i\vb q*\vb R}\]
+for any vector \(\vb q\) in reciprocal space. Thus, we must have 
+\[\vb q*\vb R = \vb k*\vb R+2\pi n\]
+for some reciprocal space vector \(\vb k\). Thus, we must be able to write 
+\[\vb q =\vb k +\vb G\]
+for an arbitrary reciprocal lattice vector \(\vb G\), where
+\[\vb G*\vb R = 2\pi n\]
+Basically, we have \(\vb q = \frac{2\pi}{L}\vb n\) where \(L\) is the system size, while \(\vb G = \frac{2\pi}{a}\vb n\) where \(a\) is a lattice constant. In general, \(a<L\) so \(\vb q\) are more dense than \(\vb G\), and \(\{\vb G\}\in \{\vb q\}\), because the system should contain a whole-number of unit cells.
+Thus, 
+\[\lambda_{\vb R} = e^{i\vb q*\vb R} = e^{i(\vb k+\vb G)*\vb R} = e^{i\vb k*\vb R}\]
+Thus,
+\[T_{\vb R}\p(\vb r) = e^{i\vb k *\vb R} \p(\vb r)\]
+and thus, the basis eigenfunctions are a plane waves with momentum \(\vb k+\vb G\):
+\[\p = e^{i(\vb k+\vb G)*\vb r}\]
+\[T_{\vb R}\p = \p(\vb r) e^{i(\vb k+\vb G)}*\vb R = e^{i\vb k*\vb R}\p(\vb r)\]
+
+\subsection{Energy spectrum}
+Thus, we can expand our expand any eigenfunction \(\p_{\vb k}\) as a Fourier expansion over reciprocal lattice vectors:
+\begin{equation}
+	\p_{\vb k}(\vb r) = \sum_{\vb G'} c_{\vb k+\vb G'}e^{i(\vb k+\vb G')*\vb r}
+\end{equation}
+Pulling out a common factor \(e^{i\vb k*\vb r}\), we see that
+\[\p = e^{i\vb k*\vb r}\sum_{\vb G'}c_{\vb k+\vb G'}e^{i\vb G'*\vb r} \]
+we interpret this second term as
+\begin{equation}
+	u_{\vb k}(\vb r) = \sum_{\vb G'} c_{\vb k+\vb G'} e^{i\vb G'*\vb r}
+\end{equation}
+
+Further, we can show that this representation of \(u_{\vb k}(\vb r)\) has lattice symmetry:
+\begin{align*}
+	T_{\vb R} u_{\vb k}(\vb r)&= u_{\vb k}(\vb r+\vb R)\\
+		  &= \sum_{\vb G'}c_{\vb k+\vb G'}e^{i\vb G'*(\vb r+\vb R)}\\
+		  &= \sum_{\vb G'}c_{\vb k+\vb G'}e^{i\vb G'*\vb r}e^{i\vb G'*\vb R}\\
+		  \intertext{Recognizing \(e^{i\vb G'*\vb R} = e^{i2\pi n}\), we see trivially, that}
+		  &= \sum_{\vb G'}c_{\vb k+\vb G'}e^{i\vb G'*\vb r}\\
+		  &=u_{\vb k}(\vb r)
+\end{align*}
+Another consequence of our representation is a description of how our wavefunctions transform when shifted in \(\vb k\) space. Consider a new function, \(u_{\vb k+\vb G}\) such that \(\vb G' = \vb G''-\vb G\). Further, summing over all \(\vb G'\) is the same as summing over all \(\vb G''\). Thus, we can write
+\begin{align*}
+	u_{\vb k+\vb G}(\vb r)&=\sum_{\vb G'} u_{(\vb k+\vb G)+\vb G'}e^{i\vb G'*\vb r}\\
+			      &=\sum_{\vb G''} c_{\vb k+\vb G''}e^{i(\vb G''-\vb G)*\vb r}\\
+			      &=e^{-i\vb G*\vb r}\sum_{\vb G''}c_{\vb k+\vb G''}e^{i\vb G''*\vb r}\\
+			      &=e^{-i\vb G*\vb r}u_{\vb k}(\vb r)
+\end{align*}
+Thus, in our wavefunction, we see that
+\begin{align*}
+	\p_{\vb k+\vb G}(\vb r)&=e^{i(\vb k+\vb G)*\vb r}u_{\vb k+\vb G}(\vb r)\\
+			       &= e^{i\vb k*\vb r}u_{\vb k}(\vb r)\\
+			       &=\p_{\vb k}(\vb r)
+\end{align*}
+Thus, we have shown \(\p_{\vb k}(\vb r)\) has reciprocal lattice symmetry.
+
+\subsection{Brillouin Zone Folding}
+Since \(\p_{\vb k}(\vb r)\) has reciprocal lattice periodicity, then so do the eigenvalues. Thus, 
+\begin{equation}
+	\varepsilon_{\vb k+\vb G} = \varepsilon_{\vb k}
+\end{equation}
+This result gives rise to ``folding'' of the spectrum into the First Brillouin zone.
+
+While solving the Schr\"odinger equation for a given lattice potential is generally very hard, we can consider a so-called \emph{empty lattice},
+\[U(\vb r) = 0\]
+This allows us to consider what the lattice symmetry \emph{alone} enforces, and not the shape of the potential itself.
+
+Trivially, our Schr\"odinger equation becomes
+\[\frac{(\vb P+\hbar\vb k)^2}{2m}u_{\vb k}(\vb r)=\varepsilon_{\vb k}u_{\vb k}(\vb r)\]
+Trivially, this is solved by \(u_{\vb k}=a_{\vb k}\) for some constant \(a\). This has the eigenvalues \(\varepsilon_k =\frac{\hbar^2k^2}{2m}\), as expected of a free particle.
+
+\diagram{}
+
+However, we must enforce symmetry on the eigenvalue. We do this by \emph{folding} the dispersion relation at the Brillouin boundary. We enforce lattice symmetry by replicating the dispersion relation at every reciprocal lattice vector \(\vb G\).
+
+\diagram{}
+
+Then, we consider only the first Brillouin zone, 
+
+\diagram{}
+
+We see that this dispersion relation is the same as if we were to fold the original, solitary parabolic dispersion relation every time it intersects a brillouin boundary.
+
+If we were to include interactions via perturbation theory, we see that any intersections (i.e.\ where two parabolas intersect, or where the dispersion relation meets the brillouin boundary), the interaction causes the degenerate eigenvalues to split into a higher and a lower band
+
+\diagram{}
+
+Thus, on the vertical axis, we have discrete regions where we have valid energies---these are known as \emph{bands}. In between the bands, where there are no valid energies, we have \emph{gaps}. In principle, we can use the transformation theorem to determine the density of states for this dispersion relation. However, in practice, this is very difficult, and so we will only consider the bands qualitatively.
+
+As we add electrons, lower bands get filled and higher bands remain empty, Recall the Fermi energy, which is exactly in the middle of the gap between filled and empty states. If we increase the temperature, then electrons in the filled, \emph{valence band} will get promoted into the empty, \emph{conduction band}. The dispersion relation at this band gap looks surprisingly like the relaticistic dispersion relation
+\[E = \pm\sqrt{p^2c^2+m^2c^4}\]
+In the vicinity of these edge states, we expect the dispersion relation to be approximated by parabolas---near the band gap, the dispersion relations look like those for free particles.
+
+\section{Semiconductor Band Structure}
+We will use the model density of states given
+\begin{equation}
+	D(\varepsilon) = \begin{cases}
+		A(\varepsilon-\varepsilon_c)^a & \varepsilon_c<\varepsilon\\
+		0 &\varepsilon_v<\varepsilon<\varepsilon_c\\
+		B(\varepsilon_v - \varepsilon)^b & \varepsilon<\varepsilon_v
+	\end{cases}
+\end{equation}
+for some constants \(a, A, b, B\). Of course, \(\varepsilon_c\) is the lowest state in the conduction band and \(\varepsilon_v\) is the highest state in the valence band. Let us assume that the valence band is completely full and the conduction band is completely empty at \(T=0\). By the rule of thumb, we trivially have 
+\[\varepsilon_F=\frac{\varepsilon_c+\varepsilon_v}{2}\]
+however, we can verify this. We have
+\begin{align*}
+	N &= \left[\int_{-\infty}^{\varepsilon_v}\d{\varepsilon}+\int_{\varepsilon_c}^\infty\right]D(\varepsilon)f_+(\varepsilon-\mu)\\
+	  &=\underbrace{\int_{-\infty}^{\varepsilon_v}\d{\varepsilon}D(\varepsilon)}_{N} - \underbrace{\int_{-\infty}^{\varepsilon_v}\d{\varepsilon}D(\varepsilon)\left[1-f_+(\varepsilon-\mu)\right]}_{N_h}+\underbrace{\int_{\varepsilon_c}^\infty\d{\varepsilon}D(\varepsilon) f_+(\varepsilon-\mu)}_{N_c}\\
+	  \intertext{Where we recognize the factor \([1-f_+]\) as the probability that a state is \emph{unoccupied}, or is a hole. Thus, the second term becomes the number of holes, and the third term is the number of charge carriers in the conduction band. Note that we can substitute the first term for \(N\) because \(D(\varepsilon)\) for \(\varepsilon\in [\varepsilon_v, \varepsilon_F] = 0\). Thus,}
+\end{align*}
+\[N_h=N_c\]
+We can compute these by
+\[N_h = \int_{-\infty}^{\varepsilon_v}\d{\varepsilon'}D(\varepsilon')\frac{1}{e^{-\beta(\varepsilon -\mu)}+1}=\int_0^\infty\d\varepsilon D(\varepsilon_v-\varepsilon)\frac{1}{e^{\beta(\varepsilon+\mu-\varepsilon_v)}+1}\]
+\[N_c = \int_{\varepsilon_c}^\infty\d{\varepsilon'}D(\varepsilon')\frac{1}{e^{+\beta(\varepsilon-\mu)}+1}= \int_0^\infty \d{\varepsilon}D(\varepsilon+\varepsilon_c)\frac{1}{e^{\beta(\varepsilon+\varepsilon_c-\mu)}+1}\]
+where in the first equation we substitute \(\varepsilon = \varepsilon_v-\varepsilon'\) and in the second \(\varepsilon = \varepsilon' - \varepsilon_c\). We can then approximate the value of these integrals as follows. First, assume that \(\mu\approx \varepsilon_F\) and that this is roughly independent of \(T\). Second, we assume that \(k_BT\ll \frac{\varepsilon_v-\varepsilon_c}{2}\approx \mu-\varepsilon_v\approx \varepsilon_c-\mu\). In this case, we can neglect the 1 in both integrals. Thus, 
+\[N_h \approx e^{-\beta(\mu-\varepsilon_v)}\int_0^\infty \d\varepsilon D(\varepsilon_v-\varepsilon)e^{-\beta\varepsilon} \equiv a(T) e^{-\beta(\mu-\varepsilon_v)}\]
+\[N_c \approx e^{-\beta(\varepsilon_c-\mu)}\int_0^\infty \d\varepsilon D(\varepsilon+\varepsilon_c)e^{-\beta\varepsilon} \equiv b(T)e^{-\beta(\varepsilon_c-\mu)}\]
+where we see that \(a,b\) are \emph{Laplace Transforms} of the density of states.
+
+We know that we have \(N_h = N_c\), so we can find the chemical potential.
+\[a e^{-\beta(\mu - \varepsilon_v)} = b e^{-\beta (\varepsilon_c-\mu)}\]
+or
+\[\mu(T) = \frac{\varepsilon_c+\varepsilon_v}{2}+\frac{1}{2}k_BT\ln\frac{a(T)}{b(T)}\]
+If the band is symmetric about the fermi energy, then we see that \(a=b\) and thus the chemical potential is equally the fermi energy.
+
+Finally, for conductivity, we are interested in the number of charge carriers, \(N_c = N_h = \sqrt{N_cN_h}\). This final expression is useful in that \emph{it does not require us to know the chemical potential}:
+\[\sqrt{N_hN_c} = e^{-\beta(\varepsilon_c-\varepsilon_v)/2}\sqrt{ab} = e^{-\beta \varepsilon_g/2}\sqrt{ab}\]
+For semiconductors, we have the band gap \(\varepsilon_g\sim \SI{1}{eV}\), and at RT \(\beta\sim 1/\SI{40}{eV}\), so \(e^{-\beta\varepsilon_g/2}\) is very small, and thus the number of charge carriers is very small. One may argue that the term \(\sqrt{ab}\) may increase \(N_c\) sufficiently to allow conduction; however, this is not the case. Often, the band energies are such that the dispersion relation forms two opposing parabolas at the band gap. In the conduction band, we have
+\[\varepsilon(\vb k) = \varepsilon_c + \frac{\hbar^2 k^2}{2m_c}\]
+and in the valence band
+\[\varepsilon(\vb k) = \varepsilon_v - \frac{\hbar^2 k^2}{2m_v}\]
+for effective masses \(m_c, m_v\). The shape of the band---in particular, the curvature of the band due to perturbative splitting of the degenerate energies---determines this effective mass. Thus, our particles look like free particles, and we know the density of states for a free particle. Fix \(d=3\). Then,
+\[D(\varepsilon) = \frac{V}{2\pi^2}\left[ \left(\frac{2m_c}{\hbar^2}\right)^{3/2}\Theta(\varepsilon-\varepsilon_c)\sqrt{\varepsilon-\varepsilon_c} +\left(\frac{2m_v}{\hbar^2}\right)^{3/2}\Theta(\varepsilon_v-\varepsilon)\sqrt{\varepsilon_v-\varepsilon}\right]\]
+Where the step function \(\Theta(x)\) is zero when \(x<0\) and one when \(x\geq 0\), and the densities of state are shifted according to the band offsets, \(\varepsilon_v,\varepsilon_v\). Further, recall that we care only for \(D(\varepsilon)\) for \(\varepsilon \sim\varepsilon_F\), as we are dealing with a fermi distribution, so it doesn't matter if our assumptions stop holding far away from the fermi energy. Then,
+\[b(T) = \frac{V}{2\pi^2}\left(\frac{2m_c}{\hbar^2}\right)^{3/2}\int_0^\infty\d{\varepsilon}\sqrt{\varepsilon}e^{-\beta\varepsilon} =\frac{1}{4}V\left(\frac{2m_c}{\pi\hbar^2}\right)^{3/2}(k_BT)^{3/2}\]
+Similarly, 
+\[a(T) = \frac{1}{4}V\left(\frac{2m_v}{\pi \hbar^2}\right)^{3/2}(k_BT)^{3/2}\]
+and so,
+\[N_h = \frac{1}{4}V\left(\frac{2m_v}{\pi \hbar^2}\right)^{3/2}(k_BT)^{3/2}e^{-\beta(\mu-\varepsilon_v)}\]
+Further,
+\[N_c =N_h = \sqrt{N_cN_h} = e^{-\beta(\varepsilon_c-\varepsilon_v)}\frac{1}{4}V\left(\frac{2k_BT}{\pi\hbar^2}\right)^{3/2}\left(m_cm_v\right)^{3/4}\]
+It is important to knote the factor of \(V\) which indicates that the number of charge carriers is extensive, as desired. The temperature dependence is complicated and
+\[N_c\sim T^{3/2}e^{-\varepsilon_g/k_BT}\]
+and so, we have strong exponential supression that often drowns out the \(T^{3/2}\). This is because the the band gap \(\varepsilon_g\sim \SI{1}{eV}\), the exponential is of order \(e^{-40}\) at standard temperatures. In order to get large numbers of charge carriers, we would need to heat the material to \(\sim40\times\) room temperature, which is usually unreasonable. Rather, to increase the conductivity, we often rely on \emph{doping}.
+
+\section{Doping}
+Doping adds a small fraction of atoms which have one more (less) electron than the bulk crystal. For example, we can dope silicon, which has 4 valence electrons, with phosphorus atoms, which has 5 electrons and \emph{n-dopes} the silicon with extra electrons, or with boron, which has 3 valence electrons and \emph{p-dopes} the silicon with extra holes.
+
+When we n-dope a semiconductor, we can view the extra electron as orbiting the extra charge on the phosphorous, in a bohr-like orbit. If we give that electron a high enough energy, it is no longer a bound state and becomes a free particle and can conduct. However, it is not simply a hydrogenic atom---the crystal structure forces the electron mass to be an effective mass. Further, the dielectric constant changes, which alters the coulombic forces within the material. These two changes together within rydberg
+\[\si{Ryd}\sim \frac{m}{\varepsilon^2}\]
+shrinks the ionization energy from the \SI{13.6}{eV} to a quantity that is typically much smaller than the band gap. Thus, the electrons given by doping occupy a small valence band much closer to the bulk conduction band.
+
+Interestingly, the donor state is doubly degenerate because it can allot for either spin up or spin down. Thus, it should, in principle, be possible to doubly occupy it. However, due to coulomb repulsion, it can only be singly occupied. The energy is so elevated that this doubly occupied state is unstable at STP\@. The reason we have not had to discuss coulombic repulsion before is that the other electrons are localized in reciprocal space and delocalized in position space. Because all of the electrons as smeared out, they do not interact with each other outside of as a shielding effect. In contrast, the two electrons in the donor state are localized in position space and thus interact strongly. Further, this state is not very well-behaved in terms of statistical mechanics.
+
+Consider the grand canonical partition function of that state. If we neglect the coloumb repulsion, we have 
+\[\sum_{n_{\varepsilon_d}} e^{-\beta(\varepsilon_d-\mu)n_{\varepsilon_d}} = 1 + 2e^{-\beta (\varepsilon_d-\mu)}+e^{-\beta(\varepsilon_d-\mu)2} = (1+e^{-\beta(\varepsilon_d-\mu)})^2\]
+so the partition function factorizes. However, the last term in the sum is forbidden due to the coulomb repulsion, as it sends the energy way up. Thus,
+\[\vect{n_{\varepsilon_d}} = \frac{0*1+1*2e^{-\beta(\varepsilon_d-\mu)}}{1+2e^{-\beta(\varepsilon_d-\mu)}} = \frac{1}{\frac{1}{2}e^{\beta(\varepsilon_d-\mu)}+1}\]
+which has an extra factor of \(1/2\) compared to the Fermi distribution. This is sometimes known as ``semiconductor statistics.''
+
+\subsection{Semiconductor Statistics Example}
+Consider a ``three level system'' with an \(N_v\)-fold degenerate valence level \(\varepsilon_v\), an \(N_c\)-fold degenerate conduction level \(\varepsilon_c\), and an \(N_d\)-fold degenerate donor level \(\varepsilon_d\). We use these condensed ``band'' levels rather than true bands in order to simplify calculation. Further, we will assume that the valence band is full and conduction band is empty, as customary, and that the temperature is low enough where only transitions from the donor band are significant (\(k_BT\ll\varepsilon_d-\varepsilon_v\)). Thus,
+Once again, we will assume that \(k_BT\ll \begin{cases}
+			\mu-\varepsilon_d\\
+			\varepsilon_c-\mu
+	\end{cases}\). Indeed, when we consider the chemical potential, when we use semiconductor statistics, we see that
+	\[\mu = \frac{\varepsilon_c+\varepsilon_d}{2}+\frac{1}{2}k_BT\log\frac{N_d}{2N_c}\]
+	however, the low temperature limit shows us the fermi energy is 
+	\[\varepsilon_F = \frac{\varepsilon_c+\varepsilon_d}{2}\]
+	however, this seems to violate our rule of thumb, as the lowest unoccupied state is \emph{also in the donor band}! This is reconciled when we consider the fact that the unoccupied state in the donor band is unoccupy-able, and so the lowest occupiable state is in the conduction band, and hence the Fermi level is between these two bands.
+	
+	Thus, we are able to use the same approximation we used for the undoped semiconductor.
+
+\begin{align*}
+	N = N_d &= \frac{N_d}{\frac{1}{2}e^{\beta(\varepsilon_d-\mu)}+1} + \frac{N_c}{e^{\beta(\varepsilon_c-\mu)}+1}\\
+		&=N_d\left[1-\frac{1}{2e^{-\beta (\varepsilon_d-\mu)}+1}\right]+\frac{N_c}{e^{\beta(\varepsilon_c-\mu)}+1}\\
+\end{align*}
+We will find that in n-doped semiconductors, the charge carriers are primarly from the donor band and are negatively charged eletrons moving in the conduction band, while in p-doped semiconductors, the charge carriers are primarily positively charged holes moving in the valence band. When we make a PN junction, we want to have the chemical potential (and thus the fermi energy) to be the same (for equilibrium principle) we see that the two fermi energies move toward each other by moving electrons from the N-doped side to the P-doped side, an internal electric field is formed due to charge imbalance. When we add an external potential, the bands further deform until we see the behaviour typical of a diode.

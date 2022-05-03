@@ -1,0 +1,85 @@
+%! TEX root = 0-main.tex
+\chapter{Perturbations of State Functions}
+State functions do not depend on how systems got into the present state, only the extensive properties of the state at that time. However, much of thermodynamics is concerned with small changes, and larger changes can be obtained by summing/integrating over these small changes.
+
+\section{Energy Conservation}
+Previously, we denoted the energy of a system to be \(E\). However, hereon, we shall denote the internal energy of a system to instead be \(U\).
+
+The first law of thermodynamics states that heat and work are changes in the internal energy of a system. This can be written in differential form as
+\begin{equation}
+	\d{U}=\dbar{Q}+\dbar{W}
+\end{equation}
+where \(Q\) and \(W\) denote heat and work respectively. The sign convention being used is when energy is added to a system, the sign is positive; if energy is being used, the sign is negative.
+
+Note the slightly different notation of the differentials on each side. The regular differential on the LHS denotes an \emph{exact} differential, while the slashed differential denotes an \emph{inexact} differential.
+
+\subsubsection{Differentials}
+What is an inexact differential? Consider the differential below:
+\[\d{F} = f_1(x,y)\d{x}+f_2(x,y)\d{y}\]
+In general, the integral of this differential depends on the path \((x(t),y(t))\) that is being taken to integrate it.
+Using this parametrization, we can rewrite the differential as:
+\[\d{F} = f_1(t)\der{x}{t}\d{t}+f_2(t)\der{y}{t}\d{t}\]
+Or, more compactly,
+\begin{equation}
+	\d{F}=[f\circ\gamma(t)]*[\gamma'(t)]\d{t}
+\end{equation}
+
+if, however, a differential can be written in the form
+\[\d{F}=\pder{F}{x}\d{x}+\pder{F}{y}\d{y}\]
+it is an exact differential. This can be verified using Clairaut's theorem. If
+\[\pder{f_1}{y}=\pder{^2F}{x\partial y}=\pder{f_2}{x}\]
+on a simply connected region, then the differential form is exact. For 1-forms, which are most likely to be used, an exact differential form is given:
+\[\d{F}=\sum_i\pder{F}{x^i}\d{x^i}=\del F * \d{r}\]
+Once again, Clairaut's theorem can be used to verify if a differential is exact.
+
+An integrating factor can be multiplied to an inexact differential form to yield an exact differential form. 
+\begin{equation}
+	\d{G}=r\dbar{F}
+\end{equation}
+In 2 dimensions, this integrating factor can be found by solving
+\[\pder{}{y}(rf_1)=\pder{}{x}(rf_2)\]
+
+Note that state functions have exact differentials.
+
+\section{Integrating Factors in Classical Ideal Gas}
+A gas does work on a piston with area \(A\). The work being done is given 
+\[\dbar{W}=-F\d{x}\]
+However, we can write
+\[F=PA\]
+substituting in, we have
+\begin{equation}
+	\dbar{W}=-P\d{V}\label{eq9:pvwork}
+\end{equation}
+
+Clearly, we have an integrating factor of \(1/P\), as it is what separates this inexact differential from being the exact differential \(\d{V}\).
+
+Similarly, for an increase of entropy for a small amount of heat \(\dbar{Q}\), is
+\[\d{S}=S(U+\dbar{Q},V,N)-S(U,V,N)=\pder{S}{U}\dbar{Q}\]
+Or,
+\begin{equation}
+	\d{S}=\frac{1}{T}\dbar{Q}
+\end{equation}
+Thus, \(\frac{1}{T}\) is an integrating factor from work to entropy.
+
+\section{Work and Heat}
+Work is defined to be 
+\begin{equation}
+	\int_A^B F*\d{r}
+\end{equation}
+and can be defined for a variety of different forces. For example, spring tension force has work
+\[\dbar{W}=\sigma\d{L}\]
+and battery emf has work
+\[\dbar{W}=\mathcal{E}\d{q}\]
+Work is an extensive quantity.
+
+Heat has 3 forms of transfer. They are conduction, convention, and radiation. Conduction is due to microscopic collisions on an interface. Convection is due to the transport of molecules through a fluid. Radiation is due to the emission and absorption of electromagnetic radiation.
+
+Using the First Law of Thermodynamics, we can write
+\begin{equation}
+	\d{U}=T\d{S}-P\d{V}
+\end{equation}
+Note that this is only valid if there is no exchange of particles. In a previous chapter, derived in an aside, we showed the more general expression
+\begin{equation}
+	\d{U}=T\d{S}-P\d{V}+\mu\d{N}\label{eq9:firstlaw}
+\end{equation}
+

@@ -1,0 +1,28 @@
+%! TEX root = 0-main.tex
+\chapter{Entropy Revisited}
+The Boltzmann definition of the Entropy only applies to the microcanonical ensemble; for the canonical and grand canonical ensemble, we must change the definition. Contrary to the boltzmann entropy, which posits that each microstate are equally probable, in the (grand) cannonical ensemble, the microstates are not so. Instead, we use the Gibbs entropy, which is of the form
+\begin{equation}
+	S = -k_B\sum_j p_j\ln p_j
+\end{equation}
+where \(p_j\) is the probability of energy \(E_j\). However, calculating this quantity is tedious; rather, we prefer to calculate it from the partition functions.
+
+\section{From the Partition Functions}
+Recall that
+\[S = -\left(\pder{F}{T}\right)_{V,N}\]
+so, for the canonical ensemble, we have
+\[S = -\pder{\beta}{T} \pder{}{\beta}\left(-\frac{\ln Z}{\beta}\right)\]
+or
+\begin{equation}
+	S = k_B\left(\ln Z - \beta \pder{\ln Z}{\beta}\right)
+\end{equation}
+Similarly, for the grand canonical ensemble, we have the relation
+\begin{equation}
+	S = -\left(\pder{U[T,\mu]}{T}\right)_{V,\mu}
+\end{equation}
+so
+\begin{equation}
+	S = k_B \left(\ln\mathcal Z - \beta \pder{\ln \mathcal Z}{\beta}\right)
+\end{equation}
+
+\section{Massieu Functions}
+In quantum mechanics, there are some instances where entropy is not monotonically increasing wrt energy, which allows for negative temperature. In such cases, obtaining \(U\) from \(S\) is problematic. Rather, entropy can be defined using Massieu Functions.

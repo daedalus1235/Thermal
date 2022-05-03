@@ -1,0 +1,126 @@
+%! TEX root = 0-main.tex
+\chapter{Ideal Gas}
+Combining the results from the previous two chapters, the entropy of the classical ideal gas is given:
+\begin{equation}
+	S(E,V,N)=kN\left[\frac{3}{2}\ln\left(\frac{E}{N}\right)+\ln\left(\frac{V}{N}\right)+X\right]
+\end{equation}
+From quantum mechnaics, we can determine the value of \(X\) as:
+\begin{equation}
+	X=\frac{3}{2}\ln\left(\frac{4\pi m}{3 h^2}\right)+\frac{5}{2}
+\end{equation}
+
+We know that entropy is maximized when a system reaches equilibrium. To verify our equation satisfies this property, we examine what happens when two systems at energy \(E_j\) and \(E_k\) are placed into contact. The entropy of the total system is given:
+\[S_T=S(E_j, V_j, N_j) + S(E_k, V_k, N_k)\]
+Maximising the entropy,
+\begin{align*}
+	0&=\frac{\partial}{\partial E_j}\left(S(E_j, V_j, N_j)+S(E_T-E_j, V_j. N_j)\right)\\
+	 &=\frac{\partial S_j}{\partial E_j}+\frac{\partial E_j}{E_k}\frac{\partial S_k}{\partial E_j}\\
+	 &=\frac{\partial S_j}{\partial E_j}-\frac{\partial S_k}{\partial E_k}\\
+\end{align*}
+
+This yields the relation:
+\begin{equation}
+	\frac{\partial S_j}{\partial E_j} = \frac{\partial S_k}{\partial E_k}
+\end{equation}
+explicitly evaluating these derivatives, we get:
+\begin{equation}
+	\frac{\partial S_j}{\partial E_j}=\frac{3k E_j}{2N_j}\then \frac{E_j}{N_j}=\frac{E_k}{N_k}\label{eq5:thermbeta}
+\end{equation}
+which matches Equation~\ref{eq4:equil}
+
+Similarly, if we put two open systems in contact, we get the condition 
+\begin{equation}
+	\frac{\partial S_j}{\partial N_j} = \frac{\partial S_k}{\partial N_k}
+\end{equation}
+Evaluating, 
+\begin{equation}
+	\frac{\partial S_j}{N_j}=\frac{3}{2}\ln\frac{E_j}{N_j}+\ln\frac{V_j}{N_j}
+\end{equation}
+
+Because the energy is also being exchanged, the condition~\ref{eq5:thermbeta} must be maintained. Thus, we obtain:
+\begin{equation}
+	\frac{V_j}{N_j}=\frac{V_k}{N_k}\label{eq5:partdens}
+\end{equation}
+
+Finally, we test a system with a movable diathermal barrier.  Taking the derivative wrt \(V_j\),
+\begin{equation}
+	\frac{\partial S_j}{\partial V_j}=\frac{\partial S_k}{\partial V_j}
+\end{equation}
+Evaluating, the equilibrium condition is found to be 
+\[\frac{N_j}{V_j}=\frac{N_k}{V_j}\]
+which is the same condition as Equation~\ref{eq5:partdens}!
+
+Assuming that all configurations are equally likely (normalized by a factor \(Y\)), the probability distribution of \(V_j\) is:
+\begin{equation}
+	P(V_j)=YV_j^{N_j}V_k^{N_k}
+\end{equation}
+Maximising this probability distribution, we once again obtain the condition~\ref{eq5:partdens}, which supports that entropy is maximised in the most probable macrostate.
+
+To validate our approximations, we can test our predictions against test cases.
+While it is impossible to create an ideal gas, we can check using a dilute gas, which approximates a classical ideal gas. Alternatively, we can write a molecular dynamics simulation and evolve it according to newtonian mechanics. 
+
+\section{Indistinguishable Particles}
+We have previously assumed that every particle in the distinguishable; however in quantum mechanics, particles of the same type are considered \emph{indistinguishable}. Revisiting the entropy calculation under the assumption the particles are indistinguishable actually yields the same result!
+
+For distinguishable particles, a permutation yields a different microscopic state. However, for indistinguishable particles, the permutation yields an identical microstate.
+
+In the indistinguishable case, we determined the probability distribution to be
+\[P(N_j, N_k) = \ncr{N_T}{N_j} \left(\frac{V_j}{V_t}\right)^{N_j}\left(1-\frac{V_j}{V_T}\right)^{N_T-N_j}\]
+We must replace the combinatoric with a \(1\), as each microstate is indistinguishable. Further, we must adjust the probabilities. Assuming that each position is equally likely, we neglect the \(y,z\) component and compute the \(x\) component. WLOG, we order the particles from largest to lowest x component. The probability distribution becomes:
+\begin{align*}
+	P(N_j, N_k) &= YA_j^{N_j}A_k^{N_k}\int_0^{L_j}\d{x^j_1}\int_0^{x^j_1}\d{x^j_2}\dots \int_0^{x^j_{N_j-1}}\d{x^j_{N_j}}\\
+		    &\hphantom{=}\times\int_0^{L_k}\d{x_1^k}\int_0^{x_1^k}\d{x_2^k}\dots\int
+\end{align*}
+
+\section{Entropy of interacting particles}
+Real gases have interactions between particles. The Hamiltonian of the system becomes:
+\begin{equation}
+	H_{N} = \sum_i^{N}\frac{p^2_i}{2m} + \sum_i^{N}\sum_{i'>i}^{N}\phi(r_i, r_{i'})\label{eq5:boxhamiltonian}
+\end{equation}
+
+We can rewrite the Hamiltonian as the sum of the Hamiltonians of the two boxes, with an interaction Hamiltonian:
+\begin{equation}
+	H_{N_T}= H_{N_j} + H_{N_k} + H_{jk}
+\end{equation}
+where
+\begin{equation}
+	H_{jk} = \sum_{i=1}^{N_j}\sum_{l=1}^{N_k}\phi(r_i, r_l)\label{eq5:linkinghamiltonian}
+\end{equation}
+
+Because the interaction distance is very short tane, the contribution to the Hamiltonian \(H_{jk}\) is significant only for particles near the interface between the boxes. The energy associated scales with \(V_N^{2/3}\sim A\). Similarly, this requiers \(N_\alpha^{2/3}/N_\alpha\) of the particles to interact. Thus, the hamiltonian scalse with \(H_{jk}\propto N_j^{-1/3}N_k^{-1/3}\), which can be neglected\footnote{For a plasma, where long range interactions can occur, this is no longer true and different considerations need to be made}. 
+
+Thus, the probability distribution is given:
+\begin{equation}
+	P(E_j, V_j, N_k, E_k, V_k, N_k)=\frac{N_T!}{N_j! N_k!}\frac{\iiiint \delta (E_j-H_j)\delta(E_k-H_k)\d{q_j}\d{p_j}\d{q_k}\d{p_j}}{\iint\delta(E_T-H_T)\d{q}\d{p}}
+\end{equation}
+
+Similar to previous treatments of entropy, we can rewrite the probability in terms of a function\footnote{The factor of \(h\) comes from quantum mechanical considerations}:
+\begin{equation}
+	\Omega(E,V,N) = \frac{1}{h^{3N}N!}\iint \delta(E-H)\d{q}\d{p}
+\end{equation}
+
+Thus,
+\begin{equation}
+	P = \frac{\Omega_j \Omega_k}{\Omega_T}
+\end{equation}
+and
+\begin{equation}
+	S = k\ln\left[\frac{1}{h^{3N}N!}\iint\delta(E-H)\d{q}\d{p}\right] 
+\end{equation}
+
+\begin{aside}[Second Law of Thermodynamics]
+We know that the equilibrium condition is what configuration maximises the entropy of the total system. If the entropy is maximised with a constaint, it then follows that if a constraint is applied (think lagrange multiplier) then the entropy must be equal or lower in value. Thus, the total entropy will not decrease when the constraints are removed---this is the second law of thermodynamics.
+\end{aside}
+
+\subsection{Zeroeth Law of Thermodynamics}
+An immediate consequence of the equilibrium conditions is that if two systems are in thermodynamic equilibrium with a third, then they are in equilibrium with each other. This follows from the transitive property of equality:
+\begin{equation}
+	\frac{\partial S_j}{\partial E_j} = \frac{\partial S_l}{\partial E_l} 
+	\qquad
+	\text{and}
+	\qquad
+	\frac{\partial S_k}{\partial E_k} = \frac{\partial S_l}{\partial E_l} 
+\qquad
+\then \quad
+	\frac{\partial S_j}{\partial E_j} = \frac{\partial S_k}{\partial E_kl} 
+\end{equation}
